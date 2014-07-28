@@ -1,0 +1,7 @@
+# pip install -r requirements.txt
+Django==1.6.5
+djangorestframework
+south
+pillow
+gunicorn
+psycopg2

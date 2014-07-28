@@ -5,3 +5,4 @@ south
 pillow
 gunicorn
 psycopg2
+django-angular

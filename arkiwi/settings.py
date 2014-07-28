@@ -55,11 +55,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-<<<<<<< HEAD
-TEST = 'blablabla'
-=======
-TEST = 'bloublou'
->>>>>>> FETCH_HEAD
-
 # Bonjour Joel, comment vas-tu?
 

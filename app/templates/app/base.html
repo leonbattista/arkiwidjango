@@ -1,0 +1,29 @@
+{% load djangular_tags %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<!-- basic code from: http://scotch.io/tutorials/javascript/single-page-apps-with-angularjs-routing-and-templating-->
+
+<html ng-app="scotchApp">
+
+<head>
+  <meta charset="utf-8">
+  <title>arKiwi rocks with js in frontend</title>
+</head>
+
+<body >
+
+{% verbatim %}
+<div ng-controller="AppCtrl">
+  <a  href="{{show}}" ng-repeat="menu in menus" ng-show="showColumn2()">{{menu.name}}</br></a>
+</div>
+{% endverbatim %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
+<script src="{% static 'app/js/controllers.js' %}"></script>
+
+</body>
+
+</html>

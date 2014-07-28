@@ -9,16 +9,34 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
   <title>arKiwi rocks with js in frontend</title>
 </head>
 
 <body >
 
 {% verbatim %}
-<div ng-controller="AppCtrl">
-  {{ show }}
+
+<div id="column1">
+  <p>column1</p>
 </div>
+
+<div id="column2">
+  <p>column2</p>
+</div>
+
+<div id="column3" ng-controller="AppCtrl">
+  <p>{{ show }}</p>
+  <p>{{ show }}</p>
+  <p>{{ show }}</p>
+  <p>{{ show }}</p>
+  <p>{{ show }}</p>
+  <p>{{ show }}</p>
+  <p>{{ show }}</p>
+</div>
+
 {% endverbatim %}
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 <script src="{% static 'app/js/controllers.js' %}"></script>

@@ -16,12 +16,11 @@
 
 {% verbatim %}
 <div ng-controller="AppCtrl">
-  <a  href="{{show}}" ng-repeat="menu in menus" ng-show="showColumn2()">{{menu.name}}</br></a>
+  {{ show }}
 </div>
 {% endverbatim %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
 <script src="{% static 'app/js/controllers.js' %}"></script>
 
 </body>

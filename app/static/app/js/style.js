@@ -1,9 +1,11 @@
 //////////////////////////////// -- dynamic styles -- ///////////////////////////////////
-//get $scope of window width and change the width of a specific #id
-function elementWidth($scope) {
+document.addEventListener("DOMContentLoaded", jsStyles, false);
+window.onresize = jsStyles;
 
-    console.log("Window Width " + window.innerWidth);
-    console.log("Images per line " + Math.floor(window.innerWidth/400));
+function jsStyles($scope) {
+
+    //console.log("Window Width " + window.innerWidth);
+    //console.log("Images per line " + Math.floor(window.innerWidth/400));
 
     var 
     Elemcolumn1 = document.getElementById('column1'),
@@ -11,12 +13,10 @@ function elementWidth($scope) {
     Elemcolumn3 = document.getElementById('column3'),
 
     scopeElemcolumn1 = angular.element(Elemcolumn1).scope();
-    //scopeElemcolumn2 = angular.element(Elemcolumn2).scope();
-    //scopeElemcolumn3 = angular.element(Elemcolumn3).scope();
+
 
     if (window.innerWidth >= 1500) {
     console.log("window bigger than 1500 = " + window.innerWidth);
-    //scopeElemcolumn1.width = 100;
     $scope.column1Width = 100;
     $scope.column2Width = 250;
     $scope.column3Width = window.innerWidth - 405;
@@ -38,8 +38,3 @@ function elementWidth($scope) {
     });
 
 }
-//first call of elementWidth when the dom is loaded
-document.addEventListener("DOMContentLoaded", elementWidth, false);
-
-//calling elementWidth on resize event
-window.onresize = elementWidth;

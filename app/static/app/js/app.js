@@ -1,10 +1,10 @@
 'use strict';
 
-var testApp = angular.module('testApp', []).config(function($httpProvider) {
+var jsApp = angular.module('jsApp', []).config(function($httpProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 });
 
-    testApp.controller('AppCtrl', function($scope, $http){
+    jsApp.controller('RequestCtrl', function($scope, $http){
 	
 	$http
 	    .get('/test/', {
@@ -19,4 +19,12 @@ var testApp = angular.module('testApp', []).config(function($httpProvider) {
 			  $scope.bidon = ["a", "zwou", "bling", "a", "zwou", "bling", "a", "zwou", "bling", "a", "zwou", "bling", "a", "zwou", "bling", "a", "zwou", "bling", ]
 	     });
 
+
+
 });
+
+        jsApp.controller('ImagesCtrl', function($scope, $http){
+    $http.get('/media/arkiwi/json/images.json').then(function(imagesResponse) {
+      $scope.images = imagesResponse.data;
+    });
+    })

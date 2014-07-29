@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html ng-app="testApp">
+<html ng-app="jsApp">
 
 <head>
   <meta charset="utf-8">
@@ -10,6 +10,8 @@
   <title>arKiwi rocks with js in frontend</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
   <script src="{% static 'app/js/app.js' %}"></script>
+  <script src="{% static 'app/js/controllers.js' %}"></script>
+  <script src="{% static 'app/js/style.js' %}"></script>
 </head>
 
 <body>
@@ -24,19 +26,19 @@
   <p>column2</p>
 </div>
 
-<div id="column3" ng-controller="AppCtrl">
-  <p>{{ info_show }}</p>
-  <ul ng-repeat="i in info_show2">
-    {{bidon[i]}}
-  </ul>
+<div id="column3" ng-controller="RequestCtrl">
+  <div class="project" ng-style="{{ myStyle }}">{{ info_show }}</div>
+  <div class="project" ng-style="{{ myStyle }}" ng-repeat="i in info_show2">
+     {{bidon[i]}}
+  </div>
+  <div class="project" ng-style="{{ myStyle }}" ng-controller="ImagesCtrl" ng-repeat="image in images" >
+    <img ng-src="{{image.path}}">hello dd
+  </div>
 </div>
 
+
+
 {% endverbatim %}
-
-
-<script src="{% static 'app/js/controllers.js' %}"></script>
-<script src="{% static 'app/js/style.js' %}"></script>
-
 </body>
 
 </html>

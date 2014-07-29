@@ -17,7 +17,7 @@
 
 {% verbatim %}
 
-<div id="column1">
+<div id="column1" >
   <p>column1</p>
 </div>
 
@@ -26,13 +26,13 @@
 </div>
 
 <div id="column3" ng-controller="AppCtrl">
-  <p>{{ show }}</p>
-  <p>{{ show }}</p>
-  <p>{{ show }}</p>
-  <p>{{ show }}</p>
-  <p>{{ show }}</p>
-  <p>{{ show }}</p>
-  <p>{{ show }}</p>
+  <p class="project" ng-style="{ color: getColor() }">{{ show }}</p>
+  <p class="project" ng-style="{ color: getColor() }">{{ show }}</p>
+  <p class="project" ng-style="{ color: getColor() }">{{ show }}</p>
+  <p class="project" ng-style="{ color: getColor() }">{{ show }}</p>
+  <p class="project" ng-style="{ color: getColor() }">{{ show }}</p>
+  <p class="project" ng-style="{ color: getColor() }">{{ show }}</p>
+  <p class="project" ng-style="{ color: getColor() }">{{ show }}</p>
 </div>
 
 {% endverbatim %}
@@ -40,6 +40,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 <script src="{% static 'app/js/controllers.js' %}"></script>
+<script src="{% static 'app/js/style.js' %}"></script>
 
 </body>
 

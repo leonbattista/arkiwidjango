@@ -1,0 +1,10 @@
+  [
+  {"path":"/media/arkiwi/images/1.jpg","imgname":"image1", "buildname":"schubidu", "place":"Paris", "architect":"1234"},
+  {"path":"/media/arkiwi/images/2.jpg","imgname":"image2", "buildname":"schalala", "place":"Kopenhagen", "architect":"2345"},
+  {"path":"/media/arkiwi/images/3.jpg","imgname":"image3", "buildname":"hey dude", "place":"Kiruna", "architect":"3456"},
+  {"path":"/media/arkiwi/images/4.jpg","imgname":"image4", "buildname":"some building", "place":"Stockholm", "architect":"4567"},
+  {"path":"/media/arkiwi/images/5.jpg","imgname":"image5", "buildname":"another one", "place":"Berlin", "architect":"5678"},
+  {"path":"/media/arkiwi/images/6.jpg","imgname":"image6", "buildname":"don't panic", "place":"Prag", "architect":"6789"},
+  {"path":"/media/arkiwi/images/7.jpg","imgname":"image7", "buildname":"This parrot is no more", "place":"Wien", "architect":"7890"},
+  {"path":"/media/arkiwi/images/8.jpg","imgname":"image8", "buildname":"je ne suis pas une pipe", "place":"Zürich", "architect":"8901"}
+  ]

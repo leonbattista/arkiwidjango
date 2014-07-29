@@ -29,7 +29,6 @@ position: fixed;
 top:0px;
 bottom:0px;
 left:0px;
-width:100px;
 background:#F0F0F0;
 }
 
@@ -42,9 +41,7 @@ position: fixed;
 top:0px;
 bottom:0px;
 left:100px;
-width:250px;
 display: inline-block;
-margin-right:20px;
 background:#F8F8F8;
 }
 
@@ -56,15 +53,15 @@ margin:20px;
 color:red;
 float:right;
 margin:20px;
-width:80%; /* to change with javascript */
 background:#F8F8F8;
+text-align: center;
 }
 
-#column3 p {
+.project {
 border: solid black;
 display: inline-block;
 text-align: center;
-min-width:400px;
+width:400px;
 height:300px;
-margin:15px;
+margin:2%;
 }

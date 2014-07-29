@@ -1,29 +1,30 @@
-{% load djangular_tags %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
 
-<!-- basic code from: http://scotch.io/tutorials/javascript/single-page-apps-with-angularjs-routing-and-templating-->
-
-<html ng-app="scotchApp">
+<html ng-app="testApp">
 
 <head>
   <meta charset="utf-8">
   <title>arKiwi rocks with js in frontend</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+  <script src="{% static 'app/js/app.js' %}"></script>
 </head>
 
 <body>
 	
-{% djng_all_rmi %}
-
 {% verbatim %}
+
 <div ng-controller="AppCtrl">
-  {{ show }}
+	
+  <p>{{ info_show }}</p>
+  <ul ng-repeat="i in info_show2">
+	  {{bidon[i]}}
+  </ul>
+  
 </div>
 
 {% endverbatim %}
-
-
 
 
 </body>

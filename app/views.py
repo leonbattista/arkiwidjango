@@ -12,8 +12,8 @@ def test(request):
     
     params = request.GET
     testList = range(int(params['b']))
-    if params['a'] == "OK":
-        data = {"reponse":"cool", "testB":testList}
+    if params['a'] == "corbu":
+        data = {"reponse":"Le Corbusier", "testB":testList}
     else:
         data = {"reponse":"cool aussi en fait", "testB":testList}
         

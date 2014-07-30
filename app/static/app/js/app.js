@@ -9,7 +9,7 @@ var jsApp = angular.module('jsApp', []).config(function($httpProvider) {
 	$http
 	    .get('/test/', {
 	        params: {
-	            a: "OK-",
+	            a: "corbu",
 	            b: "5"
 	        }
 	     })
@@ -23,8 +23,3 @@ var jsApp = angular.module('jsApp', []).config(function($httpProvider) {
 
 });
 
-        jsApp.controller('ImagesCtrl', function($scope, $http){
-    $http.get('/media/arkiwi/json/images.json').then(function(imagesResponse) {
-      $scope.images = imagesResponse.data;
-    });
-    })

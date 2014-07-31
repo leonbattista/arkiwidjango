@@ -8,6 +8,8 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
   <title>arKiwi rocks with js in frontend</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
   <script src="{% static 'app/js/app.js' %}"></script>
   <script src="{% static 'app/js/controllers.js' %}"></script>
@@ -37,11 +39,14 @@
   </div>
 </div>
 
-<div id="column3" ng-controller="RequestCtrl">
+<div id="column3" ng-controller="RequestCtrl" ng-style="style()" resize>
+
   <div class="project" >{{ info_show }}</div>
   <div class="project" ng-repeat="i in info_show2">
-     {{bidon[i]}}
+     {{bidon[i]}}{{windowWidth}}
+
   </div>
+
 </div>
 
 

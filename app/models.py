@@ -8,6 +8,8 @@ class Tag(models.Model):
         
 class Image(models.Model):
     
+    owner = models.ForeignKey(User, null=True, blank=True)
+    
     title = models.CharField(max_length=60, blank=True, null=True)
     image_file = models.ImageField(upload_to="images")
     thumbnail = models.ImageField(upload_to="images")
@@ -17,7 +19,6 @@ class Image(models.Model):
     # Publication information
     
     pub_date = models.DateTimeField('date published')
-    user = models.ForeignKey(User, null=True, blank=True)
     
     tags = models.ManyToManyField(Tag, blank=True)
     
@@ -28,6 +29,17 @@ class Image(models.Model):
 
 class Project(models.Model):
     
+    # Entry publication information
+    
+    owner = models.ForeignKey(User, null=True, blank=True, related_name='projects')
+    
+    pub_date = models.DateTimeField('date published', null=True )
+    
+    tags = models.ManyToManyField(Tag, blank=True)
+    images = models.ManyToManyField(Image, blank=True)
+    
+    rating = models.IntegerField(default=50)
+    
     # Project information
     
     name = models.CharField(max_length=200)
@@ -36,16 +48,16 @@ class Project(models.Model):
     image_file = models.ImageField(upload_to="images/", null=True, blank=True)
     thumbnail_file = models.ImageField(upload_to="images/", null=True, blank=True)
     
+class UserProfile(models.Model):
     
-    # Entry publication information
+    user = models.OneToOneField(User)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
     
-    pub_date = models.DateTimeField('date published', null=True )
-    user = models.ForeignKey(User, null=True, blank=True)
+    def __unicode__(self):
+        return self.user.username
     
-    tags = models.ManyToManyField(Tag, blank=True)
-    images = models.ManyToManyField(Image, blank=True)
     
-    rating = models.IntegerField(default=50)
+
     
 
         

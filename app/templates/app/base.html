@@ -38,9 +38,8 @@
 </div>
 
 <div id="column3" ng-controller="RequestCtrl">
-  <div class="project" >{{ info_show }}</div>
-  <div class="project" ng-repeat="i in info_show2">
-     {{bidon[i]}}
+  <div class="project" ng-repeat="project in projects">
+	 <img src="/media/{{ project.thumbnail_file }}">
   </div>
 </div>
 

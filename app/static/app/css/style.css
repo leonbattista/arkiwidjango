@@ -78,12 +78,16 @@ text-align: center;
 }
 
 .project {
-border: solid black;
 display: inline-block;
 text-align: center;
 width:400px;
 height:300px;
 margin:25px;
+line-height: 300px;
+}
+
+.project img {
+vertical-align:middle;
 }
 
 #closebutton {

@@ -1,6 +1,4 @@
-
-
-jsApp.directive('resize', function ($window) {
+jsApp.directive('resize', function ($window, menuVisibilityService) {
     return function (scope, element) {
         var w = angular.element($window);
         scope.getWindowDimensions = function () {
@@ -8,20 +6,31 @@ jsApp.directive('resize', function ($window) {
                 'h': w.height(),
                 'w': w.width()
             };
-        };
-        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
-            scope.windowHeight = newValue.h;
-            scope.windowWidth = newValue.w;
-
-            scope.style = function () {
+        };   
+        scope.$watch(scope.getWindowDimensions, function (newValue) {
+            scope.column1style = function () {
                 return {
-                    'height': (newValue.h - 100) + 'px',
-                        'width': (newValue.w - 100) + 'px'
+                    'width': (80) + 'px'
                 };
             };
-
+            scope.column2style = function () {
+                return {
+                    'width': (240) + 'px'
+                };
+            };
+            scope.column3style = function () {
+                if (menuVisibilityService.menuVisibilityVar == true) {
+                    return {
+                    'width': (newValue.w - 320) + 'px'
+                    };
+                }
+                else {
+                    return {
+                    'width': (newValue.w - 80) + 'px'
+                    };
+                }
+            };
         }, true);
-
         w.bind('resize', function () {
             scope.$apply();
         });
@@ -29,9 +38,8 @@ jsApp.directive('resize', function ($window) {
 })
 
 
+/*
 
-
-var menuVisibilityVar = false;
 
 
     document.addEventListener("DOMContentLoaded", jsStyles, false);
@@ -91,16 +99,39 @@ var menuVisibilityVar = false;
         });
     }
 
-jsApp.controller('MenuCtrl', function($scope){
+*/
+
+jsApp.service('menuVisibilityService', function() {
+    this.menuVisibilityVar = false;
+
+    this.setTrueTag = function() {
+        this.menuVisibilityVar = true;
+    };    
+
+    this.setFalseTag = function() {
+        this.menuVisibilityVar = false;
+    };
+});
+
+
+jsApp.controller('MenuCtrl', function($scope, menuVisibilityService){
     $scope.menuShow = function(){
-     menuVisibilityVar = true;
+     menuVisibilityService.setTrueTag();
     }
 
     $scope.menuHide = function(){
-     menuVisibilityVar = false;
-    } 
+     menuVisibilityService.setFalseTag();
+    }
 
     $scope.menuVisibility = function(){
-     return menuVisibilityVar;
+     return menuVisibilityService.menuVisibilityVar;
     }
+
 });
+
+
+
+
+
+
+

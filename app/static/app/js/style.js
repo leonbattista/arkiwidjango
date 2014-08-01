@@ -64,10 +64,3 @@ jsApp.controller('MenuCtrl', function($scope, menuVisibilityService){
     }
 
 });
-
-
-
-
-
-
-

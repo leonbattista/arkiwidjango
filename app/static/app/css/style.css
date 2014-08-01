@@ -48,6 +48,7 @@ border-bottom: 1px solid #E0E0E0;
 .menu {
 width:80px;
 line-height: 40px;
+cursor: pointer;
 }
 
 #column1 img {
@@ -63,6 +64,16 @@ display: inline-block;
 background:#F8F8F8;
 border-right: 1px solid #F0F0F0;
 }
+
+    .animate-enter {
+    -webkit-transition: 1s linear all; /* Chrome */
+    transition: 1s linear all;
+    opacity: 0;
+    }
+     
+    .animate-enter.animate-enter-active {
+    opacity: 1;
+    }
 
 #column2 p {
 margin:20px;
@@ -92,11 +103,12 @@ padding: 10px;
 width:221px;
 background: #FF6633;
 text-align: center;
+cursor: pointer;
 }
 
 #closebutton:hover {
 color:black;
-background-color: #FF6600;
+background-color: #FF5533;
 }
 
 .login {
@@ -106,8 +118,5 @@ text-align: center;
 bottom:0px;
 padding: 10px;
 border-top: 1px solid #E0E0E0;
-}
-
-.testc {
-border: 1px solid #E0E0E0;
+cursor: pointer;
 }

@@ -40,7 +40,5 @@ def rotate_image(img, rotation_code):
     elif rotation_code == 8:
         img = img.transpose(Image.ROTATE_90)
     else:
-        raise IncorrectRotationCode('{} is unrecognized '
-                                    'rotation code.'
-                                    .format(rotation_code))
+        pass
     return img

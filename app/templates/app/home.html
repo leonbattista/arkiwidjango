@@ -1,0 +1,15 @@
+{% load staticfiles %}
+{% if project_list %}
+    <ul>
+    {% for project in project_list %}
+        <li>
+			{{ project.name}}
+			{% if project.image_file %}
+				<img src="{{ project.image_file.url }}">
+			{% endif %} 
+		</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No projects are available.</p>
+{% endif %}

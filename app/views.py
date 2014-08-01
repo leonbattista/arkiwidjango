@@ -46,7 +46,11 @@ def test(request):
         data = {"reponse":"cool aussi en fait", "testB":testList}
         
     return HttpResponse(json.dumps(data), "application/json")
-    
+
+def home(request):
+    project_list = Project.objects.all()
+    context = {'project_list': project_list}
+    return render(request, 'app/home.html', context)
 
 # **** FORM HANDLING VIEWS ****
 
@@ -124,7 +128,7 @@ def detail(request):
             
         form = ImageUploadForm()
         
-    return render(request, 'arkiwimain/detail.html', {'form': form })
+    return render(request, 'app/detail.html', {'form': form })
 
 # **** REST API :VIEWSETS ****
 

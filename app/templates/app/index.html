@@ -1,0 +1,12 @@
+{% extends "arkiwimain/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div id="galerycontainer">
+    	{% for project in project_list %}
+        <div class="img">
+            <a><img src="{{ project.thumbnail_file.url }}" height="300" width="400"></a>
+        </div> 
+        {% endfor %}
+    </div>
+{% endblock %}

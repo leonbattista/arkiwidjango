@@ -10,13 +10,13 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         
-        db.rename_column(u'app_image', 'owner', 'owner_id')
-        db.rename_column(u'app_project', 'owner', 'owner_id')
+        db.rename_column(u'app_image', 'user_id', 'owner_id')
+        db.rename_column(u'app_project', 'user_id', 'owner_id')
 
     def backwards(self, orm):
         
-        db.rename_column(u'app_image', 'owner_id', 'owner')
-        db.rename_column(u'app_project', 'owner_id', 'owner')
+        db.rename_column(u'app_image', 'owner_id', 'user_id')
+        db.rename_column(u'app_project', 'owner_id', 'user_id')
 
 
 

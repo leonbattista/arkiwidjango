@@ -29,6 +29,7 @@ from app.models import Project
 from app.permissions import IsOwnerOrReadOnly
 from app.serializers import ProjectSerializer, UserSerializer
 from app.forms import ImageUploadForm, UserForm, UserProfileForm
+from app.utils import get_rotation_code, rotate_image
 
 # **** BASIC VIEWS ****
 
@@ -77,6 +78,9 @@ def detail(request):
             image = PImage.open(image_file_strio)
             if image.mode != "RGB":
                 image = image.convert('RGB')
+
+            rotation_code = get_rotation_code(image)
+            image = rotate_image(image, rotation_code)    
             
             width, height = image.size
             

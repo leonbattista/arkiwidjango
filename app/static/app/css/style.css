@@ -86,9 +86,15 @@ margin-top: 50px;
 text-align: center;
 }
 
+#projectWrapper {
+text-align: left;
+width: 900px;
+background-color: grey;
+display: inline-block;
+}
+
 .project {
 display: inline-block;
-text-align: center;
 width:400px;
 height:300px;
 margin:25px;

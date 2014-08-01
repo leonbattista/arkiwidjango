@@ -7,8 +7,6 @@ from local.settings_private import *
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-TEMPLATE_DEBUG = True
-
 # Application definition
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -53,7 +51,6 @@ ROOT_URLCONF = 'arkiwi.urls'
 
 WSGI_APPLICATION = 'arkiwi.wsgi.application'
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -66,7 +63,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/

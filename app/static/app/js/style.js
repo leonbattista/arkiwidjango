@@ -58,7 +58,3 @@ jsApp.controller('MenuCtrl', function($scope, menuVisibilityService){
      return menuVisibilityService.menuVisibilityVar;
     }
 });
-
-jsApp.controller('SubmenuContentCtrl', function($scope){
-    var schubidu = '123';
-});

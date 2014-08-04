@@ -1,4 +1,4 @@
-jsApp.directive('arkiwiResize', function ($window, menuVisibilityService) {
+app.directive('arkiwiResize', function ($window, menuVisibilityService) {
     return function (scope, element) {
         var w = angular.element($window);
         scope.getWindowDimensions = function () {
@@ -37,7 +37,7 @@ jsApp.directive('arkiwiResize', function ($window, menuVisibilityService) {
     }
 })
 
-jsApp.service('menuVisibilityService', function() {
+app.service('menuVisibilityService', function() {
     this.menuVisibilityVar = false;
     this.setTrueTag = function() {
         this.menuVisibilityVar = true;
@@ -47,7 +47,7 @@ jsApp.service('menuVisibilityService', function() {
     };
 });
 
-jsApp.controller('MenuCtrl', function($scope, menuVisibilityService){
+app.controller('MenuCtrl', function($scope, menuVisibilityService){
     $scope.menuShow = function(){
      menuVisibilityService.setTrueTag();
     }

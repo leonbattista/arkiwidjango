@@ -37,6 +37,9 @@ def index(request):
      
     return render(request, 'app/base.html')
     
+
+# Client-server communication test 
+
 def test(request):
     
     params = request.GET
@@ -227,7 +230,7 @@ def register(request):
 
     # Render the template depending on the context.
     return render_to_response(
-            'arkiwimain/register.html',
+            'app/register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
             context)
             
@@ -269,7 +272,7 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render_to_response('arkiwimain/login.html', {}, context)
+        return render_to_response('app/login.html', {}, context)
         
 @login_required
 def user_logout(request):

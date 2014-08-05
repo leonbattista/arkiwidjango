@@ -8,20 +8,12 @@ app.config(function($httpProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 });
 
+
 app.controller('RequestCtrl', function($scope, $http){
 
 $http.get('/projects/').success(function (data,status) {$scope.projects = data; });
 
 });
-
-app.service('LoginInfo', function() {
-	this.username = "vide";
-	this.password = "";
-	this.getCredentials = function(){
-				return {username: this.username, password: this.password};
-	};
-});
-
 
 // **** User authentification ****
 
@@ -56,22 +48,24 @@ app.factory('api', function($resource){
         };
 })
 	
-app.controller('authController', function($scope, api, LoginInfo) {
+app.controller('authController', function($rootScope, $scope, api, AuthService) {
         // Angular does not detect auto-fill or auto-complete. If the browser
         // autofills "username", Angular will be unaware of this and think
         // the $scope.username is blank. To workaround this we use the 
         // autofill-event polyfill [4][5]
         $('#id_auth_form input').checkAndTriggerAutoFillEvent();
- 
-		$scope.getCredentials = LoginInfo.getCredentials;
-		console.log($scope.getCredentials());
-			 
+		
+		$scope.getCredentials = function(){
+				return {username: $scope.username, password: $scope.password};
+			};
+			
         $scope.login = function(){
             api.auth.login($scope.getCredentials()).
                 $promise.
                     then(function(data){
                         // on good username and password
                         $scope.user = data.username;
+						AuthService.login(data.username);					
                     }).
                     catch(function(data){
                         // on incorrect username and password
@@ -82,6 +76,7 @@ app.controller('authController', function($scope, api, LoginInfo) {
         $scope.logout = function(){
             api.auth.logout(function(){
                 $scope.user = undefined;
+				AuthService.logout();
             });
         };
         $scope.register = function($event){
@@ -146,13 +141,42 @@ app.service('menuVisibilityService', function() {
     };
 });
 
-app.controller('MenuCtrl', function($scope, menuVisibilityService, LoginInfo){
-    
-	$scope.username = LoginInfo.username; 
+app.service('AuthService', function() {
+	var username = "";
+	var isLogged = false;
+	this.login = function(username) {
+		isLogged = true;
+		username = username;
+		console.log("coucou log ok " + username + isLogged);
+	}
+	this.logout = function() {
+		isLogged = false;
+		username = "";
+		console.log(isLogged);
+		
+	}
+	this.checkLogin = function() {
+		return isLogged;
+		
+	};
+	this.getUsername = function() {
+		return username;
+	}
+});
+app.controller('MenuCtrl', function($scope, $http, menuVisibilityService, AuthService){
+   	
+	$scope.isLogged = false;
+	$scope.username = "";
+	function updateIsLogged(newValue, oldValue) {
+		$scope.isLogged = newValue;
+		$scope.username = AuthService.getUsername();
+		console.log("update" + $scope.username + $scope.isLogged);		
+	}
+	
+	$scope.$watch(AuthService.checkLogin, updateIsLogged);
 	
 	$scope.menuShow = function(){
      menuVisibilityService.setTrueTag();
- 	$scope.username = LoginInfo.username; 
 	 
     }
     $scope.menuHide = function(){
@@ -162,7 +186,14 @@ app.controller('MenuCtrl', function($scope, menuVisibilityService, LoginInfo){
      return menuVisibilityService.menuVisibilityVar;
     }
 });
- 
+
+app.run(function ($http, $rootScope, AuthService) {
+	$http.get('/api/current_user/').success(function(data) { if (data != "") AuthService.login(data);});
+})
+
+
+
+
 // [1] https://tools.ietf.org/html/rfc2617
 // [2] https://developer.mozilla.org/en-US/docs/Web/API/Window.btoa
 // [3] https://docs.djangoproject.com/en/dev/ref/settings/#append-slash

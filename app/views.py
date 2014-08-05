@@ -55,7 +55,8 @@ def test(request):
 
 
 # **** FORM HANDLING VIEWS ****
-
+def current_user(request):
+    return HttpResponse(request.user.username)
 def detail(request):
     
     if request.method == 'POST':

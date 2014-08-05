@@ -23,13 +23,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework import permissions, renderers, viewsets
 from rest_framework.decorators import link
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
 
 # Application
 from app.models import Project
-from app.permissions import IsOwnerOrReadOnly
-from app.serializers import ProjectSerializer, UserSerializer
+from app.permissions import IsOwnerOrReadOnly, IsStaffOrTargetUser
+from app.serializers import ProjectSerializer, UserSerializer, AccountSerializer
 from app.forms import ImageUploadForm, UserForm, UserProfileForm
 from app.utils import get_rotation_code, rotate_image
+from authentication import QuietBasicAuthentication
 
 # **** BASIC VIEWS ****
 
@@ -39,7 +42,6 @@ def index(request):
     
 
 # Client-server communication test 
-
 def test(request):
     
     params = request.GET
@@ -51,10 +53,6 @@ def test(request):
         
     return HttpResponse(json.dumps(data), "application/json")
 
-def home(request):
-    project_list = Project.objects.all()
-    context = {'project_list': project_list}
-    return render(request, 'app/home.html', context)
 
 # **** FORM HANDLING VIEWS ****
 
@@ -67,6 +65,7 @@ def detail(request):
         if form.is_valid():
             
             p = Project()
+            p.owner = request.user
             p.name = form.cleaned_data['name']
             p. architect = form.cleaned_data['architect']
             p.image_file = form.cleaned_data['image']
@@ -139,6 +138,7 @@ def detail(request):
 
 # **** REST API :VIEWSETS ****
 
+# From Django REST tutorial
 class ProjectViewSet(viewsets.ModelViewSet):
     """
     This endpoint presents projects.
@@ -161,7 +161,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.owner = self.request.user
 
-
+# From Django REST tutorial
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This endpoint presents the users in the system.
@@ -172,7 +172,32 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
-# **** USER MANAGEMENT ****
+# **** Accounts API ****
+
+# From richardtier.com
+class AccountView(viewsets.ModelViewSet):
+    serializer_class = AccountSerializer
+    model = User
+ 
+    def get_permissions(self):
+        # allow non-authenticated user to create via POST
+        return ([AllowAny() if self.request.method == 'POST' else IsStaffOrTargetUser()])
+        
+class AuthView(APIView):
+    authentication_classes = (QuietBasicAuthentication, AllowAny)
+    serializer_class = AccountSerializer
+ 
+    def post(self, request, *args, **kwargs):
+        login(request, request.user)
+        return Response(AccountSerializer(request.user).data)
+ 
+    def delete(self, request, *args, **kwargs):
+        logout(request)
+        return Response({})
+
+
+    
+# **** USER MANAGEMENT PURELY ON DJANGO SIDE ****
 
 def register(request):
     # Like before, get the request's context.

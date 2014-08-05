@@ -1,5 +1,6 @@
 from PIL import Image, ExifTags
 
+# **** CORRECT IMAGE ROTATION STORED IN EXIF DATA ****
 def get_rotation_code(img):
     """
     Returns rotation code which say how much photo is rotated.
@@ -42,3 +43,4 @@ def rotate_image(img, rotation_code):
     else:
         pass
     return img
+    

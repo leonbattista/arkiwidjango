@@ -8,15 +8,16 @@ from django.conf.urls.static import static
 router = DefaultRouter()
 router.register(r'projects', views.ProjectViewSet)
 router.register(r'users', views.UserViewSet)
+router.register(r'accounts', views.AccountView, 'list')
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^test/$', views.test, name='test'),
     url(r'^detail/', views.detail, name='detail'),
-    url(r'^home/', views.home, name='home'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api/', include(router.urls)),
+    url(r'^api/auth/$', views.AuthView.as_view(), name='authenticate'), #from richardtier.com
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')) #from DRF
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

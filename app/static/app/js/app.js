@@ -14,6 +14,14 @@ $http.get('/projects/').success(function (data,status) {$scope.projects = data; 
 
 });
 
+app.service('LoginInfo', function() {
+	this.username = "vide";
+	this.password = "";
+	this.getCredentials = function(){
+				return {username: this.username, password: this.password};
+	};
+});
+
 
 // **** User authentification ****
 
@@ -42,23 +50,22 @@ app.factory('api', function($resource){
                 login: {method: 'POST', transformRequest: add_auth_header},
                 logout: {method: 'DELETE'}
             }),
-            users: $resource('/api/users\\/', {}, {
+            users: $resource('/api/accounts\\/', {}, {
                 create: {method: 'POST'}
             })
         };
 })
 	
-app.controller('authController', function($scope, api) {
+app.controller('authController', function($scope, api, LoginInfo) {
         // Angular does not detect auto-fill or auto-complete. If the browser
         // autofills "username", Angular will be unaware of this and think
         // the $scope.username is blank. To workaround this we use the 
         // autofill-event polyfill [4][5]
         $('#id_auth_form input').checkAndTriggerAutoFillEvent();
  
-        $scope.getCredentials = function(){
-            return {username: $scope.username, password: $scope.password};
-        };
- 
+		$scope.getCredentials = LoginInfo.getCredentials;
+		console.log($scope.getCredentials());
+			 
         $scope.login = function(){
             api.auth.login($scope.getCredentials()).
                 $promise.
@@ -81,13 +88,79 @@ app.controller('authController', function($scope, api) {
             // prevent login form from firing
             $event.preventDefault();
             // create user and immediatly login on success
-            api.users.create($scope.getCredentials()).
+			api.users.create($scope.getCredentials()).
                 $promise.
                     then($scope.login).
                     catch(function(data){
                         alert(data.data.username);
                     });
             };
+});
+
+app.directive('arkiwiResize', function ($window, menuVisibilityService) {
+    return function (scope, element) {
+        var w = angular.element($window);
+        scope.getWindowDimensions = function () {
+            return {
+                'h': w.height(),
+                'w': w.width()
+            };
+        };   
+        scope.$watch(scope.getWindowDimensions, function (newValue) {
+            scope.column1style = function () {
+                return {
+                    'width': 80 + 'px'
+                };
+            };
+            scope.column2style = function () {
+                return {
+                    'width': 240 + 'px'
+                };
+            };
+            scope.column3style = function () {
+                if (menuVisibilityService.menuVisibilityVar == true) {
+                    return {
+                    'width': (newValue.w - 320) + 'px'
+                    };
+                }
+                else {
+                    return {
+                    'width': (newValue.w - 80) + 'px'
+                    };
+                }
+            };
+        }, true);
+        w.bind('resize', function () {
+            scope.$apply();
+        });
+    }
+})
+
+app.service('menuVisibilityService', function() {
+    this.menuVisibilityVar = false;
+    this.setTrueTag = function() {
+        this.menuVisibilityVar = true;
+    };    
+    this.setFalseTag = function() {
+        this.menuVisibilityVar = false;
+    };
+});
+
+app.controller('MenuCtrl', function($scope, menuVisibilityService, LoginInfo){
+    
+	$scope.username = LoginInfo.username; 
+	
+	$scope.menuShow = function(){
+     menuVisibilityService.setTrueTag();
+ 	$scope.username = LoginInfo.username; 
+	 
+    }
+    $scope.menuHide = function(){
+     menuVisibilityService.setFalseTag();
+    }
+    $scope.menuVisibility = function(){
+     return menuVisibilityService.menuVisibilityVar;
+    }
 });
  
 // [1] https://tools.ietf.org/html/rfc2617

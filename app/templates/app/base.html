@@ -19,7 +19,6 @@
   <script src="{% static 'app/bower_components/angular-animate/angular-animate.min.js' %}"></script>
   <script src="{% static 'app/bower_components/angular-resource/angular-resource.min.js' %}"></script>
   
-  <script src="{% static 'app/js/config.js' %}"></script>
   <script src="{% static 'app/js/app.js' %}"></script>
   <script src="{% static 'app/js/style.js' %}"></script>
 </head>
@@ -30,9 +29,9 @@
  <div ng-controller="MenuCtrl">
     <div id="column1" ng-style="column1style()">
       <a href="/ "><img src="{% static 'app/images/logo.png' %}" width="80%" height="auto" align="middle"></a>
-      <div class="menu"><a ng-click="menuSelector = 'login'" href="/login">login</a></div>
       <div class="menu"><a ng-click="menuSelector = 'search'; menuShow()">search</a></div>
-      <div class="menu"><a href="/detail">add</a></div>
+      <div ng-if="isLogged" class="menu"><a href="/detail">add</a></div>
+	  <div>  {% verbatim %} {{ username }} {% endverbatim %}</div>
     </div>
 
     <div ng-show="menuVisibility()" id="column2" ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
@@ -47,19 +46,22 @@
  </div>
 
  {% verbatim %}
+ 
 
- <div ng-view id="column3" ng-controller="RequestCtrl" ng-style="column3style()">
-  
+
+ <!-- <div ng-view id="column3" ng-controller="RequestCtrl" ng-style="column3style()">
+
   <div id="projectWrapper">
    <div class="project" ng-repeat="project in projects">
     <img src="/media/{{ project.thumbnail_file }}">
    </div>
   </div>
- </div>
+ </div> -->
+{% endverbatim %} 
 
- 
- <div class="navbar navbar-fixed-bottom" ng-controller="authController"
-      ng-init="user='{{user.username}}'">
+<div ng-controller="authController">
+ <div class="navbar navbar-fixed-top" 
+    ng-init="user='{{user.username}}'"> {% verbatim %}
      <div ng-show="user" class="navbar-form navbar-right">
          <input type="submit" class="btn btn-default" ng-click="logout()"
                 value="logout {{user}}"/>
@@ -83,7 +85,10 @@
          </form>
      </div>
  </div>
-
+  <div id="column3">
+ <div class="centered"> {{ getCredentials() }} </div>
+ </div>
+</div>
 
  {% endverbatim %}
  

@@ -16,6 +16,10 @@ app.config(function($httpProvider) {
 app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
+      when('/', {
+        templateUrl: '/static/app/partials/projects.html/',
+        controller: 'ProjectsCtrl'
+      }).
       when('/search', {
         templateUrl: 'partials/search.html',
         controller: 'SearchCtrl'
@@ -23,11 +27,21 @@ app.config(['$routeProvider',
       when('/projects/:projectId', {
         templateUrl: 'partials/project-detail.html',
         controller: 'ProjectDetailCtrl'
-      })
+      }).
+      otherwise({
+        redirectTo: '/'
+      });
   }]);
 
 app.run(function ($http, $rootScope, AuthService) {
-	$http.get('/api/current_user/').success(function(data) { if (data != "") AuthService.login(data);});
+	console.log("Entering app run");
+	$http.get('/api/current_user/').
+	success(function(data) { 
+		if (data != "") {
+			AuthService.login(data);
+			console.log("Logged user " + data);
+		};
+	});
 });
 	 
 

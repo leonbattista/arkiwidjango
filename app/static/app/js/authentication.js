@@ -22,50 +22,6 @@ app.factory('api', function($resource){
                 create: {method: 'POST'}
             })
         };
-})
-	
-app.controller('authController', function($rootScope, $scope, api, AuthService) {
-        // Angular does not detect auto-fill or auto-complete. If the browser
-        // autofills "username", Angular will be unaware of this and think
-        // the $scope.username is blank. To workaround this we use the 
-        // autofill-event polyfill [4][5]
-        $('#id_auth_form input').checkAndTriggerAutoFillEvent();
-		
-		$scope.getCredentials = function(){
-				return {username: $scope.username, password: $scope.password};
-			};
-			
-        $scope.login = function(){
-            api.auth.login($scope.getCredentials()).
-                $promise.
-                    then(function(data){
-                        // on good username and password
-                        $scope.user = data.username;
-						AuthService.login(data.username);					
-                    }).
-                    catch(function(data){
-                        // on incorrect username and password
-                        alert(data.data.detail);
-                    });
-        };
- 
-        $scope.logout = function(){
-            api.auth.logout(function(){
-                $scope.user = undefined;
-				AuthService.logout();
-            });
-        };
-        $scope.register = function($event){
-            // prevent login form from firing
-            $event.preventDefault();
-            // create user and immediatly login on success
-			api.users.create($scope.getCredentials()).
-                $promise.
-                    then($scope.login).
-                    catch(function(data){
-                        alert(data.data.username);
-                    });
-            };
 });
 
 // [1] https://tools.ietf.org/html/rfc2617
@@ -73,27 +29,3 @@ app.controller('authController', function($rootScope, $scope, api, AuthService) 
 // [3] https://docs.djangoproject.com/en/dev/ref/settings/#append-slash
 // [4] https://github.com/tbosch/autofill-event
 // [5] http://remysharp.com/2010/10/08/what-is-a-polyfill/
-
-
-app.service('AuthService', function() {
-	var username = "";
-	var isLogged = false;
-	this.login = function(username) {
-		isLogged = true;
-		username = username;
-		console.log("coucou log ok " + username + isLogged);
-	}
-	this.logout = function() {
-		isLogged = false;
-		username = "";
-		console.log(isLogged);
-		
-	}
-	this.checkLogin = function() {
-		return isLogged;
-		
-	};
-	this.getUsername = function() {
-		return username;
-	}
-});

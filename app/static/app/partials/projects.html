@@ -1,12 +1,7 @@
-{% extends "arkiwimain/base.html" %}
-{% load staticfiles %}
-
-{% block content %}
-    <div id="galerycontainer">
-    	{% for project in project_list %}
-        <div class="img">
-            <a><img src="{{ project.thumbnail_file.url }}" height="300" width="400"></a>
-        </div> 
-        {% endfor %}
-    </div>
-{% endblock %}
+<div ng-style="column3style()" ng-controller="ProjectsCtrl">
+ <div id="projectWrapper">
+  <div class="project" ng-repeat="project in projects">
+   <img src="/media/{{ project.thumbnail_file }}">
+  </div>
+ </div>
+</div>

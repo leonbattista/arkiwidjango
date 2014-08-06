@@ -69,3 +69,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+# Because of angular bug...
+APPEND_SLASH = False

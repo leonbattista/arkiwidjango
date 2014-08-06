@@ -20,12 +20,14 @@
   <script src="{% static 'app/bower_components/angular-animate/angular-animate.min.js' %}"></script>
   <script src="{% static 'app/bower_components/angular-resource/angular-resource.min.js' %}"></script>
     <script src="{% static 'app/bower_components/angular-route/angular-route.min.js' %}"></script>
-  
+	
+  <script src="{% static 'app/js/ui-bootstrap-tpls-0.9.0.min.js' %}"></script>
+	
   <script src="{% static 'app/js/app.js' %}"></script>
   <script src="{% static 'app/js/services.js' %}"></script>
   <script src="{% static 'app/js/directives.js' %}"></script>
   <script src="{% static 'app/js/controllers.js' %}"></script>
-  <script src="{% static 'app/js/authentication.js' %}"></script>
+  <script src="{% static 'app/js/authentication.js' %}"></script>  
   
 </head>
   
@@ -35,26 +37,46 @@
     
 	<div id="column1" ng-style="column1style()">
       <a href="/ "><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
-      <div class="menuitem"><a ng-click="menuSelector = 'search'; menuShow()">search</a></div>	
-      <div ng-show="isLogged" class="menuitem"><a ng-click="menuSelector = 'add'; menuShow()">add</a></div>
+	  
+      <div class="menuitem">
+		  <a ng-click="menuSelector = 'search'; menuShow()">search</a>
+	  </div>	
+	  
+      <div ng-show="isLogged" class="menuitem"><a ng-click="menuSelector = 'add'; menuShow()">add</a>
+	  </div>
+	  
+	  <!-- <div class="menuitem">
+	  	<a href = "#/sandbox">sandbox</a>
+	  </div> -->
+	  
     </div>
 
     <div id="column2" ng-show="menuVisibility()"  ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-      <div ng-switch-when="arkiwi"><p>arkiwi</p></div>
-      <div ng-switch-when="search">
+      
+	  <div ng-switch-when="arkiwi">
+		  <p>arkiwi</p>
+	  </div>
+      
+	  <div ng-switch-when="search">
 		  <div ng-include src="'/static/app/partials/search.html'"></div>
 	  </div>
-      <div ng-switch-when="add">
+      
+	  <div ng-switch-when="add">
 		  <div ng-include src="'/static/app/partials/add.html'"></div>
       </div>
-      <div ng-switch-when="login"><p>login menu</p></div>
-      <a ng-click="menuHide()" class="closebutton">&lt;&lt;&lt;</a>
+      
+	  <div ng-switch-when="login">
+		  <p>login menu</p>
+	  </div>
+      
+	  <a ng-click="menuHide()" class="closebutton">&lt;&lt;&lt;</a>
+	  
     </div>
  </div> 
 
  {% verbatim %}
  
-<div ng-view id="column3" ></div>
+<div ng-view id="column3" ng-style="column3style()"></div>
 
 <div ng-controller="MenuCtrl">
  <div class="navbar navbar-fixed-top">

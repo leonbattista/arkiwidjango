@@ -1,8 +1,67 @@
-app.controller('ProjectsCtrl', function($scope, $http){
+app.controller('ProjectsCtrl', function($scope, $http) {
 
-	$http.get('/api/projects/').success(function (data,status) {$scope.projects = data; });
+	$http.get('/api/projects').success(function (data,status) {$scope.projects = data; });
 
 });
+
+// app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', 'Project',
+//   function($scope, $routeParams, Project) {
+//     $scope.project = Project.get({id: $routeParams.projectId}, function(project) {
+//       $scope.mainImageUrl = project.image_file;
+//     });
+//
+//     $scope.setImage = function(imageUrl) {
+//       $scope.mainImageUrl = imageUrl;
+//     }
+// }]);
+
+app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http',
+  function($scope, $routeParams, $modal, $http) {
+	  
+    $http.get('api/projects/' + $routeParams.projectId).success(function(data) {
+      $scope.project = data;
+    });
+	
+	// Pop-up
+	
+    $scope.items = ['item1', 'item2', 'item3'];
+  
+    var ModalInstanceCtrl = function ($scope, $modalInstance, image) {
+
+		$scope.image = image;
+		
+      // $scope.ok = function () {
+      //   $modalInstance.close($scope.selected.item);
+      // };
+	  
+	  $scope.cancel = function () {
+	    $modalInstance.dismiss('cancel');
+	  };
+
+
+    };
+
+    $scope.open = function (size) {
+		
+
+      var modalInstance = $modal.open({
+        templateUrl: 'myModalContent.html',
+        controller: ModalInstanceCtrl,
+		windowClass: "modal fade in",
+        size: size,
+        resolve: {
+          image: function () {			  
+            return $scope.project.image_file;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        //$scope.selected = selectedItem;
+      });
+    };
+	
+  }]);
 
 app.controller('MenuCtrl', function($rootScope, $scope, $http, api, menuVisibilityService, AuthService){
    	

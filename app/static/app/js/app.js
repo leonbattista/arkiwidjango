@@ -2,7 +2,8 @@
 
 var app = angular.module('arkiwiApp', [
   'ngResource',
-  'ngRoute'
+  'ngRoute',
+  'ui.bootstrap'
 ]);
 
 app.config(function($httpProvider) {
@@ -24,6 +25,10 @@ app.config(['$routeProvider',
         templateUrl: '/static/app/partials/search.html',
         controller: 'SearchCtrl'
       }).
+      when('/sandbox', {
+        templateUrl: '/static/app/partials/sandbox.html',
+		controller: 'ModalDemoCtrl'
+	  }).
       when('/projects/:projectId', {
         templateUrl: '/static/app/partials/project-detail.html',
         controller: 'ProjectDetailCtrl'
@@ -34,12 +39,10 @@ app.config(['$routeProvider',
   }]);
 
 app.run(function ($http, $rootScope, AuthService) {
-	console.log("Entering app run");
 	$http.get('/api/current_user/').
 	success(function(data) { 
 		if (data != "") {
 			AuthService.login(data);
-			console.log("Logged user " + data);	
 		};
 	});
 });

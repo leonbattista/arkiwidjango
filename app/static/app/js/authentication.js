@@ -14,11 +14,11 @@ app.factory('api', function($resource){
         // we tell Django not to [3]. This is a problem as the POST data cannot
         // be sent with the redirect. So we want Angular to not strip the slashes!
         return {
-            auth: $resource('/api/auth\\/', {}, {
+            auth: $resource('/api/auth', {}, {
                 login: {method: 'POST', transformRequest: add_auth_header},
                 logout: {method: 'DELETE'}
             }),
-            users: $resource('/api/accounts\\/', {}, {
+            users: $resource('/api/accounts', {}, {
                 create: {method: 'POST'}
             })
         };

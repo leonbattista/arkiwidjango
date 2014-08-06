@@ -130,7 +130,7 @@ def detail(request):
             finally:
                 f.close()    
 
-            return HttpResponse(status=201)
+            return HttpResponseRedirect('/')
         
     else:
             

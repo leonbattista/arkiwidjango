@@ -1,3 +1,5 @@
+'use strict';
+
 app.service('menuVisibilityService', function() {
     this.menuVisibilityVar = false;
     this.setTrueTag = function() {
@@ -33,3 +35,10 @@ app.service('AuthService', function() {
 	};
 	
 });
+
+app.factory('Project', ['$resource',
+  function($resource){
+    return $resource('api/projects/:projectId/', {}, {
+      query: {method:'GET', params:{projectId:'projects'}}
+    });
+}]);

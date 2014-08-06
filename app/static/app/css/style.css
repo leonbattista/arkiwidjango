@@ -9,14 +9,16 @@ margin: 0;
 padding: 0;
 } 
 
-a {
+body a {
 color:black;
 text-decoration: none;
 text-align: left;
 }
 
-a:hover {
-color:green;
+body a:hover {
+color: #7fbc41;
+text-decoration: none;
+
 }
 
 h1 {
@@ -39,20 +41,22 @@ text-align: center;
 border-right: 1px solid #E0E0E0;
 }
 
-#column1 p {
-margin-top: -5px;
-line-height: 35px;
+#column1 .menuitem {
+
+border-top: 1px solid #E0E0E0;
 border-bottom: 1px solid #E0E0E0;
+padding-top: 7px;
+padding-bottom: 7px;
+
 }
 
-.menu {
-width:80px;
-line-height: 40px;
-cursor: pointer;
-}
 
 #column1 img {
-margin-top:20px;
+
+width: 80%;
+margin-top:15px;
+padding-bottom: 15px;
+
 }
 
 #column2 {
@@ -63,6 +67,7 @@ left:80px;
 display: inline-block;
 background:#F8F8F8;
 border-right: 1px solid #F0F0F0;
+padding: 12px;
 }
 
     .animate-enter {
@@ -79,16 +84,21 @@ border-right: 1px solid #F0F0F0;
 margin:20px;
 }
 
+#column2 input {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
 #column3 {
 color:red;
-float:center;
+float:right;
 margin-top: 50px;
-text-align: center;
+text-align: right;
 }
 
 #projectWrapper {
 text-align: left;
-width: 900px;
+width: 90%;
 display: inline-block;
 }
 
@@ -102,6 +112,11 @@ line-height: 300px;
 
 .project img {
 vertical-align:middle;
+padding: 2px;
+}
+
+.project img:hover {
+background-color: #bbb;
 }
 
 #closebutton {

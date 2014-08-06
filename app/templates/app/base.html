@@ -7,7 +7,8 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="{% static 'app/css/style.css' %}"/>
-  <link rel="stylesheet" href="{% static 'app/bower_components/bootstrap/dist/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'app/bower_components/flatstrap3/dist/css/bootstrap.min.css' %}"/>
+  
   
   <title>arKiwi - development verion</title>
  
@@ -32,14 +33,16 @@
 	
  <div ng-controller="MenuCtrl">
     <div id="column1" ng-style="column1style()">
-      <a href="/ "><img src="{% static 'app/images/logo.png' %}" width="80%" height="auto" align="middle"></a>
-      <div class="menu"><a ng-click="menuSelector = 'search'; menuShow()">search</a></div>
-      <div ng-if="isLogged" class="menu"><a href="/detail">add</a></div>
+      <a href="/ "><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
+      <div class="menuitem"><a ng-click="menuSelector = 'search'; menuShow()">search</a></div>
+      <div ng-if="isLogged" class="menuitem"><a href="/detail">add</a></div>
     </div>
 
-    <div ng-show="menuVisibility()" id="column2" ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+    <div id="column2" ng-show="menuVisibility()"  ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
       <div ng-switch-when="arkiwi"><p>arkiwi</p></div>
-      <div ng-switch-when="search"><p>search menu</p></div>
+      <div ng-switch-when="search">
+		  <div ng-include src="'/static/app/partials/search.html'"></div>
+	  </div>
       <div ng-switch-when="add">
         <h1>add a project</h1>
       </div>
@@ -76,9 +79,6 @@
              </div>
          </form>
      </div>
- </div>
-  <div id="column3">
- <div class="centered">  </div>
  </div>
 </div>
 

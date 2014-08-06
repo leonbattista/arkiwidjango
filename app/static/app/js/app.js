@@ -17,15 +17,15 @@ app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: '/static/app/partials/projects.html/',
+        templateUrl: '/static/app/partials/projects.html',
         controller: 'ProjectsCtrl'
       }).
       when('/search', {
-        templateUrl: 'partials/search.html',
+        templateUrl: '/static/app/partials/search.html',
         controller: 'SearchCtrl'
       }).
       when('/projects/:projectId', {
-        templateUrl: 'partials/project-detail.html',
+        templateUrl: '/static/app/partials/project-detail.html',
         controller: 'ProjectDetailCtrl'
       }).
       otherwise({
@@ -39,7 +39,7 @@ app.run(function ($http, $rootScope, AuthService) {
 	success(function(data) { 
 		if (data != "") {
 			AuthService.login(data);
-			console.log("Logged user " + data);
+			console.log("Logged user " + data);	
 		};
 	});
 });

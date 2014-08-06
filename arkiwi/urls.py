@@ -5,9 +5,15 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
 router = DefaultRouter(trailing_slash=False)
+routerWithSlash = DefaultRouter()
+
 router.register(r'projects', views.ProjectViewSet)
 router.register(r'users', views.UserViewSet)
 router.register(r'accounts', views.AccountView, 'list')
+
+routerWithSlash.register(r'projects', views.ProjectViewSet)
+routerWithSlash.register(r'users', views.UserViewSet)
+routerWithSlash.register(r'accounts', views.AccountView, 'list')
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),

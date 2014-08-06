@@ -1,18 +1,22 @@
-* Production server IP
+Production server IP
+--------------------
 185.26.127.243
 
-* Website root
+Website root
+------------
 Located at /www/arkiwi
 there should be cloned the contents of the git repository 'arkiwidjango'
 
-* Virtual environment
+Virtual environment
+-------------------
 Located at /opt/arkiwienv
 
-* Nginx log file
+Nginx log file
+--------------
 var/log/nginx/error.log
 
-* Nginx configuration files
-
+Nginx configuration files
+-------------------------
 /etc/nginx/nginx.conf
 Added line:
 
@@ -24,7 +28,8 @@ to allow bigger uploads, value to be increased further if necessary
 /etc/nginx/sites-enabled/arkiwialpha
 
 
-* Run gunicorn 
+Run gunicorn 
+------------
 
 Log as user 'deploy'
 
@@ -50,12 +55,27 @@ Then detach screen: Ctrl+A, then d
 
 TO DO: use supervisor instead
 
-* Backup of server version of settings_local.py
+Deployment of new version
+-------------------------
+*Do in /www/arkiwi a simple
 
+	sudo git pull
+
+*then
+
+	./manage.py collecstatic
+
+*if needed
+
+relaunch Gunicorn
+
+Backup of server version of settings_local.py
+---------------------------------------------
 located in folder /www/local
-to be copied to /www/arkiwi/arkiwi/local after each git cloning
+to be copied to /www/arkiwi/arkiwi/local
 
-* Database migration
+Database migration
+------------------
 The south migrations should have been created during development, thus simply do:
 	./manage.py migrate
 on the production server

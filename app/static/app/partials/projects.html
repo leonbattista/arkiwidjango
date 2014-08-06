@@ -1,7 +1,13 @@
 <div ng-style="column3style()" ng-controller="ProjectsCtrl">
  <div id="projectWrapper">
   <div class="project" ng-repeat="project in projects">
-   <img src="/media/{{ project.thumbnail_file }}">
+   <a href="#/projects/{{project.id}}">
+    <img src="/media/{{ project.thumbnail_file }}">
+    <div class="caption">
+	 <div class="project_name"> {{ project.name }} </div>
+     <div class="project_architect"> {{ project.architect }} </div>
+	</div>
+   </a>
   </div>
  </div>
 </div>

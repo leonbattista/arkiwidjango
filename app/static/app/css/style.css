@@ -1,5 +1,5 @@
 body {
-font: normal 12px Verdana;
+font: normal 12px Helvetica, Verdana;
 margin:0px;
 }
 
@@ -92,7 +92,6 @@ margin:20px;
 }
 
 #column3 {
-color:red;
 float:right;
 margin-top: 50px;
 text-align: right;
@@ -105,21 +104,53 @@ display: inline-block;
 }
 
 .project {
-display: inline-block;
-width:400px;
-height:300px;
-margin:25px;
-line-height: 300px;
+
+	border-radius: 3px;
+	display: inline-block;
+	margin: 10px 27px 10px 27px;
+	background-color: white;
+	
 }
 
 .project img {
-vertical-align:middle;
-padding: 2px;
+	
+	top: 0;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+	-ms-transition: opacity .25s ease-in-out;
+	-o-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
 }
 
+
 .project img:hover {
-background-color: #bbb;
+	background-color: #bbb;
+    -webkit-opacity: 0.9;
+    -moz-opacity: 0.9;
+    opacity: 0.9;
 }
+
+.project .caption {
+	margin: 9px 10px 10px 2px;
+	padding-bottom: 15px;
+	text-align: left;
+}
+
+.project .caption .project_name {
+	color: #333;
+	font-size: 13px;
+	float: left;
+}
+
+.project .caption .project_architect {
+	color: #888;
+	font-size: 13px;
+	margin-left:10px;
+	float: left;
+	
+	
+}
+
 
 .closebutton {
 position: absolute;

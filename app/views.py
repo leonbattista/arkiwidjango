@@ -128,11 +128,9 @@ def detail(request):
                 p.thumbnail_file.save(thumb_filename, ContentFile(s))
                 p.save()
             finally:
-                f.close()
+                f.close()    
 
-            
-
-            return HttpResponseRedirect('/')
+            return HttpResponse(status=201)
         
     else:
             

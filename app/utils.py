@@ -31,6 +31,8 @@ def rotate_image(img, rotation_code):
 
     img: PIL.Image file.
     rotation_code: is rotation code retrieved from get_rotation_code.
+    
+    
     """
     if rotation_code == 1:
         return img
@@ -41,6 +43,6 @@ def rotate_image(img, rotation_code):
     elif rotation_code == 8:
         img = img.transpose(Image.ROTATE_90)
     else:
-        pass
+        print "YO"
     return img
     

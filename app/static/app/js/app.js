@@ -14,6 +14,11 @@ app.config(function($httpProvider) {
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 });
 
+app.config(['$resourceProvider', function ($resourceProvider) {
+  // Don't strip trailing slashes from calculated URLs
+  $resourceProvider.defaults.stripTrailingSlashes = false;
+}]);
+
 app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.

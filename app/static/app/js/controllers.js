@@ -1,6 +1,6 @@
 app.controller('ProjectsCtrl', function($scope, $http) {
 
-	$http.get('/api/projects').success(function (data,status) {$scope.projects = data; });
+	$http.get('/api/projects/').success(function (data,status) {$scope.projects = data; });
 
 });
 
@@ -18,7 +18,7 @@ app.controller('ProjectsCtrl', function($scope, $http) {
 app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http',
   function($scope, $routeParams, $modal, $http) {
 	  
-    $http.get('api/projects/' + $routeParams.projectId).success(function(data) {
+    $http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
       $scope.project = data;
     });
 	

@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.conf import settings
 from django.views.generic import View
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -57,6 +58,8 @@ def test(request):
 # **** FORM HANDLING VIEWS ****
 def current_user(request):
     return HttpResponse(request.user.username)
+
+@csrf_exempt
 def detail(request):
     
     if request.method == 'POST':

@@ -32,10 +32,11 @@
 <body arkiwi-resize>
 	
  <div ng-controller="MenuCtrl">
-    <div id="column1" ng-style="column1style()">
+    
+	<div id="column1" ng-style="column1style()">
       <a href="/ "><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
-      <div class="menuitem"><a ng-click="menuSelector = 'search'; menuShow()">search</a></div>
-      <div ng-if="isLogged" class="menuitem"><a href="/detail">add</a></div>
+      <div class="menuitem"><a ng-click="menuSelector = 'search'; menuShow()">search</a></div>	
+      <div ng-show="isLogged" class="menuitem"><a ng-click="menuSelector = 'add'; menuShow()">add</a></div>
     </div>
 
     <div id="column2" ng-show="menuVisibility()"  ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
@@ -44,7 +45,7 @@
 		  <div ng-include src="'/static/app/partials/search.html'"></div>
 	  </div>
       <div ng-switch-when="add">
-        <h1>add a project</h1>
+		  <div ng-include src="'/static/app/partials/add.html'"></div>
       </div>
       <div ng-switch-when="login"><p>login menu</p></div>
       <a ng-click="menuHide()"><div id="closebutton">&lt;&lt;&lt;</div></a>

@@ -64,10 +64,12 @@ position: fixed;
 top:0px;
 bottom:0px;
 left:80px;
-display: inline-block;
 background:#F8F8F8;
 border-right: 1px solid #F0F0F0;
-padding: 12px;
+}
+
+#column2 form {
+	margin: 12px;
 }
 
     .animate-enter {
@@ -119,18 +121,18 @@ padding: 2px;
 background-color: #bbb;
 }
 
-#closebutton {
-position: fixed;
+.closebutton {
+position: absolute;
 bottom:0px;
-z-index: 998;
 padding: 10px;
-width:221px;
+left: 0px;
+right: 0px;
 background: #FF6633;
 text-align: center;
 cursor: pointer;
 }
 
-#closebutton:hover {
+.closebutton:hover {
 color:black;
 background-color: #FF5533;
 }

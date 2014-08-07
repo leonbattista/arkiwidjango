@@ -4,7 +4,15 @@ from django.contrib.auth.models import User
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.Field(source='owner.username')
+    owner = serializers.HyperlinkedRelatedField(view_name='user-detail')
+    pub_date = serializers.DateTimeField()
+    
+    def transform_pub_date(self, obj, value):
+        try:
+            readable_date = obj.pub_date.strftime("%d %b. %Y")
+        except AttributeError:
+            readable_date = ""
+        return readable_date
 
     class Meta:
         model = Project

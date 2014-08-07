@@ -1,7 +1,7 @@
 # **** IMPORTS ****
 
 # External Python modules
-import json, os
+import json, os, datetime
 from cStringIO import StringIO
 from tempfile import NamedTemporaryFile
 from PIL import Image as PImage
@@ -69,7 +69,7 @@ class SearchView(generics.ListAPIView):
         
         print params
         
-        return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'])
+        return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'],  owner__username__icontains=params['owner'])
 
 
 
@@ -90,6 +90,7 @@ def add(request):
         p.owner = request.user
         p.name = form.cleaned_data['name']
         p.architect = form.cleaned_data['architect']
+        p.pub_date = datetime.datetime.now()
         p.image_file = form.cleaned_data['image']
         p.save()
         
@@ -159,7 +160,7 @@ def add(request):
         finally:
             f.close()    
 
-        return HttpResponse('')
+        return HttpResponse(p.id)
     
     
     return HttpResponse('')

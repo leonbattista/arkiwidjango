@@ -13,17 +13,22 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	
 });
 
-app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http',
-  function($scope, $routeParams, $modal, $http) {
+app.controller('ProjectDetailCtrl',
+  function($scope, $routeParams, $modal, $http, Restangular) {
 	$scope.myrate = 4;
 	$scope.max = 10;
 	$scope.isReadonly = false;
+	
     
 	$http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
       $scope.project = data;
+	  $scope.hasPubDate = Boolean(data.pub_date != '');
+  	  Restangular.oneUrl('users', $scope.project.owner).get().then(function(publisher) {
+		  $scope.publisher = publisher;
+  	  });
+	  	  
     });
 	
-
 	
 	// **** GOOGLE MAP ****
 	
@@ -84,7 +89,7 @@ app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http'
       });
     };
 	
-  }]);
+});
 
 app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, menuVisibilityService, AuthService){
    	
@@ -165,10 +170,11 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 	
 	$scope.architect = "";
 	$scope.project_name = "";
+	$scope.owner = "";
 	
 	$scope.search = function() {
 		
-		var searchParams = {project_name: $scope.project_name, architect: $scope.architect};
+		var searchParams = {project_name: $scope.project_name, architect: $scope.architect, owner: $scope.owner};
 		Projects.searchProjects(searchParams);
 		$location.path('/');
 		
@@ -201,10 +207,10 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-        .success(function(){
+        .success(function(id){
 		 	console.log("posted");
 			Projects.initProjects();
-			$location.path('/');
+			$location.path('/projects/' + id );
         })
         .error(function(){
         });

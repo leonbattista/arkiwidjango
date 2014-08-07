@@ -1,9 +1,7 @@
 <form ng-controller="SearchCtrl" id="search_form" ng-submit="search()">
 <fieldset>
 
-<!-- Form Name -->
 
-<!-- Text input-->
 <div class="control-group">
   <label class="control-label" for=	"project_name">Project</label>
   <div class="controls">
@@ -11,11 +9,17 @@
   </div>
 </div>
 
-<!-- Text input-->
 <div class="control-group">
   <label class="control-label" for="architect">Architect</label>
   <div class="controls">
     <input ng-model="architect" id="architect" name="architect" type="text" placeholder="Name..." class="form-control">
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="owner">Published by</label>
+  <div class="controls">
+    <input ng-model="owner" id="architect" name="owner" type="text" placeholder="User name..." class="form-control">
   </div>
 </div>
 

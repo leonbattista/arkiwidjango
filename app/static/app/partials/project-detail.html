@@ -18,11 +18,12 @@
 
 	<ul>
 	  <li>
-	    <span>Infos</span>
+	    <h3>Infos</h3>
 	    <dl>
 	      <dd>Architect</dd>
 	      <dt>{{ project.architect }}</dt>
-	      <dd>Published by {{ project.owner }} on {{ project.pub_date }}</dd>
+	      <dd>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date }}</span>
+		  </dd>
 		  
 	      <!-- <dt>Rating</dt>
 	      <dd>

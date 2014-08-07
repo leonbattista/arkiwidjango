@@ -3,7 +3,8 @@
 var app = angular.module('arkiwiApp', [
   'ngResource',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'google-maps'
 ]);
 
 app.config(function($httpProvider) {

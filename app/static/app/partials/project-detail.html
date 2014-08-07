@@ -1,9 +1,14 @@
 <!-- <img ng-src="{{mainImageUrl}}"> -->
-<div class="project-detail">
-	<h1>{{ project.name }}</h1>
-	<a ng-click="open()">
-	 <img ng-src="/media/{{ project.thumbnail_file}}" class="fade-img zoom-in"></img>
-    </a>
+
+<div id = "project-detail-container">
+ <h1>{{ project.name }}</h1>
+	
+	
+ <div class="project-detail">
+	 
+	 <a ng-click="open()">
+		 <img ng-src="/media/{{ project.thumbnail_file}}" class="fade-img zoom-in"></img>
+	 </a>
 	<!-- <p>{{project.description}}</p>
 	<ul class="phone-thumbs">
 	  <li ng-repeat="img in phone.images">
@@ -20,7 +25,20 @@
 	    </dl>
 	  </li>
 	</ul>
+	
+
+	
+ </div>
+<div id="map_canvas">
+	<google-map center="{latitude: 45, longitude: -73}" zoom="8" pan="true" control="map.control" events="map.events" draggable="true"></google-map>
 </div>
+
+</div>
+
+
+
+
+<!-- **** IMAGE POP-UP **** -->
 
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-body">

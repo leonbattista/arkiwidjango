@@ -21,13 +21,35 @@ app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http'
       $scope.project = data;
     });
 	
-	// Pop-up
+	// **** GOOGLE MAP ****
+	
+    $scope.map = {
+    events: {
+    tilesloaded: function (map) {
+    $scope.$apply(function () {
+    $scope.mapInstance = map;
+    });
+    }
+    }
+    }
+	
+	// $scope.map = {
+	//     center: {
+	//         latitude: 45,
+	//         longitude: -73
+	//     },
+	//     zoom: 8
+	// };
+	
+	// **** IMAGE POP-UP ****
 	
     $scope.items = ['item1', 'item2', 'item3'];
   
     var ModalInstanceCtrl = function ($scope, $modalInstance, image) {
 
-		$scope.image = image;
+	
+	  
+	  $scope.image = image;
 		
       // $scope.ok = function () {
       //   $modalInstance.close($scope.selected.item);

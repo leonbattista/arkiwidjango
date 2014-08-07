@@ -1,9 +1,8 @@
 /* cf. http://angular-ui.github.io/bootstrap/ :*/
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
-.modal.fade .modal-dialog, .modal.in .modal-dialog {
+/* **** IMAGE POP-UP OVERRIDES **** */
 
-}
 .modal-dialog {
     position: absolute;
 	width: 100% !important;
@@ -34,8 +33,9 @@
 .modal-footer{
    width: 100%;
    max-width: none;
-   
-}	
+}
+
+/* **** MAIN **** */
 
 body {
 font: normal 12px Helvetica, Verdana;
@@ -248,4 +248,40 @@ vertical-align: top;
 	margin-right: auto;
 	margin-top: 100px;
 
+}
+
+#project-detail-container {
+	
+	width: 80%;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	
+}
+
+#project-detail-container h1 {
+	margin-bottom: 50px;
+}
+
+.project-detail{
+	display: inline-block;
+	margin: 0;
+}
+
+.project-detail img {
+	margin-bottom: 30px;
+}
+
+/* **** GOOGLE MAP **** */
+
+#map_canvas {
+	float:left;
+	margin-left: 50px;
+}
+
+.angular-google-map-container {
+	width: 400px;
+	height: 300px;
+	position:absolute;
 }

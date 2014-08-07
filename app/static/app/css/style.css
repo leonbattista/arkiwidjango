@@ -153,7 +153,15 @@ display: inline-block;
 	display: inline-block;
 	margin: 10px 27px 10px 27px;
 	background-color: white;
+	vertical-align: text-top;
 	
+	
+}
+
+.project .img-container {
+	width: 400px;
+	height: 300px;
+	text-align: center;
 }
 
 .fade-img {
@@ -284,4 +292,8 @@ vertical-align: top;
 	width: 400px;
 	height: 300px;
 	position:absolute;
+}
+
+.rating {
+	color:#9FAB88;
 }

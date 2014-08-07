@@ -9,6 +9,7 @@ var app = angular.module('arkiwiApp', [
   
 ]);
 
+
 app.config(function($httpProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     // django and angular both support csrf tokens. This tells

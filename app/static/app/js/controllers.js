@@ -13,13 +13,17 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	
 });
 
-
 app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http',
   function($scope, $routeParams, $modal, $http) {
-	  
-    $http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
+	$scope.myrate = 4;
+	$scope.max = 10;
+	$scope.isReadonly = false;
+    
+	$http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
       $scope.project = data;
     });
+	
+
 	
 	// **** GOOGLE MAP ****
 	
@@ -42,9 +46,7 @@ app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http'
 	// };
 	
 	// **** IMAGE POP-UP ****
-	
-    $scope.items = ['item1', 'item2', 'item3'];
-  
+	  
     var ModalInstanceCtrl = function ($scope, $modalInstance, image) {
 
 	
@@ -173,22 +175,41 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 	}
 });
 
-app.controller("AddCtrl",function ($scope, $http, $location) {
-
-    $scope.result1 = '';
-    $scope.options1 = null;
-    $scope.details1 = '';
+app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
+	
+	// GMaps box
+    $scope.gmapbox_result = '';
+    $scope.gmapbox_options = null;
+    $scope.gmapbox_details = '';
+		
+	$scope.formData = {};
+	
 	
 	$scope.add= function() {
 		
-		console.log("add")	
-	 	$http.post('/add/', $scope.details1)
-	  	 .success(function (data,status) {
-			 console.log("posted");
-			 console.log($scope.details1);
-	  	});
+		$scope.formData.formatted_address = $scope.gmapbox_details.formatted_address;
+		$scope.formData.image = $scope.image;
 		
-		$location.path('/');
+		console.log("add")
+		
+		fd = new FormData();
+		fd.append('name', $scope.formData.name);
+		fd.append('architect', $scope.formData.architect);
+		fd.append('image', $scope.image);
+		
+        $http.post('/add/', fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+		 	console.log("posted");
+			Projects.initProjects();
+			$location.path('/');
+        })
+        .error(function(){
+        });
+		
+
 		
 	}
 	

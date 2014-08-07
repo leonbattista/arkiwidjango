@@ -20,8 +20,14 @@
 	  <li>
 	    <span>Infos</span>
 	    <dl>
-	      <dt>Architect</dt>
-	      <dd>{{ project.architect }}</dd>
+	      <dd>Architect</dd>
+	      <dt>{{ project.architect }}</dt>
+	      <dd>Published by {{ project.owner }} on {{ project.pub_date }}</dd>
+		  
+	      <!-- <dt>Rating</dt>
+	      <dd>
+			  <rating class="rating" ng-model="myrate" max="5" readonly="isReadonly"></rating>
+		  </dd> -->
 	    </dl>
 	  </li>
 	</ul>

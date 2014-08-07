@@ -2,8 +2,10 @@
 <div id="projectWrapperOut">
 	 <div id="projectWrapperIn">
 	  <div class="project" ng-repeat="project in projects">
-	   <a href="#/projects/{{project.id}}">
-	    <img ng-src="/media/{{ project.thumbnail_file }}" class="fade-img">
+	   <a href="#/projects/{{project.id}}"></a>
+	    <div class="img-container">
+	     <img ng-src="/media/{{ project.thumbnail_file }}" class="fade-img"></img>
+		</div>
 	    <div class="caption">
 		 <div class="project_name"> {{ project.name }} </div>
 	     <div class="project_architect"> {{ project.architect }} </div>

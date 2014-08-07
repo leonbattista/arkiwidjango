@@ -1,8 +1,17 @@
-<form action="/detail/" method="post" enctype="multipart/form-data">
+<form ng-controller="AddCtrl" method="post" enctype="multipart/form-data">
 
-<label for="id_name">Project name</label> <input id="id_name" name="name" type="text" class="form-control" placeholder="Name..."/>
-<label for="id_architect">Architect</label> <input id="id_architect" name="architect" type="text" class="form-control" placeholder="Name..."/>
-<label for="id_image">Image</label> <input id="id_image" name="image" type="file" />
+ <label for="id_name">Project name</label>
+ <input id="id_name" name="name" type="text" class="form-control" placeholder="Name..."/>
 
-    <input type="submit" value="Submit" class="btn btn-default">
+ <label for="id_architect">Architect</label>
+ <input id="id_architect" name="architect" type="text" class="form-control" placeholder="Name..."/>
+
+ <label for="id_image">Image</label>
+ <input id="id_image" name="image" type="file" />
+
+ <label for="Autocomplete">Generic Autocomplete</label>
+ <input type="text" id="Autocomplete" class="form-control" ng-model="address" ng-autocomplete="result1" details="details1"/>
+     
+ <input type="submit" value="Submit" class="btn btn-default" ng-click="add()">
+ 
 </form>

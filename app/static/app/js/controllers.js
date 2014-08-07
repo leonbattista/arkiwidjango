@@ -172,3 +172,25 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 		
 	}
 });
+
+app.controller("AddCtrl",function ($scope, $http, $location) {
+
+    $scope.result1 = '';
+    $scope.options1 = null;
+    $scope.details1 = '';
+	
+	$scope.add= function() {
+		
+		console.log("add")	
+	 	$http.post('/add/', $scope.details1)
+	  	 .success(function (data,status) {
+			 console.log("posted");
+			 console.log($scope.details1);
+	  	});
+		
+		$location.path('/');
+		
+	}
+	
+
+});

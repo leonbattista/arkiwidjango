@@ -32,7 +32,7 @@ from app.models import Project
 from app.permissions import IsOwnerOrReadOnly, IsStaffOrTargetUser
 from app.serializers import ProjectSerializer, UserSerializer, AccountSerializer
 from app.forms import ImageUploadForm, UserForm, UserProfileForm
-from app.utils import get_rotation_code, rotate_image
+from app.utils import get_rotation_code, rotate_image, jsonToObj
 from authentication import QuietBasicAuthentication
 
 # **** BASIC VIEWS ****
@@ -77,6 +77,13 @@ class SearchView(generics.ListAPIView):
 # **** FORM HANDLING VIEWS ****
 def current_user(request):
     return HttpResponse(request.user.username)
+    
+def add(request):
+    
+    address = jsonToObj(request.body)
+    print "{0:.10f}".format(address.geometry.location.k)
+    return HttpResponse(request.user.username)
+    
 
 @csrf_exempt
 def detail(request):

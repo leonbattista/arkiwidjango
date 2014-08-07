@@ -1,3 +1,4 @@
+import json
 from PIL import Image, ExifTags
 
 # **** CORRECT IMAGE ROTATION STORED IN EXIF DATA ****
@@ -45,4 +46,14 @@ def rotate_image(img, rotation_code):
     else:
         print "YO"
     return img
+    
+# Deserialization
+
+def jsonToObj(s):
+    def h2o(x):
+        if isinstance(x, dict):
+            return type('jo', (), {k: h2o(v) for k, v in x.iteritems()})
+        else:
+            return x
+    return h2o(json.loads(s))
     

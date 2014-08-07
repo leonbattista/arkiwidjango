@@ -4,7 +4,9 @@ var app = angular.module('arkiwiApp', [
   'ngResource',
   'ngRoute',
   'ui.bootstrap',
+  'ngAutocomplete',
   'google-maps'
+  
 ]);
 
 app.config(function($httpProvider) {

@@ -21,7 +21,7 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 
 # REST Framework
-from rest_framework import permissions, renderers, viewsets
+from rest_framework import permissions, renderers, viewsets, generics
 from rest_framework.decorators import link
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -53,6 +53,25 @@ def test(request):
         data = {"reponse":"cool aussi en fait", "testB":testList}
         
     return HttpResponse(json.dumps(data), "application/json")
+    
+# First version of search
+
+class SearchView(generics.ListAPIView):
+    serializer_class = ProjectSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        params = self.request.GET
+        
+        print params
+        
+        return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'])
+
+
 
 
 # **** FORM HANDLING VIEWS ****

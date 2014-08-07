@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^search/$', views.SearchView.as_view(), name='search'),
     url(r'^api/current_user/$', views.current_user, name='current_user'),
     url(r'^api/', include(router.urls)),
     url(r'^api/auth/$', views.AuthView.as_view(), name='authenticate'), #from richardtier.com

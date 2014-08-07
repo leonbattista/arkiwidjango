@@ -1,4 +1,4 @@
-<form id="search_form" ng-submit="search()">
+<form ng-controller="SearchCtrl" id="search_form" ng-submit="search()">
 <fieldset>
 
 <!-- Form Name -->
@@ -7,7 +7,7 @@
 <div class="control-group">
   <label class="control-label" for=	"project_name">Project</label>
   <div class="controls">
-    <input id="project_name" name="project_name" type="text" placeholder="Name..." class="form-control">
+    <input ng-model="project_name" id="project_name" name="project_name" type="text" placeholder="Name..." class="form-control">
   </div>
 </div>
 
@@ -15,14 +15,14 @@
 <div class="control-group">
   <label class="control-label" for="architect">Architect</label>
   <div class="controls">
-    <input id="architect" name="architect" type="text" placeholder="Name..." class="form-control">
+    <input ng-model="architect" id="architect" name="architect" type="text" placeholder="Name..." class="form-control">
   </div>
 </div>
 
-
-
 </fieldset>
 
-  <button type="submit" class="btn btn-default">Search!</button>
+<input type="submit" class="btn btn-default" value="Search">
+ 
+
 
 </form>

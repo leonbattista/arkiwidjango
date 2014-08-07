@@ -43,19 +43,24 @@ app.config(['$routeProvider',
       });
   }]);
 
-app.run(function ($http, $rootScope, AuthService) {
+app.run(function ($http, $rootScope, AuthService, Projects) {
+	
+	
 	$http.get('/api/current_user/').
 	success(function(data) { 
 		if (data != "") {
 			AuthService.login(data);
 		};
 	});
+	
+	var projects = Projects.initProjects();
+	
 });
 	 
 
 /*$http
     .get('/projects/', {
-        /*params: {
+        params: {
             a: "corbu",
             b: "5"
      })*/

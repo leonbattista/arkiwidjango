@@ -36,9 +36,38 @@ app.service('AuthService', function() {
 	
 });
 
-app.factory('Project', ['$resource',
-  function($resource){
-    return $resource('api/projects/:projectId/', {}, {
-      query: {method:'GET', params:{projectId:'projects'}}
-    });
+app.factory('Projects', ['$http',
+  function($http) {
+	  
+	  var factory = {};
+	  var projects;
+	  var noResult = false;  
+
+	  factory.getProjects = function() {
+		  return projects;
+	  };
+	  
+	  factory.givesNoResult = function() {
+		  return noResult;
+	  };
+	  
+	  factory.initProjects = function() {
+		  $http.get('/api/projects/').success(function (data,status) { projects = data; });
+		  return projects;
+	  };
+	  
+	  factory.searchProjects = function(searchParams) {
+		  $http.get('/search/', {params: searchParams})
+		  .success(function (data,status) {
+			  projects = data; 
+			  noResult = Boolean(projects == '');
+		  });	  
+		  return projects;
+		  
+	  };
+	  
+	  return factory;
+	  
 }]);
+
+

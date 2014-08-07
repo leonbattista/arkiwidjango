@@ -1,19 +1,18 @@
-app.controller('ProjectsCtrl', function($scope, $http) {
+app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 
-	$http.get('/api/projects/').success(function (data,status) {$scope.projects = data; });
-
+	$scope.projects = Projects.getProjects();
+	$scope.noResult = Projects.givesNoResult();
+		
+	function updateProjects(newValue, oldValue) {
+		$scope.projects = newValue;		
+		$scope.noResult = Projects.givesNoResult();
+		console.log('Noresult: ' + $scope.noResult);
+	}
+	
+	$scope.$watch(Projects.getProjects, updateProjects);	
+	
 });
 
-// app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', 'Project',
-//   function($scope, $routeParams, Project) {
-//     $scope.project = Project.get({id: $routeParams.projectId}, function(project) {
-//       $scope.mainImageUrl = project.image_file;
-//     });
-//
-//     $scope.setImage = function(imageUrl) {
-//       $scope.mainImageUrl = imageUrl;
-//     }
-// }]);
 
 app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http',
   function($scope, $routeParams, $modal, $http) {
@@ -63,7 +62,7 @@ app.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$modal', '$http'
 	
   }]);
 
-app.controller('MenuCtrl', function($rootScope, $scope, $http, api, menuVisibilityService, AuthService){
+app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, menuVisibilityService, AuthService){
    	
 	$scope.isLogged = false;
 	$scope.username = "";
@@ -74,6 +73,10 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, api, menuVisibili
 	}
 	
 	$scope.$watch(AuthService.checkLogin, updateIsLogged);	
+	
+	$scope.reInit = function(){
+		$window.location.href = '/';
+	};
 	
 	$scope.menuShow = function(){
      menuVisibilityService.setTrueTag();	 
@@ -132,4 +135,18 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, api, menuVisibili
                 });
         };
 	
+});
+
+app.controller('SearchCtrl', function($scope, $http, $location, Projects){
+	
+	$scope.architect = "";
+	$scope.project_name = "";
+	
+	$scope.search = function() {
+		
+		var searchParams = {project_name: $scope.project_name, architect: $scope.architect};
+		Projects.searchProjects(searchParams);
+		$location.path('/');
+		
+	}
 });

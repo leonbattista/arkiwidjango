@@ -130,12 +130,18 @@ margin:20px;
 }
 
 #column3 {
-float:right;
 margin-top: 50px;
-text-align: right;
+float: right;
+text-align: center;
 }
 
-#projectWrapper {
+#projectWrapperOut {
+	width: 100%;
+	float:right;
+	text-align: right;
+}
+
+#projectWrapperIn {
 text-align: left;
 width: 90%;
 display: inline-block;
@@ -233,4 +239,13 @@ vertical-align: top;
 
 .zoom-in {
 	cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
+}
+
+#noresult {
+	display: inline-block;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+
 }

@@ -1,13 +1,19 @@
 <div id="project-list">
- <div id="projectWrapper">
-  <div class="project" ng-repeat="project in projects">
-   <a href="#/projects/{{project.id}}">
-    <img ng-src="/media/{{ project.thumbnail_file }}" class="fade-img">
-    <div class="caption">
-	 <div class="project_name"> {{ project.name }} </div>
-     <div class="project_architect"> {{ project.architect }} </div>
+<div id="projectWrapperOut">
+	 <div id="projectWrapperIn">
+	  <div class="project" ng-repeat="project in projects">
+	   <a href="#/projects/{{project.id}}">
+	    <img ng-src="/media/{{ project.thumbnail_file }}" class="fade-img">
+	    <div class="caption">
+		 <div class="project_name"> {{ project.name }} </div>
+	     <div class="project_architect"> {{ project.architect }} </div>
+		</div>
+	   </a>
+	  </div>
+	 </div>
 	</div>
-   </a>
-  </div>
- </div>
+</div>
+
+<div id="noresult"> 
+ <div ng-show="noResult" class="alert alert-warning" role="alert"> No result! Please try a broader search</div>
 </div>

@@ -36,7 +36,7 @@
  <div ng-controller="MenuCtrl">
     
 	<div id="column1" ng-style="column1style()">
-      <a href="/ "><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
+      <a href="/" ng-click="reInit()"><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
 	  
       <div class="menuitem">
 		  <a ng-click="menuSelector = 'search'; menuShow()">search</a>

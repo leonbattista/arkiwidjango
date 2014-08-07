@@ -13,7 +13,6 @@ router.register(r'accounts', views.AccountView, 'list')
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^test/?$', views.test, name='test'),
-    url(r'^detail/', views.detail, name='detail'),
     url(r'^add/', views.add, name='add'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),

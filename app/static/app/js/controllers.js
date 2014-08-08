@@ -79,8 +79,7 @@ app.controller('ProjectDetailCtrl',
 	  $scope.map.marker.coords.longitude = $scope.project.longitude;
 	  $scope.map.refresh = true; 	  
 	  $scope.map.markersControl.getGMarkers()[0].title = $scope.project.name;
-	  console.log();
-	  console.log($scope.map.control);
+	  console.log($scope.project);
 	  
 	 	 
   	  Restangular.oneUrl('users', $scope.project.owner).get().then(function(publisher) {
@@ -255,9 +254,7 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 			
 		fd.append('image', $scope.image);
 		fd.append('image', $scope.image);
-		
-	 	console.log($scope.gmapbox_details);
-		
+				
         $http.post('/add/', fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}

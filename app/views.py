@@ -60,15 +60,10 @@ class SearchView(generics.ListAPIView):
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
+
         user = self.request.user
         params = self.request.GET
-        
-        print params
-        
+                
         return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner'])
 
 # **** FORM HANDLING VIEWS ****

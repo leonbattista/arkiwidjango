@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from app.models import Project
 from django.contrib.auth.models import User
+import re
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,6 +14,12 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         except AttributeError:
             readable_date = ""
         return readable_date
+        
+    def transform_owner(self, obj, value):
+
+        return "api" + re.search("/api(.*)", value).group(1)
+        
+        
 
     class Meta:
         model = Project

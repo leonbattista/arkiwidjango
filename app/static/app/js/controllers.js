@@ -33,6 +33,7 @@ app.controller('ProjectDetailCtrl',
 
 		map: {
 			control: {},
+			markersControl: {},
 			refresh: true,
 	        center: {
 	          latitude: 0,
@@ -44,6 +45,7 @@ app.controller('ProjectDetailCtrl',
 			options: {},
 			events: {},
           marker: {
+			    control: {},
 	            id: 1,
 				coords: {
 	            	latitude: 0,
@@ -75,16 +77,19 @@ app.controller('ProjectDetailCtrl',
 	  $scope.map.center.longitude = $scope.project.longitude;
 	  $scope.map.marker.coords.latitude = $scope.project.latitude;
 	  $scope.map.marker.coords.longitude = $scope.project.longitude;
-	  $scope.map.marker.options = {title: $scope.project.name};
-	  $scope.map.refresh = true;
+	  $scope.map.refresh = true; 	  
+	  $scope.map.markersControl.getGMarkers()[0].title = $scope.project.name;
+	  console.log();
+	  console.log($scope.map.control);
 	  
-	  console.log($scope.map.marker.options);
 	 	 
   	  Restangular.oneUrl('users', $scope.project.owner).get().then(function(publisher) {
 		  $scope.publisher = publisher;
   	  });
 	  	  
     });
+	
+	
 	
 	
 	// **** GOOGLE MAP ****

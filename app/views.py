@@ -69,10 +69,7 @@ class SearchView(generics.ListAPIView):
         
         print params
         
-        return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'],  owner__username__icontains=params['owner'])
-
-
-
+        return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner'])
 
 # **** FORM HANDLING VIEWS ****
 def current_user(request):

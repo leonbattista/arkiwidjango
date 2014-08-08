@@ -170,10 +170,11 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 	$scope.architect = "";
 	$scope.project_name = "";
 	$scope.owner = "";
+	$scope.address = "";
 	
 	$scope.search = function() {
 		
-		var searchParams = {project_name: $scope.project_name, architect: $scope.architect, owner: $scope.owner};
+		var searchParams = {project_name: $scope.project_name, architect: $scope.architect, owner: $scope.owner, address: $scope.address};
 		Projects.searchProjects(searchParams);
 		$location.path('/');
 		
@@ -188,21 +189,25 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
     $scope.gmapbox_details = '';
 		
 	$scope.formData = {};
-	
-	var address = $scope.gmapbox_details.formatted_address
-	
+		
 	$scope.add= function() {
 				
 		fd = new FormData();
 		fd.append('name', $scope.formData.name);
 		fd.append('architect', $scope.formData.architect);
-		fd.append('address', address);
-		fd.append('latitude', $scope.gmapbox_details.geometry.location.k);
-		fd.append('longitude', $scope.gmapbox_details.geometry.location.B);
+		fd.append('address', $scope.gmapbox_details.formatted_address);
+		try {
+			fd.append('latitude', $scope.gmapbox_details.geometry.location.k);
+			fd.append('longitude', $scope.gmapbox_details.geometry.location.B);
+		}
+		catch(err) {
+			console.log(err);
+		}
+			
 		fd.append('image', $scope.image);
 		fd.append('image', $scope.image);
 		
-	 	console.log($scope.gmapbox_details.formatted_address);
+	 	console.log($scope.gmapbox_details);
 		
         $http.post('/add/', fd, {
             transformRequest: angular.identity,

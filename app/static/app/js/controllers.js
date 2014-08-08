@@ -17,11 +17,69 @@ app.controller('ProjectDetailCtrl',
 	$scope.myrate = 4;
 	$scope.max = 10;
 	$scope.isReadonly = false;
+	$scope.labelVisible = false;
+	
+	$scope.toggleLabel = function() {
+		$scope.labelVisible = Boolean(!$scope.labelVisible)	
+	};
+	
+	$scope.isLabelVisible = function() {
+		return $scope.labelVisible;
+	};
+	
+
+	
+	 angular.extend($scope, {
+
+		map: {
+			control: {},
+			refresh: true,
+	        center: {
+	          latitude: 0,
+	          longitude: 0
+	        },
+			zoom: 8,
+			bounds: {},
+			dragging: false,
+			options: {},
+			events: {},
+          marker: {
+	            id: 1,
+				coords: {
+	            	latitude: 0,
+	            	longitude: 0
+				},
+	            showWindow: false,
+	            options: {
+					title: "hello"
+				}
+          }
+		}
+	 });
+	 
+     $scope.map.events = {
+    	 tilesloaded: function (map) {
+     			$scope.$apply(function () {
+     			$scope.mapInstance = map;
+     	   		});
+     	   }
+     }
+     
 	
     
 	$http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
+		
       $scope.project = data;
 	  $scope.hasPubDate = Boolean(data.pub_date != '');
+	  $scope.map.center.latitude = $scope.project.latitude;
+	  $scope.map.center.longitude = $scope.project.longitude;
+	  $scope.map.marker.coords.latitude = $scope.project.latitude;
+	  $scope.map.marker.coords.longitude = $scope.project.longitude;
+	  $scope.map.marker.options = {title: $scope.project.name};
+	  $scope.map.refresh = true;
+	  
+	  console.log($scope.map.marker.options);
+	 	 
   	  Restangular.oneUrl('users', $scope.project.owner).get().then(function(publisher) {
 		  $scope.publisher = publisher;
   	  });
@@ -31,23 +89,9 @@ app.controller('ProjectDetailCtrl',
 	
 	// **** GOOGLE MAP ****
 	
-    $scope.map = {
-    events: {
-    tilesloaded: function (map) {
-    $scope.$apply(function () {
-    $scope.mapInstance = map;
-    });
-    }
-    }
-    }
+	google.maps.visualRefresh = true;
 	
-	// $scope.map = {
-	//     center: {
-	//         latitude: 45,
-	//         longitude: -73
-	//     },
-	//     zoom: 8
-	// };
+
 	
 	// **** IMAGE POP-UP ****
 	  

@@ -38,7 +38,25 @@
 	
  </div>
 <div id="map_canvas">
-	<google-map center="{latitude: 45, longitude: -73}" zoom="8" pan="true" control="map.control" events="map.events" draggable="true"></google-map>
+    <google-map class="span7"
+         center="map.center"
+         zoom="map.zoom"
+         draggable="true"
+         dragging="map.dragging"
+         events="map.events"
+         options="map.options"
+         pan="true"
+         control="map.control"
+		 refresh="map.refresh"
+        >
+		<marker
+	     idKey='1'
+	     coords='{ latitude: project.latitude, longitude: project.longitude }'
+		 options="map.marker.options"
+	    >
+		</marker>
+	</google-map>
+	
 </div>
 
 </div>

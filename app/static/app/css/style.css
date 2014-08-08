@@ -324,4 +324,11 @@ vertical-align: top;
 	color:#9FAB88;
 }
 
+.marker-labels {
+	background-color: white;
+    box-shadow: 1px 1px 1px #999;
+	border-radius: 2px;
+	padding: 2px;	
+}
+
 

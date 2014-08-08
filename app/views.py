@@ -175,7 +175,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     
     """
 
-    queryset = Project.objects.all()
+    queryset = Project.objects.all().order_by('-pub_date')
     print queryset.values_list('name', flat=True).distinct()
     serializer_class = ProjectSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,

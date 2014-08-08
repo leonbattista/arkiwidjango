@@ -6,7 +6,6 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	function updateProjects(newValue, oldValue) {
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
-		console.log('Noresult: ' + $scope.noResult);
 	}
 	
 	$scope.$watch(Projects.getProjects, updateProjects);	
@@ -190,18 +189,20 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 		
 	$scope.formData = {};
 	
+	var address = $scope.gmapbox_details.formatted_address
 	
 	$scope.add= function() {
-		
-		$scope.formData.formatted_address = $scope.gmapbox_details.formatted_address;
-		$scope.formData.image = $scope.image;
-		
-		console.log("add")
-		
+				
 		fd = new FormData();
 		fd.append('name', $scope.formData.name);
 		fd.append('architect', $scope.formData.architect);
+		fd.append('address', address);
+		fd.append('latitude', $scope.gmapbox_details.geometry.location.k);
+		fd.append('longitude', $scope.gmapbox_details.geometry.location.B);
 		fd.append('image', $scope.image);
+		fd.append('image', $scope.image);
+		
+	 	console.log($scope.gmapbox_details.formatted_address);
 		
         $http.post('/add/', fd, {
             transformRequest: angular.identity,

@@ -8,9 +8,9 @@ class ImageUploadForm(forms.Form):
 
     name = forms.CharField()
     architect = forms.CharField()
-    # formatted_address = forms.CharField()
-    # latitude = forms.FloatField()
-    # longitude = forms.FloatField()
+    address = forms.CharField()
+    latitude = forms.FloatField()
+    longitude = forms.FloatField()
     image = forms.ImageField()
     
 class UserForm(forms.ModelForm):

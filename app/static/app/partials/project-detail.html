@@ -20,16 +20,17 @@
 	  <li>
 	    <h3>Infos</h3>
 	    <dl>
-	      <dd>Architect</dd>
-	      <dt>{{ project.architect }}</dt>
-	      <dd>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date }}</span>
-		  </dd>
-		  
+  	      <dt>Architect</dt>
+	      <dd>{{ project.architect }}</dd>
+	      <dt>Address</dt>
+		  <dd>{{ project.address }}</dd>
 	      <!-- <dt>Rating</dt>
 	      <dd>
 			  <rating class="rating" ng-model="myrate" max="5" readonly="isReadonly"></rating>
 		  </dd> -->
 	    </dl>
+  	      <div>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date }}</span>
+  	  </div>
 	  </li>
 	</ul>
 	

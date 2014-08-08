@@ -81,15 +81,21 @@ def current_user(request):
 def add(request):
     
     form = ImageUploadForm(request.POST, request.FILES)
-    print form.is_valid()
-    print form.data
     
     if form.is_valid():
         
         p = Project()
         p.owner = request.user
         p.name = form.cleaned_data['name']
-        p.architect = form.cleaned_data['architect']
+        p.architect = form.cleaned_data['architect']        
+        
+        try:
+            p.address = form.cleaned_data['address']
+            p.latitude = form.cleaned_data['latitude']
+            p.longitude = form.cleaned_data['longitude']
+        except KeyError:
+            pass
+        
         p.pub_date = datetime.datetime.now()
         p.image_file = form.cleaned_data['image']
         p.save()

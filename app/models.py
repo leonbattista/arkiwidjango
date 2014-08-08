@@ -44,6 +44,9 @@ class Project(models.Model):
     
     name = models.CharField(max_length=200)
     architect = models.CharField(max_length=200)
+    address = models.CharField(max_length=500, null=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
     built_date = models.DateTimeField('date built', null=True)
     image_file = models.ImageField(upload_to="images/", null=True, blank=True)
     thumbnail_file = models.ImageField(upload_to="images/", null=True, blank=True)

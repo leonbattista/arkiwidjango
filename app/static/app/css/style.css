@@ -280,6 +280,33 @@ vertical-align: top;
 	margin-bottom: 30px;
 }
 
+.project-detail dl { 
+	margin: 2em; 
+	margin-left:0; 
+	width: 400px; 
+	overflow: hidden; 
+	line-height: 30px;
+	font-weight: bold;
+}
+
+.project-detail dt {
+	float: left;
+	clear: left; width: 50px;
+	margin-left:0;
+	margin-right:30px;
+	margin-bottom:7px;
+	font-weight: normal;	
+}
+
+.project-detail dd {
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
+	margin-bottom:7px;
+	
+    
+}
+
 /* **** GOOGLE MAP **** */
 
 #map_canvas {
@@ -296,3 +323,5 @@ vertical-align: top;
 .rating {
 	color:#9FAB88;
 }
+
+

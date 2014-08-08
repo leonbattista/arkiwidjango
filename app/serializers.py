@@ -16,7 +16,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'architect', 'owner','pub_date','image_file','thumbnail_file')
+        fields = ('id', 'name', 'architect', 'owner','pub_date', 'address', 'latitude', 'longitude', 'image_file','thumbnail_file')
 
 # To allow browsing other users, following, etc.
 class UserSerializer(serializers.HyperlinkedModelSerializer):

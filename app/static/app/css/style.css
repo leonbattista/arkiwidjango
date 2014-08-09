@@ -132,6 +132,7 @@ h1 {
 #column3 {
 	float: right;
 	text-align: center;
+	height: 100%;
 }
 
 #project-list {
@@ -346,3 +347,8 @@ h1 {
 	padding: 2px;	
 }
 
+#login-menu {
+	position: fixed;
+	top:0;
+	right:0;
+}

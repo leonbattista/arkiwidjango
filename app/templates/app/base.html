@@ -86,7 +86,7 @@
 <div ng-view id="column3" ng-style="column3style()"></div>
 
 <div ng-controller="MenuCtrl">
- <div class="navbar navbar-fixed-top">
+ <div id="login-menu">
      <div ng-if="isLogged" class="navbar-form navbar-right">
          <input type="submit" class="btn btn-default" ng-click="logout()"
                 value="logout {{ username }}"/>

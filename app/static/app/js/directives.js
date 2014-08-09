@@ -30,6 +30,18 @@ app.directive('arkiwiResize', function ($window, menuVisibilityService) {
                     };
                 }
             };
+            scope.mapStyle = function () {
+                if (menuVisibilityService.menuVisibilityVar == true) {
+                    return {
+                    'width': (newValue.w - 320) + 'px'
+                    };
+                }
+                else {
+                    return {
+                    'width': (newValue.w - 80) + 'px'
+                    };
+                }
+            };
         }, true);
         w.bind('resize', function () {
             scope.$apply();

@@ -251,6 +251,8 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 
 	// **** Interface to service Projects ****
+	
+	console.log($scope.mapStyle());
 
 	$scope.projects = Projects.getProjects();
 	$scope.noResult = Projects.givesNoResult();

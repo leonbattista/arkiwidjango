@@ -271,6 +271,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 		};
 		
 		$scope.map.control.getGMap().fitBounds(bounds);
+		$scope.map.control.getGMap().setOptions({mapTypeControlOptions: {position: google.maps.ControlPosition.TOP_CENTER}});
 				
 	}
 
@@ -304,6 +305,8 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 			});
 		}
 	};
+	
+
 
 	$scope.seeProject = function(id) {
 		$location.path('/projects/' + id);

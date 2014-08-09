@@ -304,7 +304,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 	};
 
 	$scope.seeProject = function(id) {
-		$location.path('/projects' + id);
+		$location.path('/projects/' + id);
 		$scope.$apply();
 	};
 

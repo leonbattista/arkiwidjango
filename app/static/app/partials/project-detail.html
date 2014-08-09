@@ -1,77 +1,57 @@
-<!-- <img ng-src="{{mainImageUrl}}"> -->
-
-<div id = "project-detail-container">
+<div id="project-detail-container">
  <h1>{{ project.name }}</h1>
-	
-	
- <div class="project-detail">
-	 
-	 <a ng-click="open()">
-		 <img ng-src="/media/{{ project.thumbnail_file}}" class="fade-img zoom-in"></img>
-	 </a>
-	<!-- <p>{{project.description}}</p>
-	<ul class="phone-thumbs">
-	  <li ng-repeat="img in phone.images">
-	    <img ng-src="{{img}}" ng-click="setImage(img)">
-	  </li>
-	</ul> -->
-
-	<ul>
-	  <li>
-	    <h3>Infos</h3>
-	    <dl>
-  	      <dt>Architect</dt>
-	      <dd>{{ project.architect }}</dd>
-	      <dt>Address</dt>
-		  <dd>{{ project.address }}</dd>
-	      <!-- <dt>Rating</dt>
-	      <dd>
-			  <rating class="rating" ng-model="myrate" max="5" readonly="isReadonly"></rating>
-		  </dd> -->
-	    </dl>
-  	      <div>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date }}</span>
-  	  </div>
-	  </li>
-	</ul>
-	
-
-	
+ <div class="project-detail"> 
+  <a ng-click="open()">
+   <img ng-src="/media/{{ project.thumbnail_file}}" class="fade-img zoom-in"></img>
+  </a>
+   <ul>
+    <li>
+     <h3>Infos</h3>
+     <dl>
+      <dt>Architect</dt>
+      <dd>{{ project.architect }}</dd>
+      <dt>Address</dt>
+      <dd>{{ project.address }}</dd>
+      <!-- <dt>Rating</dt>
+       <dd>
+       <rating class="rating" ng-model="myrate" max="5" readonly="isReadonly"></rating>
+       </dd> -->
+      </dl>
+      <div>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date }}</span>
+      </div>
+     </li>
+    </ul>
+   </div>
+   <div class="map-canvas">
+    <google-map
+    center="map.center"
+    zoom="map.zoom"
+    draggable="true"
+    dragging="map.dragging"
+    events="map.events"
+    options="map.options"
+    pan="true"
+    control="map.control"
+    refresh="map.refresh"
+    >
+     <marker 
+     control="map.markersControl"
+     idKey='1'
+     coords='{ latitude: project.latitude, longitude: project.longitude }'
+     options="map.marker.options"
+     >
+    </marker>
+   </google-map>	
+  </div>
  </div>
-<div id="map_canvas">
-    <google-map class="span7"
-         center="map.center"
-         zoom="map.zoom"
-         draggable="true"
-         dragging="map.dragging"
-         events="map.events"
-         options="map.options"
-         pan="true"
-         control="map.control"
-		 refresh="map.refresh"
-        >
-		<marker 
-		 control="map.markersControl"
-	     idKey='1'
-	     coords='{ latitude: project.latitude, longitude: project.longitude }'
-		 options="map.marker.options"
-	    >
-		</marker>
-	</google-map>
-	
-</div>
-
-</div>
-
-
-
 
 <!-- **** IMAGE POP-UP **** -->
 
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-body">
-			<img ng-src="/media/{{image}}" class="modal-img"></img>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-default" ng-click="cancel()">Close</button>
-        </div>
-    </script>
+<script type="text/ng-template" id="myModalContent.html">
+ <div class="modal-body">
+  <img ng-src="/media/{{image}}" class="modal-img"></img>
+ </div>
+ <div class="modal-footer">
+  <button class="btn btn-default" ng-click="cancel()">Close</button>
+ </div>
+</script>

@@ -1,0 +1,25 @@
+<div id="big-map-container">
+ <div class="map-canvas">
+  <google-map
+  center="map.center"
+  zoom="map.zoom"
+  draggable="true"
+  dragging="map.dragging"
+  events="map.events"
+  options="map.options"
+  pan="true"
+  control="map.control"
+  refresh="map.refresh"
+  >
+  <div ng-repeat="project in projects">
+   <marker 
+   control="map.markersControl"
+   idKey='project.id'
+   coords='{ latitude: project.latitude, longitude: project.longitude }'
+   options="{title: project.name }"
+   >
+   </marker>
+  </div>
+  </google-map>	
+ </div>
+</div>

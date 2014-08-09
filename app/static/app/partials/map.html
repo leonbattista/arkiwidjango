@@ -14,9 +14,10 @@
   <div ng-repeat="project in projects">
    <marker 
    control="map.markersControl"
-   idKey='project.id'
-   coords='{ latitude: project.latitude, longitude: project.longitude }'
+   idKey="project.id"
+   coords="{ latitude: project.latitude, longitude: project.longitude }"
    options="{title: project.name }"
+   click='seeProject(project.id)'
    >
    </marker>
   </div>

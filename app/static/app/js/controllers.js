@@ -199,8 +199,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 	
 		var searchParams = {project_name: $scope.project_name, architect: $scope.architect, owner: $scope.owner, address: $scope.address};
 		Projects.searchProjects(searchParams);
-		$location.path('/');
-	
+		if ($location.path() != '/' && $location.path() != '/map') {$location.path('/')};	
 	}
 });
 
@@ -249,7 +248,7 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 
 });
 
-app.controller("MapCtrl", function ($scope, $http, Projects) {
+app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 
 	// **** Interface to service Projects ****
 
@@ -302,6 +301,11 @@ app.controller("MapCtrl", function ($scope, $http, Projects) {
 				$scope.mapInstance = map;
 			});
 		}
+	};
+
+	$scope.seeProject = function(id) {
+		$location.path('/projects' + id);
+		$scope.$apply();
 	};
 
 });

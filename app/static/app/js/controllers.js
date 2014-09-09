@@ -270,9 +270,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 			bounds.extend(currentPosition);
 		};
 		
-		$scope.map.control.getGMap().fitBounds(bounds);
-		$scope.map.control.getGMap().setOptions({mapTypeControlOptions: {position: google.maps.ControlPosition.TOP_CENTER}});
-				
+		$scope.map.control.getGMap().fitBounds(bounds);				
 	}
 
 	$scope.$watch(Projects.getProjects, updateProjects);	
@@ -292,7 +290,11 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 			zoom: 5,
 			bounds: {},
 			dragging: false,
-			options: {},
+			options: {
+				mapTypeControlOptions: { 
+					position: google.maps.ControlPosition.TOP_CENTER
+				}
+			},
 			events: {}
 		}
 	});

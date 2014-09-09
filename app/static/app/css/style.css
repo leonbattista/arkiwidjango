@@ -264,19 +264,22 @@ h1 {
 	
 	margin-top: 50px;
 	width: 80%;
-	display: inline-block;
+    height: 100%;
+	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
-	
 }
 
 #project-detail-container h1 {
-	margin-bottom: 50px;
+    margin:0;
+    text-align: left;
+    height: 100px;
+    width: 880px;
 }
 
 .project-detail{
-	display: inline-block;
+    display:inline;
 	margin: 0;
 }
 
@@ -306,6 +309,15 @@ h1 {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	margin-bottom:7px;
+}
+
+.project-edit-btn {
+    float: right;
+    margin-left: 50px;
+}
+
+.project-name {
+    float: left;
 }
 
 .rating {

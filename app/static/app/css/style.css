@@ -38,6 +38,10 @@
 
 /* **** MAIN **** */
 
+html, body {
+    height:100%;
+}
+
 body {
 	font: normal 12px Helvetica, Verdana;
 	margin:0px;
@@ -260,27 +264,43 @@ h1 {
 
 }
 
-#project-detail-container {
+.project-detail-container-container {
 	
-	margin-top: 50px;
+	margin-top: 70px;
 	width: 80%;
-    height: 100%;
-	display: block;
+    height:100%;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
 }
 
-#project-detail-container h1 {
-    margin:0;
+#project-title-bar {
+    margin: 0;
     text-align: left;
-    height: 100px;
-    width: 880px;
+    width: 878px;
+    overflow: auto;
+    margin-bottom: 50px;
+}
+
+#project-title-bar h1 {
+    margin: 0;
+    float: left;
+    min-height: 50px;
+}
+
+#project-title-bar .btn-group {
+    float: right;
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+#project-detail-container {
+    margin-top: 100px;
 }
 
 .project-detail{
-    display:inline;
-	margin: 0;
+    clear: both;
+    margin: 0;       
 }
 
 .project-detail img {
@@ -311,27 +331,18 @@ h1 {
 	margin-bottom:7px;
 }
 
-.project-edit-btn {
-    float: right;
-    margin-left: 50px;
-}
-
-.project-name {
-    float: left;
-}
-
 .rating {
 	color:#9FAB88;
 }
 
 /* **** GOOGLE MAP **** */
 
-#project-detail-container .map-canvas {
+.project-detail-container-container .map-canvas {
 	float:left;
 	margin-left: 50px;
 }
 
-#project-detail-container .angular-google-map-container {
+.project-detail-container-container .angular-google-map-container {
 	width: 400px;
 	height: 300px;
 	position:absolute;
@@ -348,7 +359,7 @@ h1 {
 #big-map-container .angular-google-map-container {
 	width: 100%;
 	height: 100%;
-	position:absolute;
+	position:absolute; 
 
 }
 
@@ -363,4 +374,29 @@ h1 {
 	position: fixed;
 	top:0;
 	right:0;
+}
+
+#project-edit-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 900px;
+    position: relative;
+}
+
+#project-edit-container input {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+#project-edit-container .btn {
+    display: block;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    background-color: #7fbc41;
+}
+
+#project-edit-container .btn:hover {
+    background-color: #62962D;
 }

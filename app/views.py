@@ -181,11 +181,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly,)
 
-    """@link(renderer_classes=(renderers.StaticHTMLRenderer,))
-    def highlight(self, request, *args, **kwargs):
-        snippet = self.get_object()
-        return Response(snippet.highlighted)"""
-
     def pre_save(self, obj):
         obj.owner = self.request.user
 
@@ -225,6 +220,7 @@ class AuthView(APIView):
 
 
     
+
 # **** USER MANAGEMENT PURELY ON DJANGO SIDE ****
 
 def register(request):

@@ -1,17 +1,19 @@
-<div id="project-detail-container">
- <h1>
-  <div class="project-name">
-   {{ project.name }}
+<div class="project-detail-container-container">
+ <div id="project-title-bar">
+  <h1> {{ project.name }} </h1>
+  <div ng-show="isLogged" class="btn-group">
+    <button type="button" class="btn btn-default" ng-click="edit()">
+        <span class="glyphicon glyphicon-pencil"></span>
+        edit
+    </button>
+    <button type="button" class="btn btn-default" ng-click="">
+        <span class="glyphicon glyphicon-trash"></span>
+    </button>
   </div>
-  <div class="project-edit-btn">
-   <button type="button" class="btn btn-default" ng-click="">
-       <span class="glyphicon glyphicon-pencil"></span>
-       edit
-   </button>
-  </div>
- </h1>
-
- <div class="project-detail"> 
+ </div>
+ 
+ <div class="project-detail-container">
+  <div class="project-detail"> 
   <a ng-click="open()">
    <img ng-src="/media/{{ project.thumbnail_file}}" class="fade-img zoom-in"></img>
   </a>
@@ -55,6 +57,7 @@
    </google-map>	
   </div>
  </div>
+</div>
 
 <!-- **** IMAGE POP-UP **** -->
 

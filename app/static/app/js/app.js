@@ -43,6 +43,10 @@ function($routeProvider) {
 		templateUrl: '/static/app/partials/project-detail.html',
 		controller: 'ProjectDetailCtrl'
 	}).
+	when('/project-edit/:projectId', {
+		templateUrl: '/static/app/partials/project-edit.html',
+		controller: 'ProjectEditCtrl'
+	}).
 	otherwise({
 		redirectTo: '/'
 	});

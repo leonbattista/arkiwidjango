@@ -41,12 +41,21 @@ app.factory('Projects', ['$http',
 	  
 	  var factory = {};
 	  var projects;
+      var currentProject;
 	  var noResult = false;  
 
 	  factory.getProjects = function() {
 		  return projects;
 	  };
-	  
+      
+      factory.setCurrentProject = function(data) {
+          currentProject = data;
+	  };
+      
+      factory.getCurrentProject = function() {
+          return currentProject;  
+      };
+            	  
 	  factory.givesNoResult = function() {
 		  return noResult;
 	  };

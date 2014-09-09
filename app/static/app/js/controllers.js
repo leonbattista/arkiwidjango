@@ -11,9 +11,24 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	$scope.$watch(Projects.getProjects, updateProjects);	
 	
 });
+app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http, $location, Restangular, AuthService, Projects) {
+    
+    // **** Manage editing permissions ****
+    
+	$scope.isLogged = false;
+	$scope.username = "";
 
-app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http, Restangular) {
+	function updateIsLogged(newValue, oldValue) {
+		$scope.isLogged = newValue;
+		$scope.username = AuthService.getUsername();
+	}
 
+	$scope.$watch(AuthService.checkLogin, updateIsLogged);	
+    
+    $scope.edit = function() {
+        $location.path('/project-edit/' + $routeParams.projectId);
+    }
+    
 	// **** GOOGLE MAP ****
 
 	angular.extend($scope, {
@@ -59,7 +74,10 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 	$http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
 		
 		$scope.project = data;
-		$scope.hasPubDate = Boolean(data.pub_date != '');
+		
+        Projects.setCurrentProject(data); // Store current project data for potential edition
+        
+        $scope.hasPubDate = Boolean(data.pub_date != '');
 		$scope.map.center.latitude = $scope.project.latitude;
 		$scope.map.center.longitude = $scope.project.longitude;
 		$scope.map.marker.coords.latitude = $scope.project.latitude;
@@ -203,6 +221,14 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 	}
 });
 
+app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, Projects) {
+	$scope.gmapbox_result = '';
+	$scope.gmapbox_options = null;
+	$scope.gmapbox_details = '';
+    $scope.project = Projects.getCurrentProject();
+    console.log($scope.project);
+});
+ 
 app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 
 	// GMaps box

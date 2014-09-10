@@ -400,3 +400,5 @@ h1 {
 #project-edit-container .btn:hover {
     background-color: #62962D;
 }
+
+.pad { padding: 25px; }

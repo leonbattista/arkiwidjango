@@ -6,7 +6,7 @@
         <span class="glyphicon glyphicon-pencil"></span>
         edit
     </button>
-    <button type="button" class="btn btn-default" ng-click="">
+    <button type="button" class="btn btn-default" ng-click="delete()">
         <span class="glyphicon glyphicon-trash"></span>
     </button>
   </div>
@@ -68,4 +68,20 @@
  <div class="modal-footer">
   <button class="btn btn-default" ng-click="cancel()">Close</button>
  </div>
+</script>
+
+<!-- **** DELETE CONFIRMATION MODAL **** -->
+
+    <script type="text/ng-template" id="confirmModalContent.html">
+    <div class="modal-header">
+        <h4 class="modal-title"> Confirm project deletion</h4>
+    </div>
+    <div class="modal-body">
+        <p>This will delete the project permanently and cannot be undone.</p>
+        <p>Are you sure that you want to proceed?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" ng-click="ok()">OK</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </div>
 </script>

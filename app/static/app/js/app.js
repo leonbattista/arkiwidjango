@@ -7,7 +7,6 @@ var app = angular.module('arkiwiApp', [
 'ui.bootstrap',
 'ngAutocomplete',
 'google-maps'
-  
 ]);
 
 

@@ -30,7 +30,7 @@
        <rating class="rating" ng-model="myrate" max="5" readonly="isReadonly"></rating>
        </dd> -->
       </dl>
-      <div>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date }}</span>
+      <div>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date | datetime }}</span>
       </div>
      </li>
     </ul>

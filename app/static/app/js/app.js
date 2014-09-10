@@ -71,11 +71,3 @@ app.run(function ($http, $rootScope, AuthService, Projects) {
 	var projects = Projects.initProjects();
 	
 });
-	 
-
-/*$http
-.get('/projects/', {
-params: {
-a: "corbu",
-b: "5"
-})*/

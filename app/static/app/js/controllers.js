@@ -86,7 +86,7 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 		$scope.map.refresh = true; 	  
 		$scope.map.markersControl.getGMarkers()[0].title = $scope.project.name;
 	  
-		Restangular.oneUrl('users', $scope.project.owner).get().then(function(publisher) {
+		Restangular.one('users', $scope.project.owner).get().then(function(publisher) {
 			$scope.publisher = publisher;
 		});
 	  	  
@@ -226,23 +226,29 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, Projects, Restangular) {
 	
     var mydata;
+    var rngdata;
     $scope.project = {};
     $scope.project.name = "";
     
-    $http.get('/api/projects/' + $routeParams.projectId + '/').success( function(data) {mydata = data; console.log(mydata); $scope.project = data;});
-
+    $http.get('/api/projects/' + $routeParams.projectId + '/').success( function(data) {
+        mydata = data;
+        $scope.project = data;
+        delete mydata.image_file;
+        delete mydata.thumbnail_file;
+    });
+        
     $scope.gmapbox_result = '';
 	$scope.gmapbox_options = null;
 	$scope.gmapbox_details = '';
         
     $scope.save = function() {
-        console.log($scope.project);
+
         $http.patch('/api/projects/' + $routeParams.projectId + '/', $scope.project).error(function(data, status, headers, config) {
             console.log(data);
             console.log(status);
             console.log(headers);
             console.log(config);
-            
+
         });
     };
     

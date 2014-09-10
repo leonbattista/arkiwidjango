@@ -6,7 +6,7 @@
         <span class="glyphicon glyphicon-pencil"></span>
         edit
     </button>
-    <button type="button" class="btn btn-default" ng-click="delete()">
+    <button ng-show="checkIfStaffOrOwner()" type="button" class="btn btn-default" ng-click="delete()">
         <span class="glyphicon glyphicon-trash"></span>
     </button>
   </div>

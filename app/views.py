@@ -67,8 +67,18 @@ class SearchView(generics.ListAPIView):
         return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner'])
 
 # **** FORM HANDLING VIEWS ****
-def current_user(request):
-    return HttpResponse(request.user.username)
+class CurrentUserView(APIView):
+    
+    def get(self, request, format=None):
+        
+        try:
+            user = User.objects.get(pk=self.request.user.id)
+            serializer = AccountSerializer(user)
+            return Response(serializer.data)
+                    
+        except:
+            return Response("null")       
+        
     
 def add(request):
     

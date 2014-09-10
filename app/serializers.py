@@ -37,7 +37,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'password', 'first_name', 'last_name', 'email')
+        fields = ('username', 'password', 'first_name', 'last_name', 'email', 'is_staff', 'id')
         write_only_fields = ('password',)
  
     def restore_object(self, attrs, instance=None):

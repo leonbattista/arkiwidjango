@@ -62,13 +62,14 @@ app.config(function($animateProvider) {
   $animateProvider.classNameFilter(/angular-animate/);
 })
 
-app.run(function ($http, $rootScope, AuthService, Projects) {
-	
+app.run(function ($http, $rootScope, api, AuthService, Projects) {
 	
 	$http.get('/api/current_user/').
 	success(function(data) { 
 		if (data != "") {
-			AuthService.login(data);
+
+            AuthService.login(data);
+
 		};
 	});
 	

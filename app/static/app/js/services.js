@@ -12,17 +12,25 @@ app.service('menuVisibilityService', function() {
 
 app.service('AuthService', function() {
 	
-	var username = "";
+	var currentUser;
+    var username = "";
 	var isLogged = false;
+    var is_staff = false;
 	
 	this.login = function(usr) {
 		isLogged = true;
-		username = usr;
+        console.log("I get called");
+        console.log(usr);
+        
+		currentUser = usr;        
+        username = usr.username;
+        is_staff = usr.is_staff;
 	};
 	
 	this.logout = function() {
 		isLogged = false;
-		username = "";		
+		currentUser = null;	
+        is_staff = false;	
 	};
 	
 	this.checkLogin = function() {
@@ -33,6 +41,14 @@ app.service('AuthService', function() {
 	this.getUsername = function() {
 		return username;
 	};
+    
+	this.getUser = function() {
+		return currentUser;
+	};
+    
+    this.isStaff = function() {
+        return is_staff;
+    }
 	
 });
 

@@ -18,10 +18,36 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
     // **** Manage editing permissions ****
     
 	$scope.isLogged = false;
-	$scope.username = "";
-
+    $scope.project = {'owner': -1};
+    var loggedUser = AuthService.getUser();
+    
+    $scope.username = "";
+    
+    $scope.checkIfStaffOrOwner = function() {       
+        
+        if (AuthService.isStaff()) {
+            return true;
+        }
+        
+        else {
+            
+            loggedUser = AuthService.getUser();
+            
+            if (loggedUser != null) {                
+                if (loggedUser.hasOwnProperty('id')) {
+                    if (loggedUser.id == $scope.project.owner) {
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+    };
+        
 	function updateIsLogged(newValue, oldValue) {
 		$scope.isLogged = newValue;
+        loggedUser = AuthService.getUser();
 		$scope.username = AuthService.getUsername();
 	};
 
@@ -103,7 +129,7 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 	$http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
 		
 		$scope.project = data;
-		
+        		
         Projects.setCurrentProject(data); // Store current project data for potential edition
         
         $scope.hasPubDate = Boolean(data.pub_date != '');
@@ -114,11 +140,12 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 		$scope.map.marker.options.title = $scope.project.name;
 		$scope.map.refresh = true; 	  
 		$scope.map.markersControl.getGMarkers()[0].title = $scope.project.name;
+        
+        console.log($scope.project.owner);
 	  
 		Restangular.one('users', $scope.project.owner).get().then(function(publisher) {
 			$scope.publisher = publisher;
-		});
-	  	  
+		});	  	  
 	});
 
 	// **** IMAGE POP-UP ****
@@ -192,7 +219,6 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
     };
     
 	function updateSaved() {
-        console.log("glogug")
         $scope.saved = false;
 	}
 
@@ -246,8 +272,8 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, men
 		$promise.
 		then(function(data){
 			// on good username and password
-			$scope.user = data.username;
-			AuthService.login(data.username);					
+			$scope.user = data;
+			AuthService.login(data);					
 		}).
 		catch(function(data){
 			// on incorrect username and password
@@ -257,7 +283,7 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, men
 
 	$scope.logout = function(){
 		api.auth.logout(function(){
-			$scope.user = undefined;
+			$scope.user = null;
 			AuthService.logout();
 		});
 	};

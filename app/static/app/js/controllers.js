@@ -207,7 +207,9 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, men
 });
 
 app.controller('SearchCtrl', function($scope, $http, $location, Projects){
-
+    
+    $scope.saved = false;
+    
 	$scope.architect = "";
 	$scope.project_name = "";
 	$scope.owner = "";
@@ -221,12 +223,29 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 	}
 });
 
-app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, Projects) {
-	$scope.gmapbox_result = '';
+app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, Projects, Restangular) {
+	
+    var mydata;
+    $scope.project = {};
+    $scope.project.name = "";
+    
+    $http.get('/api/projects/' + $routeParams.projectId + '/').success( function(data) {mydata = data; console.log(mydata); $scope.project = data;});
+
+    $scope.gmapbox_result = '';
 	$scope.gmapbox_options = null;
 	$scope.gmapbox_details = '';
-    $scope.project = Projects.getCurrentProject();
-    console.log($scope.project);
+        
+    $scope.save = function() {
+        console.log($scope.project);
+        $http.patch('/api/projects/' + $routeParams.projectId + '/', $scope.project).error(function(data, status, headers, config) {
+            console.log(data);
+            console.log(status);
+            console.log(headers);
+            console.log(config);
+            
+        });
+    };
+    
 });
  
 app.controller("AddCtrl",function ($scope, $http, $location, Projects) {

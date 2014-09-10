@@ -52,6 +52,12 @@ function($routeProvider) {
 	});
 }]);
 
+
+app.config(function(RestangularProvider) {
+     RestangularProvider.setBaseUrl('/api');
+     RestangularProvider.setRequestSuffix('/');
+});
+
 app.run(function ($http, $rootScope, AuthService, Projects) {
 	
 	

@@ -4,20 +4,20 @@ from django.contrib.auth.models import User
 import re
 
 
-class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    owner = serializers.HyperlinkedRelatedField(view_name='user-detail')
-    pub_date = serializers.DateTimeField()
+class ProjectSerializer(serializers.ModelSerializer):
+    # owner = serializers.RelatedField(view_name='user-detail')
+    # pub_date = serializers.DateTimeField()
     
-    def transform_pub_date(self, obj, value):
-        try:
-            readable_date = obj.pub_date.strftime("%d %b. %Y")
-        except AttributeError:
-            readable_date = ""
-        return readable_date
+    # def transform_pub_date(self, obj, value):
+    #     try:
+    #         readable_date = obj.pub_date.strftime("%d %b. %Y")
+    #     except AttributeError:
+    #         readable_date = ""
+    #     return readable_date
         
-    def transform_owner(self, obj, value):
-
-        return "api" + re.search("/api(.*)", value).group(1)
+    # def transform_owner(self, obj, value):
+    #
+    #     return "api" + re.search("/api(.*)", value).group(1)
         
         
 

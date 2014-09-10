@@ -33,8 +33,9 @@ class IsStaffOrOwnerOrReadOnly(permissions.BasePermission):
         # Read permissions are allowed to any request
         if request.method in permissions.SAFE_METHODS:
             return True
-
-        # Write permissions are only allowed to the owner of the snippet
-        return (obj.owner == request.user or request.user.is_staff)
+            
+        if request.method == "DELETE":
+            return (obj.owner == request.user or request.user.is_staff)
         
+        return request.user != None        
 

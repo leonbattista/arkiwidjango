@@ -191,8 +191,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsStaffOrOwnerOrReadOnly,)
 
-    def pre_save(self, obj):
-        obj.owner = self.request.user
+    # def pre_save(self, obj):
+    #     obj.owner = self.request.user
 
 # From Django REST tutorial
 class UserViewSet(viewsets.ReadOnlyModelViewSet):

@@ -3,6 +3,7 @@
 var app = angular.module('arkiwiApp', [
 'ngResource',
 'ngRoute',
+'ngAnimate',
 'restangular',
 'ui.bootstrap',
 'ngAutocomplete',
@@ -56,6 +57,10 @@ app.config(function(RestangularProvider) {
      RestangularProvider.setBaseUrl('/api');
      RestangularProvider.setRequestSuffix('/');
 });
+
+app.config(function($animateProvider) {
+  $animateProvider.classNameFilter(/angular-animate/);
+})
 
 app.run(function ($http, $rootScope, AuthService, Projects) {
 	

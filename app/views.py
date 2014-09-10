@@ -29,7 +29,7 @@ from rest_framework.views import APIView
 
 # Application
 from app.models import Project
-from app.permissions import IsOwnerOrReadOnly, IsStaffOrTargetUser
+from app.permissions import IsOwnerOrReadOnly, IsStaffOrTargetUser, IsStaffOrOwnerOrReadOnly
 from app.serializers import ProjectSerializer, UserSerializer, AccountSerializer
 from app.forms import ImageUploadForm, UserForm, UserProfileForm
 from app.utils import get_rotation_code, rotate_image, jsonToObj
@@ -179,7 +179,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     print queryset.values_list('name', flat=True).distinct()
     serializer_class = ProjectSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly,)
+                          IsStaffOrOwnerOrReadOnly,)
 
     def pre_save(self, obj):
         obj.owner = self.request.user

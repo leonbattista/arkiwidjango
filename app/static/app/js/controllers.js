@@ -6,6 +6,7 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	function updateProjects(newValue, oldValue) {
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
+        console.log("updated");
 	}
 	
 	$scope.$watch(Projects.getProjects, updateProjects);	
@@ -125,6 +126,10 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 	var imageModalInstanceCtrl = function ($scope, $modalInstance, image) {
 	  
 		$scope.image = image;
+        
+        $scope.close = function() {
+            $modalInstance.dismiss('close');
+        };
 
 		};
 
@@ -143,11 +148,56 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 			}
 		});
 
-		modalInstance.result.then(function (selectedItem) {
-			//$scope.selected = selectedItem;
-		});
 	};
 	
+});
+
+app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, $timeout, Projects, Restangular) {
+	
+    var mydata;
+    var rngdata;
+    $scope.project = {};
+    $scope.project.name = "";
+    
+    $http.get('/api/projects/' + $routeParams.projectId + '/').success( function(data) {
+        mydata = data;
+        $scope.project = data;
+        delete mydata.image_file;
+        delete mydata.thumbnail_file;
+    });
+        
+    $scope.gmapbox_result = '';
+	$scope.gmapbox_options = null;
+	$scope.gmapbox_details = '';
+        
+    $scope.save = function() {
+
+        $http.patch('/api/projects/' + $routeParams.projectId + '/', $scope.project).
+        error(function(data, status, headers, config) {
+            console.log(data);
+            console.log(status);
+            console.log(headers);
+            console.log(config);
+
+        }).
+        success(function() {
+            console.log("Project successfully patched");
+            $scope.saved = true;
+        });
+    };
+    
+    $scope.done = function() {
+        Projects.initProjects();
+        $location.path('/');
+    };
+    
+	function updateSaved() {
+        console.log("glogug")
+        $scope.saved = false;
+	}
+
+	$scope.$watch('project', updateSaved, true);
+    
 });
 
 app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, menuVisibilityService, AuthService){
@@ -240,37 +290,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 		Projects.searchProjects(searchParams);
 		if ($location.path() != '/' && $location.path() != '/map') {$location.path('/')};	
 	}
-});
-
-app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, Projects, Restangular) {
-	
-    var mydata;
-    var rngdata;
-    $scope.project = {};
-    $scope.project.name = "";
-    
-    $http.get('/api/projects/' + $routeParams.projectId + '/').success( function(data) {
-        mydata = data;
-        $scope.project = data;
-        delete mydata.image_file;
-        delete mydata.thumbnail_file;
-    });
-        
-    $scope.gmapbox_result = '';
-	$scope.gmapbox_options = null;
-	$scope.gmapbox_details = '';
-        
-    $scope.save = function() {
-
-        $http.patch('/api/projects/' + $routeParams.projectId + '/', $scope.project).error(function(data, status, headers, config) {
-            console.log(data);
-            console.log(status);
-            console.log(headers);
-            console.log(config);
-
-        });
-    };
-    
 });
  
 app.controller("AddCtrl",function ($scope, $http, $location, Projects) {

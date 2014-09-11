@@ -47,7 +47,6 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
         
         resource.success(function(data, status) {
             newProjects = data;
-            console.log(newProjects);
             if (newProjects.length == 0) {
                 console.log("Reached end!");
                 $scope.reachedEnd = true;
@@ -419,25 +418,27 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 
 	// **** Interface to service Projects ****
 	
-	console.log($scope.mapStyle());
-
 	$scope.projects = Projects.getProjects();
 	$scope.noResult = Projects.givesNoResult();
+    
+	var bounds = new google.maps.LatLngBounds();
 	
 	function updateProjects(newValue, oldValue) {
 		
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
 		
-		var bounds = new google.maps.LatLngBounds();
-		
+		bounds = new google.maps.LatLngBounds();
+        
 		for (var i in $scope.projects)
 		{
 			currentPosition = new google.maps.LatLng($scope.projects[i].latitude, $scope.projects[i].longitude);
 			bounds.extend(currentPosition);
 		};
 		
-		$scope.map.control.getGMap().fitBounds(bounds);				
+		$scope.map.control.getGMap().fitBounds(bounds);
+        
+		
 	}
 
 	$scope.$watch(Projects.getProjects, updateProjects);	
@@ -471,6 +472,8 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 		tilesloaded: function (map) {
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
+                var marker_list = $scope.map.markersControl.getGMarkers();
+                var markerCluster = new MarkerClusterer(map, marker_list);
 			});
 		}
 	};

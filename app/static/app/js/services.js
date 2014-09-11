@@ -109,6 +109,12 @@ app.factory('Projects', ['$http',
           return requestProjects(after, nItems);
       }
       
+      factory.requestAllProjects = function(after, nItems) {
+		  $http.get('/api/projects/')
+          .success(function (data,status) { projects = data; });
+		  return projects;
+      }
+      
       factory.initProjects = function() {
           currentSource = 'home';
           return requestProjects(0, nInitialItems);

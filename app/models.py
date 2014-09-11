@@ -50,6 +50,7 @@ class Project(models.Model):
     built_date = models.DateTimeField('date built', null=True)
     image_file = models.ImageField(upload_to="images/", null=True, blank=True)
     thumbnail_file = models.ImageField(upload_to="images/", null=True, blank=True)
+    is_imported = models.BooleanField(default=False)
     
 class UserProfile(models.Model):
     

@@ -1,6 +1,6 @@
 <div id="project-list">
 <div id="projectWrapperOut">
-	 <div id="projectWrapperIn">
+	 <div infinite-scroll="nextPage()" infinite-scroll-distance='1' infinite-scroll-disabled="reachedEnd || busy" id="projectWrapperIn">
 	  <div class="project" ng-repeat="project in projects">
 	   <a href="#/projects/{{project.id}}">
 	    <div class="img-container">

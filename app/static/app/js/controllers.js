@@ -1,15 +1,49 @@
 app.controller('ProjectsCtrl', function($scope, $http, Projects) {
-
+    
+    var after = 9;
+    var nItemsToFetch = 9;
+    $scope.reachedEnd = false;
+    $scope.busy = false;
+        
 	$scope.projects = Projects.getProjects();
 	$scope.noResult = Projects.givesNoResult();
-		
+    		
 	function updateProjects(newValue, oldValue) {
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
-        console.log("updated");
 	}
 	
-	$scope.$watch(Projects.getProjects, updateProjects);	
+	$scope.$watch(Projects.getProjects, updateProjects);
+    
+    $scope.nextPage = function() {
+        
+        if ($scope.busy) return;
+        
+        $scope.busy = true;
+
+        $http.get('/api/projects/', {
+            params: {
+                after: after,
+                nitems: nItemsToFetch
+            }})
+        .success(function(data, status) {
+                newProjects = data;
+                console.log(newProjects);
+                
+                if (newProjects.length == 0) {
+                    console.log("Reached end!");
+                    $scope.reachedEnd = true;
+                }
+                else {
+                    for (var i = 0; i < newProjects.length; i++) {
+                      $scope.projects.push(newProjects[i]);
+                    }
+                    after += nItemsToFetch;
+                };
+                
+                $scope.busy = false;
+            });     
+    }; 	
 	
 });
 
@@ -349,7 +383,6 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 			headers: {'Content-Type': undefined}
 		})
 		.success(function(id){
-			console.log("posted");
 			Projects.initProjects();
 			$location.path('/projects/' + id );
 		})

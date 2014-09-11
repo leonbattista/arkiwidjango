@@ -184,12 +184,28 @@ class ProjectViewSet(viewsets.ModelViewSet):
     of the project.
     
     """
-
-    queryset = Project.objects.all().order_by('-pub_date')
-    print queryset.values_list('name', flat=True).distinct()
+    
+    queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsStaffOrOwnerOrReadOnly,)
+    
+    def list(self, request):
+        
+        params = request.GET
+        
+        queryset = Project.objects.all().order_by('-pub_date')
+                                
+        if 'after' in params and 'nitems' in params:
+           after = int(params['after'])
+           nitems = int(params['nitems'])
+           queryset = queryset[after : after + nitems]
+           print [p.name for p in queryset]
+
+        serializer = ProjectSerializer(queryset, many=True)
+        
+        return Response(serializer.data)      
+
 
     # def pre_save(self, obj):
     #     obj.owner = self.request.user

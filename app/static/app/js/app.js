@@ -3,7 +3,6 @@
 var app = angular.module('arkiwiApp', [
 'ngResource',
 'ngRoute',
-'ngAnimate',
 'restangular',
 'ui.bootstrap',
 'ngAutocomplete',

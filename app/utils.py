@@ -57,3 +57,18 @@ def jsonToObj(s):
             return x
     return h2o(json.loads(s))
     
+# "Pagination" helper function to feed scroll-down-to-load-more
+
+def paginateQueryset(request, queryset):
+    
+    params = request.GET
+    
+    if 'after' in params and 'nitems' in params:
+        after = int(params['after'])
+        nitems = int(params['nitems'])
+        print after, nitems
+        return queryset[after : after + nitems]
+    else:
+        return queryset
+    retu
+    

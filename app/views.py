@@ -32,7 +32,7 @@ from app.models import Project
 from app.permissions import IsOwnerOrReadOnly, IsStaffOrTargetUser, IsStaffOrOwnerOrReadOnly
 from app.serializers import ProjectSerializer, UserSerializer, AccountSerializer
 from app.forms import ImageUploadForm, UserForm, UserProfileForm
-from app.utils import get_rotation_code, rotate_image, jsonToObj
+from app.utils import get_rotation_code, rotate_image, jsonToObj, paginateQueryset
 from authentication import QuietBasicAuthentication
 
 # **** BASIC VIEWS ****
@@ -64,7 +64,7 @@ class SearchView(generics.ListAPIView):
         user = self.request.user
         params = self.request.GET
                 
-        return Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner'])
+        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner']).order_by('-pub_date'))
 
 # **** FORM HANDLING VIEWS ****
 class CurrentUserView(APIView):
@@ -192,16 +192,11 @@ class ProjectViewSet(viewsets.ModelViewSet):
     
     def list(self, request):
         
-        params = request.GET
         
         queryset = Project.objects.all().order_by('-pub_date')
                                 
-        if 'after' in params and 'nitems' in params:
-           after = int(params['after'])
-           nitems = int(params['nitems'])
-           queryset = queryset[after : after + nitems]
-           print [p.name for p in queryset]
-
+        queryset = paginateQueryset(request, queryset)
+        
         serializer = ProjectSerializer(queryset, many=True)
         
         return Response(serializer.data)      

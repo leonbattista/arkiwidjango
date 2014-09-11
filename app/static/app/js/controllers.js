@@ -1,7 +1,7 @@
 app.controller('ProjectsCtrl', function($scope, $http, Projects) {
     
-    var after = 9;
-    var nItemsToFetch = 9;
+    var after = Projects.getNInitialItems();
+    var nItemsToFetch = Projects.getNItemsToFetch();
     $scope.reachedEnd = false;
     $scope.busy = false;
         
@@ -11,38 +11,57 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	function updateProjects(newValue, oldValue) {
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
-	}
+	};
 	
 	$scope.$watch(Projects.getProjects, updateProjects);
     
     $scope.nextPage = function() {
         
+        // Avoid making too many requests
         if ($scope.busy) return;
-        
         $scope.busy = true;
+        
+        var resource;
+        
+        var params = { after: after, nitems: nItemsToFetch };
+                
+        switch (Projects.getCurrentSource()) {
+            
+            case 'home':
+                resource = $http.get('/api/projects/', {
+                    params: params
+                });
 
-        $http.get('/api/projects/', {
-            params: {
-                after: after,
-                nitems: nItemsToFetch
-            }})
-        .success(function(data, status) {
-                newProjects = data;
-                console.log(newProjects);
+                break;
                 
-                if (newProjects.length == 0) {
-                    console.log("Reached end!");
-                    $scope.reachedEnd = true;
+            case 'search':
+                                                
+                var extendedParams = angular.extend(Projects.getCurrentSearchParams(), params);
+                console.log(extendedParams);
+                resource = $http.get('/search/', {
+                    params: extendedParams
+                });
+                break;
+                
+        };
+        
+        resource.success(function(data, status) {
+            newProjects = data;
+            console.log(newProjects);
+            if (newProjects.length == 0) {
+                console.log("Reached end!");
+                $scope.reachedEnd = true;
+            }
+        
+            else {
+                for (var i = 0; i < newProjects.length; i++) {
+                  $scope.projects.push(newProjects[i]);
                 }
-                else {
-                    for (var i = 0; i < newProjects.length; i++) {
-                      $scope.projects.push(newProjects[i]);
-                    }
-                    after += nItemsToFetch;
-                };
-                
-                $scope.busy = false;
-            });     
+                after += nItemsToFetch;
+            };
+        
+            $scope.busy = false;
+        });     
     }; 	
 	
 });

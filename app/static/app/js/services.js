@@ -53,6 +53,7 @@ app.factory('Projects', ['$http',
   function($http) {
       
       var nInitialItems = 9;
+      var nItemsToFetch = 9;
 	  
       var currentSource = 'home';
       var currentSearchParams = {};
@@ -67,6 +68,26 @@ app.factory('Projects', ['$http',
           .success(function (data,status) { projects = data; });
 		  return projects;
 	  };
+      
+      factory.getNInitialItems = function() {
+          return nInitialItems;
+      };
+      
+      factory.getNItemsToFetch = function() {
+          return nItemsToFetch;
+      };
+      
+      factory.getAfter = function() {
+          return after;
+      };
+      
+      factory.getCurrentSource = function() {
+          return currentSource;
+      };
+      
+      factory.getCurrentSearchParams = function() {
+          return currentSearchParams;
+      };
 
 	  factory.getProjects = function() {
 		  return projects;
@@ -94,14 +115,18 @@ app.factory('Projects', ['$http',
       }
 	  
 	  factory.searchProjects = function(searchParams) {
-		  $http.get('/search/', {params: searchParams})
+          
+          var params = angular.extend(searchParams, {after: 0, nitems: nInitialItems});
+          
+		  $http.get('/search/', {params: params})
 		  .success(function (data,status) {
 			  projects = data; 
 			  noResult = Boolean(projects.length == 0);
-              currentSearchParams = searchParams;
+              currentSource = 'search';
+              console.log(currentSource);
+              currentSearchParams = searchParams;            
 		  });	  
 		  return projects;
-		  
 	  };
 	  
 	  return factory;

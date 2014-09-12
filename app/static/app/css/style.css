@@ -473,7 +473,7 @@ h1 {
     text-align: center;
 }
 
-.no-thumb:hover {
+#project-list .no-thumb:hover {
     background-color: #f7f7f7;
     color: #eee;
 }

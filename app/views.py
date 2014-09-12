@@ -128,29 +128,21 @@ def add(request):
         
         width, height = image.size
         
-        print "Original image: %s x %s" %(width, height)
-
         wh_ratio = float(width) / float(height)
-        
-        print "wh_ratio: %s " %wh_ratio
-        
+                
         if width <= 400 and height <= 300:
             cropped_image = image
         else:
             if wh_ratio > 4.0/3.0:
-                print "Horizontal image"
                 if height > 300:
                     ratio = 300.0 / float(height)
-                    print "Resizing ratio: %s" %ratio 
                     image.thumbnail((int(ceil(width * ratio)), 300), PImage.ANTIALIAS)
                     width, height = image.size
-                    print "Thumbnail image: %s x %s" %(width, height) 
             else:
                 if width > 400:
                     ratio = 400.0 / float(width)
                     image.thumbnail((400, int(ceil(height * ratio))), PImage.ANTIALIAS)
                     width, height = image.size
-                    print "Thumbnail image: %s x %s" %(width, height) 
                     
             left = max(int(width/2)-200, 0)
             bottom = max(int(height/2)-150, 0)
@@ -159,8 +151,6 @@ def add(request):
             
             
             cropped_image = image.crop([max(int(width/2)-200, 0), max(int(height/2)-150, 0), min(int(width/2)+200, width), min(int(height/2)+150, height)])
-
-        print "Cropped: %s x %s" %cropped_image.size
                 
                             
         
@@ -210,11 +200,16 @@ class ProjectViewSet(viewsets.ModelViewSet):
        
         serializer = ProjectSerializer(queryset, many=True)
         
-        return Response(serializer.data)      
-
-
-    # def pre_save(self, obj):
-    #     obj.owner = self.request.user
+        return Response(serializer.data)
+        
+    def partial_update(self, request, pk=None):
+        print "Zoubida"
+        return super(ProjectViewSet, self).partial_update(request, pk=None)
+                
+        
+        # patch
+        # image_file = request.FILES['image']
+            
 
 # From Django REST tutorial
 class UserViewSet(viewsets.ReadOnlyModelViewSet):

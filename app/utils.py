@@ -1,5 +1,61 @@
 import json
 from PIL import Image, ExifTags
+from cStringIO import StringIO
+from PIL import Image as PImage
+
+def makeThumb(project, image_file):
+
+    image_file = request.FILES['image']
+
+    image_str = ''
+    for c in image_file.chunks():
+        image_str += c
+    image_file_strio = StringIO(image_str)
+    image = PImage.open(image_file_strio)
+    if image.mode != "RGB":
+        image = image.convert('RGB')
+
+    rotation_code = get_rotation_code(image)
+    image = rotate_image(image, rotation_code)    
+
+    width, height = image.size
+
+    wh_ratio = float(width) / float(height)
+        
+    if width <= 400 and height <= 300:
+        cropped_image = image
+    else:
+        if wh_ratio > 4.0/3.0:
+            if height > 300:
+                ratio = 300.0 / float(height)
+                image.thumbnail((int(ceil(width * ratio)), 300), PImage.ANTIALIAS)
+                width, height = image.size
+        else:
+            if width > 400:
+                ratio = 400.0 / float(width)
+                image.thumbnail((400, int(ceil(height * ratio))), PImage.ANTIALIAS)
+                width, height = image.size
+            
+        left = max(int(width/2)-200, 0)
+        bottom = max(int(height/2)-150, 0)
+        right = min(int(width/2)+200, width)
+        top = min(int(height/2)+150, height)
+     
+        cropped_image = image.crop([max(int(width/2)-200, 0), max(int(height/2)-150, 0), min(int(width/2)+200, width), min(int(height/2)+150, height)])
+
+    filename, ext = os.path.splitext(p.image_file.name)
+    thumb_filename = settings.MEDIA_ROOT + filename + "-thumb" + ext
+    #cropped_image.save(thumb_filename, "JPEG")
+
+    f = StringIO()
+    try:
+        cropped_image.save(f, format='jpeg')
+        s = f.getvalue()
+        # print type(project.thumbnail_file)
+        project.thumbnail_file.save(thumb_filename, ContentFile(s))
+        project.save()
+    finally:
+        f.close()    
 
 # **** CORRECT IMAGE ROTATION STORED IN EXIF DATA ****
 def get_rotation_code(img):
@@ -47,8 +103,8 @@ def rotate_image(img, rotation_code):
         print "YO"
     return img
     
-# Deserialization
 
+# Deserialization
 def jsonToObj(s):
     def h2o(x):
         if isinstance(x, dict):
@@ -57,8 +113,8 @@ def jsonToObj(s):
             return x
     return h2o(json.loads(s))
     
-# "Pagination" helper function to feed scroll-down-to-load-more
 
+# "Pagination" helper function to feed scroll-down-to-load-more
 def paginateQueryset(request, queryset):
     
     params = request.GET

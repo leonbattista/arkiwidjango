@@ -16,6 +16,9 @@
             <label for="id_description">Description</label>
             <input id="id_description" name="description" type="text" class="form-control" ng-model="project.description"/>
             
+            <label for="id_image">Change image</label>
+            <input id="id_image" name="image" type="file" file-model="image_file"/>
+            
             <div class="save-btn-bar">
                 <button class="btn btn-success" ng-click="save()">Save</button>
                 <button class="btn btn-default btn-quit" ng-click="done()">Done</button>       

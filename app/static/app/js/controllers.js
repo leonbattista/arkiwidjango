@@ -253,8 +253,10 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
     
     
     $http.get('/api/projects/' + $routeParams.projectId + '/').success( function(data) {
-        mydata = data;
+        
         $scope.project = data;
+        delete $scope.project.image_file;
+        delete $scope.project.thumbnail_file;
         
         // Reattribute projects from KMLImporter
         
@@ -274,16 +276,10 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
             var latlng = new google.maps.LatLng($scope.project.latitude, $scope.project.longitude);
     
             geocoder.geocode({'latLng': latlng}, function(results, status) {
-        
-                console.log("I'm in");
-        
-                if (status == google.maps.GeocoderStatus.OK) {
-            
-                    console.log("I'm deep in");
-        
+                
+                if (status == google.maps.GeocoderStatus.OK) {           
                     if (results[1]) {
                         output = results[1].formatted_address;
-                        console.log(output);
                     } else {
                         output = 'No results found';
                     }
@@ -297,9 +293,10 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
             });
             
         }
-        delete mydata.image_file;
-        delete mydata.thumbnail_file;
+
     });
+    
+    
         
     $scope.gmapbox_result = '';
 	$scope.gmapbox_options = null;
@@ -307,9 +304,19 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
     
         
     $scope.save = function() {
+        
+		fd = new FormData();
+		fd.append('name', $scope.project.name);
+		fd.append('architect', $scope.project.architect);
+		fd.append('address', $scope.project.address);
+		
+		fd.append('image_file', $scope.image_file);
 
-        $http.patch('/api/projects/' + $routeParams.projectId + '/', $scope.project).
-        error(function(data, status, headers, config) {
+        $http.patch('/api/projects/' + $routeParams.projectId + '/', 
+        fd,
+        {   transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).error(function(data, status, headers, config) {
             console.log(data);
             console.log(status);
             console.log(headers);
@@ -459,7 +466,6 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 			console.log(err);
 		}
 		
-		fd.append('image', $scope.image);
 		fd.append('image', $scope.image);
 			
 		$http.post('/add/', fd, {

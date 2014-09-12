@@ -25,6 +25,13 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ('id', 'name', 'architect', 'owner','pub_date', 'address', 'latitude', 'longitude', 'image_file','thumbnail_file')
 
+class MapProjectSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Project
+        fields = ('id', 'name', 'latitude', 'longitude')
+    
+
 # To allow browsing other users, following, etc.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     projects = serializers.HyperlinkedRelatedField(view_name='project-detail', many=True)

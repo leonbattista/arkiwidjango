@@ -418,7 +418,13 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 
 	// **** Interface to service Projects ****
 	
-	$scope.projects = Projects.getProjects();
+    if (Projects.getCurrentSource() == 'home') { 
+        $scope.projects = Projects.mapProjects();
+        console.log($scope.projects);
+    }
+    
+    else { $scope.projects = Projects.getProjects() };
+	
 	$scope.noResult = Projects.givesNoResult();
     
 	var bounds = new google.maps.LatLngBounds();

@@ -30,7 +30,7 @@ from rest_framework.views import APIView
 # Application
 from app.models import Project
 from app.permissions import IsOwnerOrReadOnly, IsStaffOrTargetUser, IsStaffOrOwnerOrReadOnly
-from app.serializers import ProjectSerializer, UserSerializer, AccountSerializer
+from app.serializers import ProjectSerializer, MapProjectSerializer, UserSerializer, AccountSerializer
 from app.forms import ImageUploadForm, UserForm, UserProfileForm
 from app.utils import get_rotation_code, rotate_image, jsonToObj, paginateQueryset
 from authentication import QuietBasicAuthentication
@@ -57,6 +57,7 @@ def test(request):
 # First version of search
 
 class SearchView(generics.ListAPIView):
+    
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
@@ -65,6 +66,15 @@ class SearchView(generics.ListAPIView):
         params = self.request.GET
                 
         return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner']).order_by('-pub_date'))
+
+class MapProjectsView(generics.ListAPIView):
+    
+    serializer_class = MapProjectSerializer
+    
+    def get_queryset(self):
+        
+        return Project.objects.all()
+
 
 # **** FORM HANDLING VIEWS ****
 class CurrentUserView(APIView):

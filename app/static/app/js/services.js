@@ -109,22 +109,28 @@ app.factory('Projects', ['$http',
           return requestProjects(after, nItems);
       }
       
+      factory.mapProjects = function() {
+		  $http.get('/api/map_projects/')
+          .success(function (data,status) { projects = data; });
+		  return projects;
+      };
+      
       factory.requestAllProjects = function(after, nItems) {
 		  $http.get('/api/projects/')
           .success(function (data,status) { projects = data; });
 		  return projects;
-      }
+      };
       
       factory.initProjects = function() {
           currentSource = 'home';
           return requestProjects(0, nInitialItems);
-      }
+      };
 	  
 	  factory.searchProjects = function(searchParams) {
           
           var params = angular.extend(searchParams, {after: 0, nitems: nInitialItems});
           
-		  $http.get('/search/', {params: params})
+		  $http.get('/api/search/', {params: params})
 		  .success(function (data,status) {
 			  projects = data; 
 			  noResult = Boolean(projects.length == 0);

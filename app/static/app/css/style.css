@@ -377,6 +377,10 @@ h1 {
 	right:0;
 }
 
+#only-img {
+}
+
+
 #project-edit-container {
     margin-left: auto;
     margin-right: auto;
@@ -441,6 +445,20 @@ h1 {
 .fadein.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
   display: block !important;
+}
+
+.no-thumb {
+    width: 400px;
+    height: 300px;
+    line-height: 300px;    
+    background-color: #eee;
+    color: #ddd;
+    text-align: center;
+}
+
+.no-thumb:hover {
+    background-color: #f7f7f7;
+    color: #eee;
 }
 
 

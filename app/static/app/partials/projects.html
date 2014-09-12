@@ -1,10 +1,11 @@
 <div id="project-list">
 <div id="projectWrapperOut">
 	 <div infinite-scroll="nextPage()" infinite-scroll-distance='1' infinite-scroll-disabled="reachedEnd || busy" id="projectWrapperIn">
-	  <div class="project" ng-repeat="project in projects">
+	  <div class="project" ng-repeat="project in projects | filter:toShow">
 	   <a href="#/projects/{{project.id}}">
 	    <div class="img-container">
-	     <img ng-src="/media/{{ project.thumbnail_file }}" class="fade-img"></img>
+	     <img ng-if=" project.thumbnail_file != '' " ng-src="/media/{{ project.thumbnail_file }}" class="fade-img"></img>
+         <div ng-if=" project.thumbnail_file == '' " class="no-thumb"> no image </div>
 		</div>
 	    <div class="caption">
 		 <div class="project_name"> {{ project.name }} </div>

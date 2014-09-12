@@ -7,13 +7,25 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
         
 	$scope.projects = Projects.getProjects();
 	$scope.noResult = Projects.givesNoResult();
+    
+    $scope.onlyImg = Projects.getOnlyImg();
     		
 	function updateProjects(newValue, oldValue) {
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
 	};
+    
+    function updateGetOnlyImg(newValue, oldValue) {
+        $scope.onlyImg = newValue;
+    };
+    
+    $scope.$watch(Projects.getOnlyImg, updateGetOnlyImg);
 	
 	$scope.$watch(Projects.getProjects, updateProjects);
+    
+    $scope.toShow = function(project) {
+        return Boolean(!$scope.onlyImg || project.image_file != '')
+    };
     
     $scope.nextPage = function() {
         
@@ -278,10 +290,15 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
     
 });
 
-app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, menuVisibilityService, AuthService){
+app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, menuVisibilityService, AuthService, Projects){
 
 	$scope.isLogged = false;
 	$scope.username = "";
+    $scope.onlyImg = Projects.getOnlyImg();
+    
+    $scope.toggleOnlyImg = function() {
+        Projects.toggleOnlyImg();
+    }
 
 	function updateIsLogged(newValue, oldValue) {
 		$scope.isLogged = newValue;

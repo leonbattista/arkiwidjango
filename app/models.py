@@ -51,6 +51,8 @@ class Project(models.Model):
     image_file = models.ImageField(upload_to="images/", null=True, blank=True)
     thumbnail_file = models.ImageField(upload_to="images/", null=True, blank=True)
     is_imported = models.BooleanField(default=False)
+    source = models.CharField(max_length=200, blank=True)
+    description = models.CharField(max_length=3000, blank=True)
     
 class UserProfile(models.Model):
     

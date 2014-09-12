@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns='http://www.opengis.net/kml/2.2'>
+	<Document>
+		<name>Calque III</name>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Porto Mantovano, Villa Favorita
+</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Giulio Romano, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>10.8003813,45.1849747,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-DB4436</styleUrl>
+			<name>Bauhaus Dessau
+</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Walter Gropius, 1925-26, Cahier Mestelan n°3 écoles]]></description>
+			<Point>
+				<coordinates>12.227289700000002,51.8395429,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-DB4436</styleUrl>
+			<name>Dammwegschule</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Bruno Taut, 1927, seul un pavillon est encore existant, Cahier Mestelan n°3 écoles]]></description>
+			<Point>
+				<coordinates>13.4679186,52.4728117,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Banque populaire de Verone</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1973-1981, Archinform]]></description>
+			<Point>
+				<coordinates>10.99679410457611,45.440062833656015,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Entrée de la faculté de philosophie de l'université de Venise</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1976-1979,  Archinform]]></description>
+			<Point>
+				<coordinates>12.3203837,45.4319274,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Casa Ottolenghi</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1974-1979, Archinform]]></description>
+			<Point>
+				<coordinates>10.719244480133057,45.56348553593652,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-DB4436</styleUrl>
+			<name>Restauration de la bibliothèque de la fondation Querini-Stampalia</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1961-1963, Archinform]]></description>
+			<Point>
+				<coordinates>12.341436445713043,45.43672221068174,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-DB4436</styleUrl>
+			<name>Magasin de meubles Gavina (aujourd'hui Simon)</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1961-1963, Archinform]]></description>
+			<Point>
+				<coordinates>11.345446407794952,44.49511441705247,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-DB4436</styleUrl>
+			<name>Casa Veritti</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1955-1961, Archinform]]></description>
+			<Point>
+				<coordinates>13.227860927581787,46.058286768956854,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Rénovation du musée Correr</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1953 et 1957-1960, Archinform]]></description>
+			<Point>
+				<coordinates>12.33716368675232,45.43360913666766,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Magasin Olivetti</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1957-1958,  Archinform]]></description>
+			<Point>
+				<coordinates>12.3375432,45.4341936,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Place de Camping Fusina</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Carlo Scarpa, 1957, Archinform]]></description>
+			<Point>
+				<coordinates>12.256525754928589,45.42018745037692,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Villa Vescovi &amp; Grotto della fontana
+</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Giovanni Maria Falconetto resp. Vincenzo Scamozzi, 1535 reps. 1588, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>11.71143651008606,45.343304300782066,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Villa Brenzone
+</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Michele Sanmicheli, 1541-1550, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>10.671436786651611,45.573673903253926,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Villa della Torre &amp; Tempietto</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Michele Sanmicheli, 1547-1558, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>10.876792073249817,45.53987206625078,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Villa Garzoni
+</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Jacopo Sansovino, 1540, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>11.963682174682617,45.21788592871036,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Duomo</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Giulio Romano (Wiederaufbau), 1546, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>10.797629356384277,45.160820658232126,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Villa Zani
+</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Giulio Romano, 1528, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>11.0328993,45.1446612,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-503-F4EB37</styleUrl>
+			<name>Porto Mantovano, Corte Spinoza</name>
+			<ExtendedData>
+			</ExtendedData>
+			<description><![CDATA[Giulio Romano, 1540, FS14 Villa und Palazzi]]></description>
+			<Point>
+				<coordinates>10.8224237,45.2055431,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Style id='icon-503-DB4436'>
+			<IconStyle>
+				<color>ff3644DB</color>
+				<scale>1.1</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Style id='icon-503-F4EB37'>
+			<IconStyle>
+				<color>ff37EBF4</color>
+				<scale>1.1</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+	</Document>
+</kml>

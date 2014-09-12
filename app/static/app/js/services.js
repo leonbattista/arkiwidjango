@@ -54,6 +54,8 @@ app.factory('Projects', ['$http',
       
       var nInitialItems = 9;
       var nItemsToFetch = 9;
+      
+      var onlyImg = true;
 	  
       var currentSource = 'home';
       var currentSearchParams = {};
@@ -72,6 +74,15 @@ app.factory('Projects', ['$http',
       factory.getNInitialItems = function() {
           return nInitialItems;
       };
+      
+      factory.getOnlyImg = function() {
+          return onlyImg;
+      }
+      
+      factory.toggleOnlyImg = function() {
+          onlyImg = Boolean(!onlyImg);
+          return onlyImg;
+      }
       
       factory.getNItemsToFetch = function() {
           return nItemsToFetch;

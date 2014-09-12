@@ -1,7 +1,8 @@
 # **** IMPORTS ****
 
 # External Python modules
-import json, os, datetime
+import json, os
+from django.utils import timezone
 from cStringIO import StringIO
 from tempfile import NamedTemporaryFile
 from PIL import Image as PImage
@@ -108,7 +109,7 @@ def add(request):
         except KeyError:
             pass
         
-        p.pub_date = datetime.datetime.now()
+        p.pub_date = timezone.now()
         p.image_file = form.cleaned_data['image']
         p.save()
         

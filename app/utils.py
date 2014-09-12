@@ -68,7 +68,6 @@ def paginateQueryset(request, queryset):
         nitems = int(params['nitems'])
         end = after + nitems
         queryset = queryset[after:end]
-
-        
+      
     return queryset
     

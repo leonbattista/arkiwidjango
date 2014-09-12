@@ -44,7 +44,7 @@ class Project(models.Model):
     
     name = models.CharField(max_length=200)
     architect = models.CharField(max_length=200)
-    address = models.CharField(max_length=500, null=True)
+    address = models.CharField(max_length=500)
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
     built_date = models.DateTimeField('date built', null=True)

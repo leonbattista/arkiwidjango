@@ -189,6 +189,23 @@ h1 {
 	opacity: 0.9;
 }
 
+.fade-no-img {
+	
+	transition: opacity .25s ease-in-out;
+	-moz-transition: opacity .25s ease-in-out;
+	-ms-transition: opacity .25s ease-in-out;
+	-o-transition: opacity .25s ease-in-out;
+	-webkit-transition: opacity .25s ease-in-out;
+}
+
+
+.fade-no-img:hover {
+	background-color: #bbb;
+	-webkit-opacity: 0.8;
+	-moz-opacity: 0.8;
+	opacity: 0.8;
+}
+
 .project .caption {
 	margin: 9px 10px 10px 2px;
 	padding-bottom: 15px;

@@ -14,17 +14,21 @@
  
  <div class="project-detail-container">
   <div class="project-detail"> 
-  <a ng-click="open()">
-   <img ng-src="/media/{{ project.thumbnail_file}}" class="fade-img zoom-in"></img>
+  <a>
+	     <img ng-if=" project.thumbnail_file != ''" ng-click="open()"  ng-src="/media/{{ project.thumbnail_file }}" class="fade-img zoom-in"></img>
+         <div ng-if=" project.thumbnail_file == '' " class="no-thumb"> no image </div>
   </a>
    <ul>
     <li>
      <h3>Infos</h3>
      <dl>
-      <dt>Architect</dt>
-      <dd>{{ project.architect }}</dd>
-      <dt>Address</dt>
-      <dd>{{ project.address }}</dd>
+      <dt ng-if="project.architect!='' ">Architect</dt>
+      <dd ng-if="project.architect!='' ">{{ project.architect }}</dd>
+      <dt ng-if="project.address!='' ">Address</dt>
+      <dd ng-if="project.address!='' ">{{ project.address }}</dd>
+      <dt ng-if="project.description!='' ">Description</dt>
+      <dd ng-if="project.description
+      !='' ">{{ project.description }}</dd>
       <!-- <dt>Rating</dt>
        <dd>
        <rating class="rating" ng-model="myrate" max="5" readonly="isReadonly"></rating>

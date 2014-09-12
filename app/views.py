@@ -66,7 +66,7 @@ class SearchView(generics.ListAPIView):
         user = self.request.user
         params = self.request.GET
                 
-        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner']).order_by('-pub_date'))
+        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner']).order_by('-id'))
 
 class MapProjectsView(generics.ListAPIView):
     

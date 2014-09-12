@@ -1,5 +1,5 @@
 from pykml import parser
-import datetime
+import datetime, re
 from django.utils import timezone
 from app.models import Project
 from django.contrib.auth.models import User
@@ -19,7 +19,7 @@ for placemark in root.Document.Folder.Placemark:
     coordinates = placemark.Point.coordinates.text.split(',')
     p.longitude = coordinates[0]
     p.latitude = coordinates[1]
-    p.description = placemark.description.text
+    p.description = re.search("description: (.*)", placemark.description.text).group(1)
     p.pub_date = datetime.date(1970,1,1)
     p.is_imported = True
     p.save()

@@ -37,9 +37,7 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
         var resource;
         
         var params = { after: after, nitems: nItemsToFetch, only_img: $scope.onlyImg };
-        
-        console.log(after);
-        
+                
         switch (Projects.getCurrentSource()) {
             
             case 'home':
@@ -52,8 +50,8 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
             case 'search':
                                                 
                 var extendedParams = angular.extend(Projects.getCurrentSearchParams(), params);
-                console.log(extendedParams);
-                resource = $http.get('/search/', {
+                console.log("Youhou");
+                resource = $http.get('/api/search/', {
                     params: extendedParams
                 });
                 break;
@@ -246,16 +244,59 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 	
 });
 
-app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, $timeout, Projects, Restangular) {
+app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $location, $timeout, Projects, AuthService, Restangular) {
 	
     var mydata;
     var rngdata;
     $scope.project = {};
     $scope.project.name = "";
     
+    
     $http.get('/api/projects/' + $routeParams.projectId + '/').success( function(data) {
         mydata = data;
         $scope.project = data;
+        
+        // Reattribute projects from KMLImporter
+        
+        if ($scope.project.owner == 12) {
+            $scope.project.owner = AuthService.getUser().id;
+            var date = new Date(Date.now());
+            $scope.project.pub_date = date.toISOString();
+            console.log($scope.project.pub_date);
+        }
+        
+        if ($scope.project.address == '') {
+            
+            var output;
+
+            geocoder = new google.maps.Geocoder();
+        
+            var latlng = new google.maps.LatLng($scope.project.latitude, $scope.project.longitude);
+    
+            geocoder.geocode({'latLng': latlng}, function(results, status) {
+        
+                console.log("I'm in");
+        
+                if (status == google.maps.GeocoderStatus.OK) {
+            
+                    console.log("I'm deep in");
+        
+                    if (results[1]) {
+                        output = results[1].formatted_address;
+                        console.log(output);
+                    } else {
+                        output = 'No results found';
+                    }
+                } else {
+                    output = 'Geocoder failed due to: ' + status;
+                }
+        
+                $scope.project.address = output;
+                $scope.$apply();
+        
+            });
+            
+        }
         delete mydata.image_file;
         delete mydata.thumbnail_file;
     });
@@ -263,6 +304,7 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
     $scope.gmapbox_result = '';
 	$scope.gmapbox_options = null;
 	$scope.gmapbox_details = '';
+    
         
     $scope.save = function() {
 

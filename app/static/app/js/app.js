@@ -63,7 +63,7 @@ app.config(function($animateProvider) {
   $animateProvider.classNameFilter(/angular-animate/);
 })
 
-app.run(function ($http, $rootScope, api, AuthService, Projects) {
+app.run(function ($http, $rootScope, $location, api, AuthService, Projects) {
 	
 	$http.get('/api/current_user/').
 	success(function(data) { 
@@ -74,6 +74,6 @@ app.run(function ($http, $rootScope, api, AuthService, Projects) {
 		};
 	});
 	
-	var projects = Projects.initProjects();
+	Projects.initProjects();
 	
 });

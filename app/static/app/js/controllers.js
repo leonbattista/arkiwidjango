@@ -293,7 +293,7 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
     
 });
 
-app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, menuVisibilityService, AuthService, Projects){
+app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, $location, api, menuVisibilityService, AuthService, Projects){
 
 	$scope.isLogged = false;
 	$scope.username = "";
@@ -309,7 +309,11 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, api, men
 	}
 
 	$scope.$watch(AuthService.checkLogin, updateIsLogged);	
-
+    
+    
+    $scope.atHome = function() {
+        return Boolean($location.path()=='/')
+    }
 	$scope.reInit = function(){
 		$window.location.href = '/';
 	};

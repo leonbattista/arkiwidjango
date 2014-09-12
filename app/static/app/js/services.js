@@ -13,6 +13,7 @@ app.service('menuVisibilityService', function() {
 app.service('AuthService', function() {
 	
 	var currentUser;
+    
     var username = "";
 	var isLogged = false;
     var is_staff = false;

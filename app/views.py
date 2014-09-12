@@ -204,10 +204,10 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def list(self, request):
         
         
-        queryset = Project.objects.all().order_by('-pub_date')
-                                
+        queryset = Project.objects.all().order_by('id')
+                                     
         queryset = paginateQueryset(request, queryset)
-        
+       
         serializer = ProjectSerializer(queryset, many=True)
         
         return Response(serializer.data)      

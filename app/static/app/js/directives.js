@@ -64,3 +64,22 @@ app.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+
+app.directive('arkiwiMonitorHeight', function () {
+    
+    return {
+        restrict: 'A',
+        link: function(scope, element, Projects) {
+            
+            scope.getElementHeight = function() {
+                return element[0].offsetHeight;
+            };
+            
+            scope.$watch(scope.getElementHeight, function(newValue, oldValue) {
+                Projects.setProjectWrapperHeight(newValue);
+                console.log(newValue);
+            }, true);
+            
+        } 
+    } 
+});

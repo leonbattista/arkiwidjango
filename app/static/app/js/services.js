@@ -56,6 +56,8 @@ app.factory('Projects', ['$http',
       var nItemsToFetch = 9;
       
       var onlyImg = true;
+      var projectWrapperHeight = 0;
+      var projectWrapperHeightUnchanged = false;
 	  
       var currentSource = 'home';
       var currentSearchParams = {};
@@ -65,11 +67,20 @@ app.factory('Projects', ['$http',
       var currentProject;
 	  var noResult = false;
       
+      
 	  var requestProjects = function(after, nItems) {
-		  $http.get('/api/projects/', {params: {after: after, nitems: nItems}})
+		  $http.get('/api/projects/', {params: {after: after, nitems: nItems, only_img: onlyImg}})
           .success(function (data,status) { projects = data; });
 		  return projects;
 	  };
+      
+      factory.getProjectWrapperHeight = function() {
+          return projectWrapperHeight;
+      };
+      
+      factory.setProjectWrapperHeight = function(value) {
+          projectWrapperHeight = value;
+      };
       
       factory.getNInitialItems = function() {
           return nInitialItems;
@@ -139,14 +150,13 @@ app.factory('Projects', ['$http',
 	  
 	  factory.searchProjects = function(searchParams) {
           
-          var params = angular.extend(searchParams, {after: 0, nitems: nInitialItems});
+          var params = angular.extend(searchParams, {after: 0, nitems: nInitialItems, only_img: onlyImg});
           
 		  $http.get('/api/search/', {params: params})
 		  .success(function (data,status) {
 			  projects = data; 
 			  noResult = Boolean(projects.length == 0);
               currentSource = 'search';
-              console.log(currentSource);
               currentSearchParams = searchParams;            
 		  });	  
 		  return projects;

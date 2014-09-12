@@ -66,9 +66,9 @@ def paginateQueryset(request, queryset):
     if 'after' in params and 'nitems' in params:
         after = int(params['after'])
         nitems = int(params['nitems'])
-        print after, nitems
-        return queryset[after : after + nitems]
-    else:
-        return queryset
-    retu
+        end = after + nitems
+        queryset = queryset[after:end]
+
+        
+    return queryset
     

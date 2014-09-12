@@ -17,6 +17,7 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
     
     function updateGetOnlyImg(newValue, oldValue) {
         $scope.onlyImg = newValue;
+        $scope.reachedEnd = false;
     };
     
     $scope.$watch(Projects.getOnlyImg, updateGetOnlyImg);
@@ -35,8 +36,10 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
         
         var resource;
         
-        var params = { after: after, nitems: nItemsToFetch };
-                
+        var params = { after: after, nitems: nItemsToFetch, only_img: $scope.onlyImg };
+        
+        console.log(after);
+        
         switch (Projects.getCurrentSource()) {
             
             case 'home':

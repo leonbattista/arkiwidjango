@@ -495,7 +495,9 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 
 app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 
-	// **** Interface to service Projects ****
+	console.log("launch mapCtrl");
+    
+    // **** Interface to service Projects ****
 	
     if (Projects.getCurrentSource() == 'home') { 
         $scope.projects = Projects.mapProjects();
@@ -508,8 +510,13 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 	var bounds = new google.maps.LatLngBounds();
     var markerCluster;
     var marker_list;
+    
+    var entering = true;
+    var projectsHaveChanged = false;
 	
 	function updateProjects(newValue, oldValue) {
+        
+        projectsHaveChanged = true;
         
         console.log("projects updated");
 		
@@ -522,18 +529,17 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 		$scope.noResult = Projects.givesNoResult();
 		
 		bounds = new google.maps.LatLngBounds();
-        
+                
 		for (var i in $scope.projects)
 		{
 			currentPosition = new google.maps.LatLng($scope.projects[i].latitude, $scope.projects[i].longitude);
-			bounds.extend(currentPosition);
+            bounds.extend(currentPosition);
 		};
-		
+        		
 		$scope.map.control.getGMap().fitBounds(bounds);
-        var map = $scope.map.control.getGMap();
-
         
-		
+        
+        
 	}
 
 	$scope.$watch(Projects.getProjects, updateProjects);	
@@ -564,19 +570,27 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 		 	
 	google.maps.visualRefresh = true;
 	$scope.map.events = {
-		tilesloaded: function (map) {
-            console.log("tilesloaded")
+		idle: function (map) {
+            console.log("idle")
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
                 marker_list = $scope.map.markersControl.getGMarkers();
+                
                 if (!markerCluster) {
                     markerCluster= new MarkerClusterer(map, marker_list);
                     console.log("markercluster created");
                 }
                 else {
-                    markerCluster.addMarkers(marker_list);
-                    console.log("Markers updated");
+                    if (projectsHaveChanged) {
+                        console.log(marker_list);
+                        console.log(markerCluster.getMarkers());
+                        markerCluster.clearMarkers();
+                        markerCluster.addMarkers(marker_list);
+                        console.log("Markers updated");
+                        projectsHaveChanged = false;
+                    }
                 }
+                
 			});
 		}
 	};
@@ -584,6 +598,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 
 
 	$scope.seeProject = function(id) {
+        $scope.boundsSet = false;
 		$location.path('/projects/' + id);
 		$scope.$apply();
 	};

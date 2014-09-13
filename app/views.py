@@ -206,7 +206,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         
     def partial_update(self, request, pk=None):
         
-        files = copy.deepcopy(request.FILES)
+        files = request.FILES
         print files
         print 'image_file' in files.keys()
 

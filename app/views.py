@@ -113,6 +113,9 @@ def add(request):
         
         p.pub_date = timezone.now()
         p.image_file = form.cleaned_data['image']
+        
+        print form.cleaned_data
+        
         p.save()
         
         image_file = request.FILES['image']
@@ -205,22 +208,16 @@ class ProjectViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
         
     def partial_update(self, request, pk=None):
+                        
+        files = copy.deepcopy(request.FILES)
         
-        files = request.FILES
-        print files
-        print 'image_file' in files.keys()
-
-        if 'image_file' in files.keys():
+        if files.has_key('image_file'):
             print "image file detected"
             p = Project.objects.get(pk=request.DATA['id'])
             image_file = files['image_file']
             makeThumb(p, image_file)
             
         return super(ProjectViewSet, self).partial_update(request, pk=None)
-                
-        
-        # patch
-        # image_file = request.FILES['image']
             
 
 # From Django REST tutorial

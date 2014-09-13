@@ -36,6 +36,8 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
         
         var resource;
         
+        console.log(after);
+        
         var params = { after: after, nitems: nItemsToFetch, only_img: $scope.onlyImg };
                 
         switch (Projects.getCurrentSource()) {
@@ -309,8 +311,12 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
 		fd.append('name', $scope.project.name);
 		fd.append('architect', $scope.project.architect);
 		fd.append('address', $scope.project.address);
+        fd.append('id', $scope.project.id);
 		
-		fd.append('image_file', $scope.image_file);
+        if ($scope.image_file) {
+            fd.append('image_file', $scope.image_file);
+            console.log("has image")
+        }
 
         $http.patch('/api/projects/' + $routeParams.projectId + '/', 
         fd,
@@ -434,10 +440,11 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
 	$scope.project_name = "";
 	$scope.owner = "";
 	$scope.address = "";
+    $scope.description = "";
 
 	$scope.search = function() {
 	
-		var searchParams = {project_name: $scope.project_name, architect: $scope.architect, owner: $scope.owner, address: $scope.address};
+		var searchParams = {project_name: $scope.project_name, architect: $scope.architect, owner: $scope.owner, address: $scope.address, description: $scope.description};
 		Projects.searchProjects(searchParams);
 		if ($location.path() != '/' && $location.path() != '/map') {$location.path('/')};	
 	}
@@ -492,7 +499,6 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 	
     if (Projects.getCurrentSource() == 'home') { 
         $scope.projects = Projects.mapProjects();
-        console.log($scope.projects);
     }
     
     else { $scope.projects = Projects.getProjects() };
@@ -500,9 +506,18 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 	$scope.noResult = Projects.givesNoResult();
     
 	var bounds = new google.maps.LatLngBounds();
+    var markerCluster;
+    var marker_list;
 	
 	function updateProjects(newValue, oldValue) {
+        
+        console.log("projects updated");
 		
+        if (markerCluster) {
+            markerCluster.clearMarkers();
+            console.log("markers cleared");
+        };
+        
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
 		
@@ -515,6 +530,8 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 		};
 		
 		$scope.map.control.getGMap().fitBounds(bounds);
+        var map = $scope.map.control.getGMap();
+
         
 		
 	}
@@ -548,10 +565,18 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 	google.maps.visualRefresh = true;
 	$scope.map.events = {
 		tilesloaded: function (map) {
+            console.log("tilesloaded")
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
-                var marker_list = $scope.map.markersControl.getGMarkers();
-                var markerCluster = new MarkerClusterer(map, marker_list);
+                marker_list = $scope.map.markersControl.getGMarkers();
+                if (!markerCluster) {
+                    markerCluster= new MarkerClusterer(map, marker_list);
+                    console.log("markercluster created");
+                }
+                else {
+                    markerCluster.addMarkers(marker_list);
+                    console.log("Markers updated");
+                }
 			});
 		}
 	};

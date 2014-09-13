@@ -1,12 +1,15 @@
-import json
+import os, json
 from PIL import Image, ExifTags
 from cStringIO import StringIO
 from PIL import Image as PImage
+from math import ceil
+from django.conf import settings
+from django.core.files.base import ContentFile
+
 
 def makeThumb(project, image_file):
-
-    image_file = request.FILES['image']
-
+    
+    print 'making thumb'
     image_str = ''
     for c in image_file.chunks():
         image_str += c
@@ -43,9 +46,8 @@ def makeThumb(project, image_file):
      
         cropped_image = image.crop([max(int(width/2)-200, 0), max(int(height/2)-150, 0), min(int(width/2)+200, width), min(int(height/2)+150, height)])
 
-    filename, ext = os.path.splitext(p.image_file.name)
+    filename, ext = os.path.splitext(project.image_file.name)
     thumb_filename = settings.MEDIA_ROOT + filename + "-thumb" + ext
-    #cropped_image.save(thumb_filename, "JPEG")
 
     f = StringIO()
     try:

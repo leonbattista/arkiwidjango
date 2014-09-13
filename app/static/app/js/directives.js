@@ -76,7 +76,6 @@ app.directive('arkiwiMonitorHeight', function () {
             };
             
             scope.$watch(scope.getElementHeight, function(newValue, oldValue) {
-                console.log(newValue);
             }, true);
             
         } 

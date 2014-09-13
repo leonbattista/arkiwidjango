@@ -1,7 +1,7 @@
 # **** IMPORTS ****
 
 # External Python modules
-import json, os
+import json, os, copy
 from django.utils import timezone
 from cStringIO import StringIO
 from tempfile import NamedTemporaryFile
@@ -33,7 +33,7 @@ from app.models import Project
 from app.permissions import IsOwnerOrReadOnly, IsStaffOrTargetUser, IsStaffOrOwnerOrReadOnly
 from app.serializers import ProjectSerializer, MapProjectSerializer, UserSerializer, AccountSerializer
 from app.forms import ImageUploadForm, UserForm, UserProfileForm
-from app.utils import get_rotation_code, rotate_image, jsonToObj, paginateQueryset
+from app.utils import get_rotation_code, rotate_image, jsonToObj, paginateQueryset, makeThumb
 from authentication import QuietBasicAuthentication
 
 # **** BASIC VIEWS ****
@@ -66,7 +66,7 @@ class SearchView(generics.ListAPIView):
         user = self.request.user
         params = self.request.GET
                 
-        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], owner__username__icontains=params['owner']).order_by('-id'))
+        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], description__icontains=params['description'], owner__username__icontains=params['owner']).order_by('-id'))
 
 class MapProjectsView(generics.ListAPIView):
     
@@ -203,7 +203,17 @@ class ProjectViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
         
     def partial_update(self, request, pk=None):
-        print "Zoubida"
+        
+        files = copy.deepcopy(request.FILES)
+        print files
+        print 'image_file' in files.keys()
+
+        if 'image_file' in files.keys():
+            print "image file detected"
+            p = Project.objects.get(pk=request.DATA['id'])
+            image_file = files['image_file']
+            makeThumb(p, image_file)
+            
         return super(ProjectViewSet, self).partial_update(request, pk=None)
                 
         

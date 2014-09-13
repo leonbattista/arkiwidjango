@@ -8,8 +8,8 @@
          <div ng-if=" project.thumbnail_file == '' " class="no-thumb fade-no-img"> no image </div>
 		</div>
 	    <div class="caption">
-		 <div class="project_name"> {{ project.name }} </div>
-	     <div class="project_architect"> {{ project.architect }} </div>
+		 <div class="project_name"> {{ project.name | cut:true:40:'...' }} </div>
+	     <div class="project_architect"> {{ project.architect | cut:true:25:'...'}} </div>
 		</div>
 	   </a>
 	  </div>

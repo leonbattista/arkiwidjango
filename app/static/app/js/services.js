@@ -134,7 +134,7 @@ app.factory('Projects', ['$http',
       
       factory.mapProjects = function() {
 		  $http.get('/api/map_projects/')
-          .success(function (data,status) { projects = data; });
+          .success(function (data,status) { projects = data; console.log(data.length);});     
 		  return projects;
       };
       

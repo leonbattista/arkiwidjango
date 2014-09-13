@@ -1,4 +1,4 @@
-import os, json
+import os, json, copy
 from PIL import Image, ExifTags
 from cStringIO import StringIO
 from PIL import Image as PImage
@@ -11,10 +11,12 @@ def makeThumb(project, image_file):
     
     print 'making thumb'
     image_str = ''
-    for c in image_file.chunks():
-        image_str += c
-    image_file_strio = StringIO(image_str)
-    image = PImage.open(image_file_strio)
+    
+    image_file_copy = copy.deepcopy(image_file)
+    
+    file = ContentFile(image_file_copy.read())
+    image = PImage.open(file)
+    
     if image.mode != "RGB":
         image = image.convert('RGB')
 

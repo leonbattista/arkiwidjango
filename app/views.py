@@ -62,6 +62,8 @@ class SearchView(generics.ListAPIView):
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
+        
+        print self.serializer_class
 
         user = self.request.user
         params = self.request.GET

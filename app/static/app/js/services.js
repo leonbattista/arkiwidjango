@@ -50,8 +50,8 @@ app.service('AuthService', function() {
 	
 });
 
-app.factory('Projects', ['$http',
-  function($http) {
+app.factory('Projects', ['$http','$location',
+  function($http, $location) {
       
       var nInitialItems = 9;
       var nItemsToFetch = 9;
@@ -151,7 +151,15 @@ app.factory('Projects', ['$http',
 	  
 	  factory.searchProjects = function(searchParams) {
           
-          var params = angular.extend(searchParams, {after: 0, nitems: nInitialItems, only_img: onlyImg});
+          console.log($location.path());
+          
+          if ($location.path() !='/map') {
+              var params = angular.extend(searchParams, {after: 0, nitems: nInitialItems, only_img: onlyImg});
+          }
+          
+          else {
+              params = searchParams;
+          }
           
 		  $http.get('/api/search/', {params: params})
 		  .success(function (data,status) {

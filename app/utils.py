@@ -11,10 +11,12 @@ def makeThumb(project, image_file):
     
     print 'making thumb'
     image_str = ''
-    image_file.open()
     
     for c in image_file.chunks():
         image_str += c
+    
+    image_file.open()
+    
     image_file_strio = StringIO(image_str)
     image = PImage.open(image_file_strio)
     if image.mode != "RGB":

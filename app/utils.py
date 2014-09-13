@@ -11,6 +11,7 @@ def makeThumb(project, image_file):
     
     print 'making thumb'
     image_str = ''
+    image_file.open()
     
     for c in image_file.chunks():
         image_str += c

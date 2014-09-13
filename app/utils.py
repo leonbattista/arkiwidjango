@@ -11,10 +11,9 @@ def makeThumb(project, image_file):
     
     print 'making thumb'
     image_str = ''
+        
+    file = ContentFile(image_file.read())
     
-    image_file_copy = copy.deepcopy(image_file)
-    
-    file = ContentFile(image_file_copy.read())
     image = PImage.open(file)
     
     if image.mode != "RGB":

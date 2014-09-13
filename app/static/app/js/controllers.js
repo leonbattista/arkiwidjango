@@ -317,6 +317,8 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
 		fd.append('architect', $scope.project.architect);
 		fd.append('address', $scope.project.address);
         fd.append('id', $scope.project.id);
+        fd.append('owner', $scope.project.owner);
+        fd.append('pub_date', $scope.project.pub_date);
 		
         if ($scope.image_file) {
             fd.append('image_file', $scope.image_file);

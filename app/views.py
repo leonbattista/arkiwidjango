@@ -208,8 +208,10 @@ class ProjectViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
         
     def partial_update(self, request, pk=None):
-                        
-        files = copy.deepcopy(request.FILES)
+                                
+        response = super(ProjectViewSet, self).partial_update(request, pk=None)
+        
+        files = request.FILES
         
         if files.has_key('image_file'):
             print "image file detected"
@@ -217,7 +219,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
             image_file = files['image_file']
             makeThumb(p, image_file)
             
-        return super(ProjectViewSet, self).partial_update(request, pk=None)
+        return response
+        
             
 
 # From Django REST tutorial

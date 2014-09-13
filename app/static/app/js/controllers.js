@@ -66,8 +66,13 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
                 console.log("Reached end!");
                 $scope.reachedEnd = true;
             }
-        
+                    
             else {
+                // Stop fetching if onlyImg and reached entries of user 12 ie. KMLImporter
+                if($scope.onlyImg && newProjects[0].owner == 12) {
+                    $scope.reachedEnd = true;
+                }
+                
                 for (var i = 0; i < newProjects.length; i++) {
                   $scope.projects.push(newProjects[i]);
                 }

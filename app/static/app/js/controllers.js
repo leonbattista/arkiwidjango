@@ -271,7 +271,7 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
             $scope.project.owner = AuthService.getUser().id;
             var date = new Date(Date.now());
             $scope.project.pub_date = date.toISOString();
-            console.log($scope.project.pub_date);
+            console.log("Projects belongs to KMLImporter");
         }
         
         if ($scope.project.address == '') {

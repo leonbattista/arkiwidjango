@@ -20,7 +20,8 @@ for placemark in root.Document.Folder.Placemark:
     p.longitude = coordinates[0]
     p.latitude = coordinates[1]
     p.description = re.search("description: (.*)", placemark.description.text).group(1)
-    p.pub_date = datetime.date(1970,1,1)
+    hundred_years = datetime.timedelta(days=36500)
+    p.pub_date = datetime.datetime.now() - hundred_years
     p.is_imported = True
     p.save()
         

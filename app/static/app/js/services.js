@@ -53,8 +53,8 @@ app.service('AuthService', function() {
 app.factory('Projects', ['$http','$location',
   function($http, $location) {
       
-      var nInitialItems = 9;
-      var nItemsToFetch = 9;
+      var nInitialItems = 36;
+      var nItemsToFetch = 36;
       
       var onlyImg = true;
       var projectWrapperHeight = 0;

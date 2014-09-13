@@ -68,7 +68,7 @@ class SearchView(generics.ListAPIView):
         user = self.request.user
         params = self.request.GET
                 
-        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], description__icontains=params['description'], owner__username__icontains=params['owner']).order_by('-id'))
+        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], description__icontains=params['description'], owner__username__icontains=params['owner']).order_by('-pubdate'))
 
 class MapProjectsView(generics.ListAPIView):
     
@@ -196,7 +196,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def list(self, request):
         
         
-        queryset = Project.objects.all().order_by('id')
+        queryset = Project.objects.all().order_by('-pub_date')
                                      
         queryset = paginateQueryset(request, queryset)
        

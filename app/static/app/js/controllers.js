@@ -589,8 +589,6 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
                 }
                 else {
                     if (projectsHaveChanged) {
-                        console.log(marker_list);
-                        console.log(markerCluster.getMarkers());
                         markerCluster.clearMarkers();
                         markerCluster.addMarkers(marker_list);
                         console.log("Markers updated");

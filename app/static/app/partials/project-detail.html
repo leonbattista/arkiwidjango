@@ -34,7 +34,7 @@
        <rating class="rating" ng-model="myrate" max="5" readonly="isReadonly"></rating>
        </dd> -->
       </dl>
-      <div>Published by {{ publisher.username }} <span ng-show="hasPubDate"> on {{ project.pub_date | datetime }}</span>
+      <div>Published by {{ publisher.username }} <span ng-show="hasPubDate"> <span ng-if="project.owner != 12"> on {{ project.pub_date | datetime }}</span></span>
       </div>
      </li>
     </ul>

@@ -1,0 +1,24 @@
+prefix dbpedia: <http://dbpedia.org/ontology/>
+prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+select ?stripped_structure_name ?long ?lat ?stripped_architect_name where { 
+?structure a dbpedia:ArchitecturalStructure .
+?structure geo:long ?long .
+?structure geo:lat ?lat .
+?structure rdfs:label ?structure_name .
+optional {
+    ?structure dbpedia-owl:architect ?architect .
+    ?architect rdfs:label ?architect_name .
+    bind (str(?architect_name) as ?stripped_architect_name)
+}
+bind (str(?structure_name) as ?stripped_structure_name)
+}
+ 
+limit 10
+
+prefix dbpedia: <http://dbpedia.org/ontology/>
+prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+select * where { 
+?structure a dbpedia:ArchitecturalStructure .
+?structure rdfs:label ?structure_name .
+FILTER (REGEX(STR(?structure_name), "airport", "i")) } 
+limit 10

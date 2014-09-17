@@ -1,5 +1,6 @@
 import rdflib
 import urllib
+import time
 import logging
 from rdflib import Graph, URIRef
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -17,29 +18,29 @@ prefix dbpedia: <http://dbpedia.org/ontology/>
 prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 select * where { 
 ?structure a dbpedia:ArchitecturalStructure .
-?structure rdfs:label ?structure_name .
 } 
-limit 10
+limit 1
 """)
 
 sparql.setReturnFormat(JSON)
 results = sparql.query().convert()
 
+print results
+
 
 
 # "replace" below: dbpedia was down at time of writing this script
-structureURIs = [result["structure"]["value"].replace("dbpedia.org", "live.dbpedia.org") for result in results["results"]["bindings"]]
+structureURIs = [result["structure"]["value"].replace("dbpedia.org", "dbpedia.org") for result in results["results"]["bindings"]]
 
 for structureURI in structureURIs:
     print structureURI
+
     g = Graph()
     g.parse(structureURI)
     for stmt in g.subject_objects(URIRef("http://dbpedia.org/ontology/architect")):
          print "    " + fix(stmt[1])
+    
 
-
-
-# g.parse("http://live.dbpedia.org/resource/Washington_Navy_Yard")
 
 
     

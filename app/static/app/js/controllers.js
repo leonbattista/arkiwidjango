@@ -85,7 +85,8 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	
 });
 
-app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http, $location, Restangular, AuthService, Projects) {
+app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http, $location, $anchorScroll, Restangular, AuthService, Projects) {
+    
     
     // **** Manage editing permissions ****
     

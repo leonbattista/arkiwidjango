@@ -526,6 +526,11 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 	
 	function updateProjects(newValue, oldValue) {
         
+        if (entering) {
+            entering = false;
+            return;
+        }
+        
         projectsHaveChanged = true;
         
         console.log("projects updated");

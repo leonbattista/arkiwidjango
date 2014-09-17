@@ -67,6 +67,7 @@ app.factory('Projects', ['$http','$location',
 	  var projects;
       var currentProject;
 	  var noResult = false;
+      var mapLoaded = false;
       
       
 	  var requestProjects = function(after, nItems) {
@@ -74,6 +75,10 @@ app.factory('Projects', ['$http','$location',
           .success(function (data,status) { projects = data; });
 		  return projects;
 	  };
+      
+      factory.getMapLoaded = function() {
+          return mapLoaded;
+      }
       
       factory.getProjectWrapperHeight = function() {
           return projectWrapperHeight;
@@ -134,7 +139,7 @@ app.factory('Projects', ['$http','$location',
       
       factory.mapProjects = function() {
 		  $http.get('/api/map_projects/')
-          .success(function (data,status) { projects = data; });     
+          .success(function (data,status) { projects = data; mapLoaded = true});     
 		  return projects;
       };
       

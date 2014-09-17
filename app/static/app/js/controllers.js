@@ -525,10 +525,13 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
     $scope.mapLoaded = false;
     
     var mapLoad = function() {
-        console.log("ShowMap");
-        $timeout( function() {
-            $scope.mapLoaded = true;
-        }, 200);
+        
+        if (Projects.getMapLoaded()) {
+            console.log("ShowMap");
+            $timeout( function() {
+                $scope.mapLoaded = true;
+            }, 200);
+        }
     }
     
     var projectsHaveChanged = false;
@@ -598,7 +601,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
                 marker_list = $scope.map.markersControl.getGMarkers();           
-                if (!markerCluster) {
+                if (!markerCluster ) {
                     markerCluster= new MarkerClusterer(map, marker_list);
                     console.log("markercluster created");
                     google.maps.event.addListener(markerCluster, "clusteringend", function () {

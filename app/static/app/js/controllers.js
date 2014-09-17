@@ -603,10 +603,8 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
                     console.log("markercluster created");
                     google.maps.event.addListener(markerCluster, "clusteringend", function () {
                         console.log("youpi");
-                        $scope.$apply(function(){
-                            marker_list.visible = false;
-                            mapLoad();
-                        });
+                        marker_list.visible = false;
+                        mapLoad();
 
                     });
                 }

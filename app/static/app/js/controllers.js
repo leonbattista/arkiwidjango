@@ -503,7 +503,7 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 
 });
 
-app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
+app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects) {
 
 	console.log("launch mapCtrl");
     
@@ -521,13 +521,22 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
     var markerCluster;
     var marker_list;
     
-    var entering = true;
+    $scope.entering = true;
+    $scope.mapLoaded = false;
+    
+    var mapLoad = function() {
+        console.log("ShowMap");
+        $timeout( function() {
+            $scope.mapLoaded = true;
+        }, 200);
+    }
+    
     var projectsHaveChanged = false;
 	
 	function updateProjects(newValue, oldValue) {
         
-        if (entering) {
-            entering = false;
+        if ($scope.entering) {
+            $scope.entering = false;
             return;
         }
         
@@ -550,9 +559,8 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
 			currentPosition = new google.maps.LatLng($scope.projects[i].latitude, $scope.projects[i].longitude);
             bounds.extend(currentPosition);
 		};
-        		
+                
 		$scope.map.control.getGMap().fitBounds(bounds);
-        
         
         
 	}
@@ -589,11 +597,18 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
             console.log("idle")
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
-                marker_list = $scope.map.markersControl.getGMarkers();
-                
+                marker_list = $scope.map.markersControl.getGMarkers();           
                 if (!markerCluster) {
                     markerCluster= new MarkerClusterer(map, marker_list);
                     console.log("markercluster created");
+                    google.maps.event.addListener(markerCluster, "clusteringend", function () {
+                        console.log("youpi");
+                        $scope.$apply(function(){
+                            marker_list.visible = false;
+                            mapLoad();
+                        });
+
+                    });
                 }
                 else {
                     if (projectsHaveChanged) {
@@ -604,6 +619,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, Projects) {
                     }
                 }
                 
+            
 			});
 		}
 	};

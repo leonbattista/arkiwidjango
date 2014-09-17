@@ -478,4 +478,23 @@ h1 {
     color: #eee;
 }
 
+#map-loading {
+    z-index:1;
+    width: 100%;
+    height:100%;
+    background: white;
+}
+
+#map-loading img {
+    transform: translateY(-20%);
+}
+
+.loading-container {
+    margin-left:auto;
+    margin-right:auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 

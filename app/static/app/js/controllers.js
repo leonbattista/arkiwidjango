@@ -626,7 +626,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 		 	
 	google.maps.visualRefresh = true;
 	$scope.map.events = {
-		idle: function (map) {
+		tilesloaded: function (map) {
             console.log("idle")
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
@@ -636,7 +636,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
                     console.log("markercluster created");
                     google.maps.event.addListener(markerCluster, "clusteringend", function () {
                         console.log("youpi");
-                        marker_list.visible = false;
+                        //marker_list.visible = false;
                         mapLoad();
                     });
                 }

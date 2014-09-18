@@ -517,11 +517,12 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 	
 	$scope.noResult = Projects.givesNoResult();
     
-	var bounds = Projects.getMapBounds();
+	var bounds = new google.maps.LatLngBounds();
     var markerCluster;
     var marker_list;
     
     $scope.entering = true;
+    $scope.firstRealUpdate = false;
     $scope.mapLoaded = false;
     
     var mapLoad = function() {
@@ -549,6 +550,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         
         if ($scope.entering) {
             $scope.entering = false;
+            $scope.firstRealUpdate = true;
             return;
         }
         
@@ -564,17 +566,33 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
-		
-		bounds = new google.maps.LatLngBounds();
-                
-		for (var i in $scope.projects)
-		{
-			currentPosition = new google.maps.LatLng($scope.projects[i].latitude, $scope.projects[i].longitude);
-            bounds.extend(currentPosition);
-		};
         
-        Projects.setMapBounds(bounds);
-              
+		
+		if ($scope.firstRealUpdate) {
+		    
+            if (Projects.getMapBounds() != undefined) {
+                bounds = Projects.getMapBounds();
+                console.log("Bounds found");
+                console.log(Projects.getMapBounds());
+            };
+            
+            $scope.firstRealUpdate = false;
+            
+		}
+        
+        else {
+            
+            bounds = new google.maps.LatLngBounds();
+                
+    		for (var i in $scope.projects)
+    		{
+    			currentPosition = new google.maps.LatLng($scope.projects[i].latitude, $scope.projects[i].longitude);
+                bounds.extend(currentPosition);
+    		};
+        
+        }
+        
+                      
 		$scope.map.control.getGMap().fitBounds(bounds);
         
         
@@ -646,7 +664,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 
 
 	$scope.seeProject = function(id) {
-        $scope.boundsSet = false;
+		Projects.setMapBounds($scope.mapInstance.getBounds());
 		$location.path('/projects/' + id);
 		$scope.$apply();
 	};

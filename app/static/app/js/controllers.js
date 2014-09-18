@@ -626,7 +626,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 		 	
 	google.maps.visualRefresh = true;
 	$scope.map.events = {
-		tilesloaded: function (map) {
+		idle: function (map) {
             console.log("idle")
 			$scope.$apply(function () {
 				$scope.mapInstance = map;

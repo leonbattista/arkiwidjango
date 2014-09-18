@@ -533,9 +533,6 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
                 return
             };
             
-            if (bounds) {
-                $scope.map.control.getGMap().fitBounds(bounds);
-            }
             console.log("ShowMap");
             $timeout( function() {
                 $scope.mapLoaded = true;
@@ -568,16 +565,13 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 		$scope.noResult = Projects.givesNoResult();
         
 		
-		if ($scope.firstRealUpdate) {
-		    
-            if (Projects.getMapBounds() != undefined) {
-                bounds = Projects.getMapBounds();
-                console.log("Bounds found");
-                console.log(Projects.getMapBounds());
-            };
+        
+		if ($scope.firstRealUpdate && Projects.getMapBounds() != undefined) {
             
-            $scope.firstRealUpdate = false;
-            
+            bounds = Projects.getMapBounds();
+            console.log("Bounds found");
+            console.log(Projects.getMapBounds());
+                        
 		}
         
         else {
@@ -592,9 +586,13 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         
         }
         
+
                       
 		$scope.map.control.getGMap().fitBounds(bounds);
         
+        if ($scope.firstRealUpdate) {
+            $scope.firstRealUpdate = false;
+        } 
         
 	}
 
@@ -626,7 +624,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 		 	
 	google.maps.visualRefresh = true;
 	$scope.map.events = {
-		tilesloaded: function (map) {
+		idle: function (map) {
             console.log("idle")
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
@@ -636,7 +634,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
                     console.log("markercluster created");
                     google.maps.event.addListener(markerCluster, "clusteringend", function () {
                         console.log("youpi");
-                        //marker_list.visible = false;
+                        marker_list.visible = false;
                         mapLoad();
                     });
                 }

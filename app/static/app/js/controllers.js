@@ -517,7 +517,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 	
 	$scope.noResult = Projects.givesNoResult();
     
-	var bounds = new google.maps.LatLngBounds();
+	var bounds = Projects.getMapBounds();
     var markerCluster;
     var marker_list;
     
@@ -527,10 +527,19 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
     var mapLoad = function() {
         
         if (Projects.getMapLoaded()) {
+            
+            if ($scope.mapLoaded) {
+                return
+            };
+            
+            if (bounds) {
+                $scope.map.control.getGMap().fitBounds(bounds);
+            }
             console.log("ShowMap");
             $timeout( function() {
                 $scope.mapLoaded = true;
             }, 200);
+        
         }
     }
     
@@ -544,6 +553,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         }
         
         projectsHaveChanged = true;
+
         
         console.log("projects updated");
 		
@@ -562,7 +572,9 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 			currentPosition = new google.maps.LatLng($scope.projects[i].latitude, $scope.projects[i].longitude);
             bounds.extend(currentPosition);
 		};
-                
+        
+        Projects.setMapBounds(bounds);
+              
 		$scope.map.control.getGMap().fitBounds(bounds);
         
         
@@ -601,22 +613,28 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 			$scope.$apply(function () {
 				$scope.mapInstance = map;
                 marker_list = $scope.map.markersControl.getGMarkers();           
-                if (!markerCluster ) {
-                    markerCluster= new MarkerClusterer(map, marker_list);
+                if (!markerCluster) {
+                    markerCluster = new MarkerClusterer(map, marker_list);
                     console.log("markercluster created");
                     google.maps.event.addListener(markerCluster, "clusteringend", function () {
                         console.log("youpi");
                         marker_list.visible = false;
                         mapLoad();
-
                     });
                 }
                 else {
                     if (projectsHaveChanged) {
-                        markerCluster.clearMarkers();
-                        markerCluster.addMarkers(marker_list);
-                        console.log("Markers updated");
-                        projectsHaveChanged = false;
+                        try {
+                            markerCluster.clearMarkers();
+                            markerCluster.addMarkers(marker_list);
+                            console.log("Markers updated");
+                        }
+                        catch(err) {    
+                        }
+                        
+                        finally {
+                            projectsHaveChanged = false;
+                        }
                     }
                 }
                 

@@ -68,6 +68,16 @@ app.factory('Projects', ['$http','$location',
       var currentProject;
 	  var noResult = false;
       var mapLoaded = false;
+            
+      var mapBounds;
+      
+      factory.setMapBounds = function(bounds) {
+          mapBounds = bounds;
+      };
+      
+      factory.getMapBounds = function() {
+          return mapBounds;
+      }
       
       
 	  var requestProjects = function(after, nItems) {

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:dbpedia-owl="http://dbpedia.org/ontology/"
+   xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Thomas_Seaton_Scott">
+    <rdfs:label>Thomas Seaton Scott</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Frank_Wills_(architect)">
+    <rdfs:label>Frank Wills (architect)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/National_Glass_Centre">
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">54.913</geo:lat>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.385</geo:long>
+    <rdfs:label>National Glass Centre</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">54.9129</geo:lat>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.37097</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Church_of_St_Mary_de_Castro,_Leicester">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">52.6323</geo:lat>
+    <rdfs:label>Church of St Mary de Castro, Leicester</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.1404</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Royal_Dramatic_Theatre">
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Fredrik_Lilljekvist"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">18.0769</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">59.3333</geo:lat>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Royal Dramatic Theatre</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Adrian_Smith_(architect)">
+    <rdfs:label>Adrian Smith (architect)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Claremont_Resort">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-122.242</geo:long>
+    <rdfs:label>Claremont Resort</rdfs:label>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Charles_William_Dickey"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">37.8588</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Christ_Church_Cathedral_(St._Louis,_Missouri)">
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Leopold_Eidlitz"/>
+    <rdfs:label>Christ Church Cathedral (St. Louis, Missouri)</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-90.1986</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">38.6303</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Michigan_Central_Railway_Tunnel">
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">42.3185</geo:lat>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Michigan Central Railway Tunnel</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-83.0605</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Lake_Washington_Ship_Canal">
+    <rdfs:label>Lake Washington Ship Canal</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-122.335</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">47.6432</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Hackbridge_railway_station">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.1539</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Hackbridge railway station</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">51.3778</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Christ_Church_Cathedral,_Dublin">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6.27139</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Christ Church Cathedral, Dublin</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">53.3431</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Fredrik_Lilljekvist">
+    <rdfs:label>Fredrik Lilljekvist</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Christ_Church_Cathedral_(Victoria,_British_Columbia)">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-123.359</geo:long>
+    <rdfs:label>Christ Church Cathedral (Victoria, British Columbia)</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">48.4222</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Trump_International_Hotel_and_Tower_(Chicago)">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Adrian_Smith_(architect)"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-87.6267</geo:long>
+    <rdfs:label>Trump International Hotel and Tower (Chicago)</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">41.8891</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Oregon_Convention_Center">
+    <rdfs:label>Oregon Convention Center</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.5286</geo:lat>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-122.663</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Mitcham_Junction_station">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.1576</geo:long>
+    <rdfs:label>Mitcham Junction station</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">51.393</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Ambassador_Bridge">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-83.0741</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">42.312</geo:lat>
+    <rdfs:label>Ambassador Bridge</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Christ_Church_Cathedral,_Newcastle">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-32.9297</geo:lat>
+    <rdfs:label>Christ Church Cathedral, Newcastle</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">151.781</geo:long>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/John_Horbury_Hunt"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Mitcham_Eastfields_railway_station">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.1547</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Mitcham Eastfields railway station</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">51.4077</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Auditorio_de_Tenerife">
+    <rdfs:label>Auditorio de Tenerife</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">28.4561</geo:lat>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Santiago_Calatrava_Valls"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-16.2513</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Christ_Church_Cathedral_(Hartford,_Connecticut)">
+    <rdfs:label>Christ Church Cathedral (Hartford, Connecticut)</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-72.6742</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">41.7683</geo:lat>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Industry_(Metrolink_station)">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-117.846</geo:long>
+    <rdfs:label>Industry (Metrolink station)</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">34.0079</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Christ_Church_Cathedral_(Montreal)">
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Frank_Wills_(architect)"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.5036</geo:lat>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-73.57</geo:long>
+    <rdfs:label>Christ Church Cathedral (Montreal)</rdfs:label>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Thomas_Seaton_Scott"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/399_Park_Avenue">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-73.9718</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">40.7592</geo:lat>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Kahn_and_Jacobs"/>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Carson_Lundin"/>
+    <rdfs:label>399 Park Avenue</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Washington_Navy_Yard">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-76.9969</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Washington Navy Yard</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">38.8733</geo:lat>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Benjamin_Latrobe"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Doge's_Palace">
+    <rdfs:label>Doge's Palace</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">12.34</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.4339</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Elaine's">
+    <rdfs:label>Elaine's</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">40.7792</geo:lat>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-73.9508</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Carson_Lundin">
+    <rdfs:label>Carson Lundin</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Kahn_and_Jacobs">
+    <rdfs:label>Kahn and Jacobs</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Piazza_San_Marco">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Piazza San Marco</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">12.3381</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.4339</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Benjamin_Latrobe">
+    <rdfs:label>Benjamin Latrobe</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/John_Horbury_Hunt">
+    <rdfs:label>John Horbury Hunt</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Leopold_Eidlitz">
+    <rdfs:label>Leopold Eidlitz</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Charles_William_Dickey">
+    <rdfs:label>Charles William Dickey</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Santiago_Calatrava_Valls">
+    <rdfs:label>Santiago Calatrava Valls</rdfs:label>
+  </rdf:Description>
+</rdf:RDF>
+
+Oregon Convention Center
+    -122.663
+    45.5286
+    None
+Christ Church Cathedral (Montreal)
+    -73.57
+    45.5036
+    Resource(http://dbpedia.org/resource/Frank_Wills_(architect))
+Church of St Mary de Castro, Leicester
+    -1.1404
+    52.6323
+    None
+Claremont Resort
+    -122.242
+    37.8588
+    Resource(http://dbpedia.org/resource/Charles_William_Dickey)
+Royal Dramatic Theatre
+    18.0769
+    59.3333
+    Resource(http://dbpedia.org/resource/Fredrik_Lilljekvist)
+National Glass Centre
+    -1.37097
+    54.913
+    None
+Lake Washington Ship Canal
+    -122.335
+    47.6432
+    None
+Mitcham Junction station
+    -0.1576
+    51.393
+    None
+Auditorio de Tenerife
+    -16.2513
+    28.4561
+    Resource(http://dbpedia.org/resource/Santiago_Calatrava_Valls)
+Christ Church Cathedral (Hartford, Connecticut)
+    -72.6742
+    41.7683
+    None
+Ambassador Bridge
+    -83.0741
+    42.312
+    None
+Trump International Hotel and Tower (Chicago)
+    -87.6267
+    41.8891
+    Resource(http://dbpedia.org/resource/Adrian_Smith_(architect))
+Washington Navy Yard
+    -76.9969
+    38.8733
+    Resource(http://dbpedia.org/resource/Benjamin_Latrobe)
+399 Park Avenue
+    -73.9718
+    40.7592
+    Resource(http://dbpedia.org/resource/Kahn_and_Jacobs)
+Hackbridge railway station
+    -0.1539
+    51.3778
+    None
+Christ Church Cathedral, Dublin
+    -6.27139
+    53.3431
+    None
+Doge's Palace
+    12.34
+    45.4339
+    None
+Christ Church Cathedral (St. Louis, Missouri)
+    -90.1986
+    38.6303
+    Resource(http://dbpedia.org/resource/Leopold_Eidlitz)
+Mitcham Eastfields railway station
+    -0.1547
+    51.4077
+    None
+Industry (Metrolink station)
+    -117.846
+    34.0079
+    None
+Christ Church Cathedral (Victoria, British Columbia)
+    -123.359
+    48.4222
+    None
+Christ Church Cathedral, Newcastle
+    151.781
+    -32.9297
+    Resource(http://dbpedia.org/resource/John_Horbury_Hunt)
+Piazza San Marco
+    12.3381
+    45.4339
+    None
+Elaine's
+    -73.9508
+    40.7792
+    None
+Michigan Central Railway Tunnel
+    -83.0605
+    42.3185
+    None

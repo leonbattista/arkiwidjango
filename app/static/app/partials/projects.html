@@ -1,6 +1,6 @@
 <div id="project-list">
 <div id="projectWrapperOut" arkiwi-monitor-height>
-	 <div infinite-scroll="nextPage()" infinite-scroll-distance='1' infinite-scroll-disabled="reachedEnd || busy" id="projectWrapperIn">
+	 <div infinite-scroll="nextPage()" infinite-scroll-distance='1' infinite-scroll-disabled="reachedEnd || busy">
 	  <div class="project" ng-repeat="project in projects | filter:toShow">
 	   <a href="#/projects/{{project.id}}">
 	    <div class="img-container">

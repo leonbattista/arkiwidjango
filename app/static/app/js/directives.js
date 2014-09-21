@@ -8,18 +8,22 @@ app.directive('arkiwiResize', function ($window, menuVisibilityService) {
             };
         };   
         scope.$watch(scope.getWindowDimensions, function (newValue) {
-
-            scope.leftcolumnstyle = function () {
+            scope.topmenustyle = function () {
                 return {
-                    'width': 350 + 'px'
+                    'opacity': .97
                 };
             };
-            scope.contentstyle = function () {
+            scope.leftcolumnstyle = function () {
+                return {
+                    'width': 240 + 'px'
+                };
+            };
+            scope.contentstyle = function () {				
                 if (menuVisibilityService.menuVisibilityVar == true) {
-					console.log("schubidu");
+					console.log("windowwidth"+ (newValue.w-240) );
                     return {
-                    'width': (newValue.w - 240) + 'px'
-                    };
+                    'width': (newValue.w-240) + 'px'
+				};
                 }
                 else {
                     return {
@@ -30,13 +34,15 @@ app.directive('arkiwiResize', function ($window, menuVisibilityService) {
             scope.mapStyle = function () {
                 if (menuVisibilityService.menuVisibilityVar == true) {
                     return {
-                    'width': (newValue.w - 240) + 'px'
+                    'width': (newValue.w - 240) + 'px',
+                    'height': (newValue.h-60) + 'px'
                     };
                 }
                 else {
                     return {
-                    'width': (newValue.w) + 'px'
-                    };
+                    'width': (newValue.w) + 'px',
+                    'height': (newValue.h-60) + 'px'
+				};
                 }
             };
         }, true);

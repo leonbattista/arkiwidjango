@@ -74,7 +74,7 @@ h1 {
 }
 
 .btn {
-	background:#E0E0E0 ;
+	background:#E0E0E0;
 }
 
 #topmenu {
@@ -82,8 +82,8 @@ h1 {
 	top:0px;
 	right:0px;
 	left:0px;
-	height:60px;
-	background:#F8F8F8;
+	height:50px;
+	background:#E0E0E0;
 	text-align: center;
 	z-index:1000;	
 }
@@ -91,33 +91,33 @@ h1 {
 #leftmenu {
 	position: fixed;
 	left: 80px;
-	top: 12px;
+	top: 9px;
 }
 
 #rightmenu {
 	position: fixed;
 	right: 20px;
-	top: 12px;
+	top: 9px;
 }
 
 #middlemenu {
-	margin-top:12px;
+	margin-top:10px;
 }
 
 #topmenu img {
 	float: left;
 	height: 90%;
-	margin:10px;
-	padding-bottom: 10px;
+	margin: 8px;
+	padding-bottom: 8px;
 }
 
 #leftcolumn {
+	width:240px;
 	position: fixed;
-	top:60px;
+	top:50px;
 	bottom:0px;
 	left:0px;
-	background:#F8F8F8;
-	border-right: 1px solid #F0F0F0;
+	background:#F0F0F0;
 }
 
 #leftcolumn form {
@@ -146,16 +146,15 @@ h1 {
 #searchbox {
 	z-index:1000;
 	margin: 0 auto;
-	max-width:400px;
-	margin-top:40px;
+	max-width:300px;
 	padding:10px;
-	background:#F8F8F8;
+	margin-top:6px;
+	background:#F0F0F0;
 }
 
 #content {
-	margin-top: 60px;
-	text-align: center;
-	height:100%;
+	float:right;
+	margin-top:60px;
 }
 
 #project-list {
@@ -165,14 +164,17 @@ h1 {
 #projectWrapperOut {
 	width: 100%;
 	float:right;
-	text-align: right;
+	text-align: center;
+	padding:15px;
 }
 
+/*
 #projectWrapperIn {
 	text-align: left;
 	width: 90%;
 	display: inline-block;
 }
+*/
 
 .project {
 	border-radius: 3px;

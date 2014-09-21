@@ -47,7 +47,7 @@
  <div ng-controller="MenuCtrl">
 
 <!-- left topmenu -->	  
-	<div id="topmenu"  ng-style="topmenustyle()">
+	<div id="topmenu" arkiwi-resize ng-style="topmenustyle()">
       <a href="/" ng-click="reInit()"><img src="{% static 'app/images/logo.png' %}"></a>
     	<div id="leftmenu">
 
@@ -67,7 +67,6 @@
 			<button type="button" class="btn" ng-click="searchboxShow()"><span class="glyphicon glyphicon-search"></span></button>
 	  	</div>
 	    <div id="searchbox" ng-show="searchboxVisibility()" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-			<button type="button" class="btn" ng-click="searchboxHide()"><span class="glyphicon glyphicon-minus"></span> hide</button>
 			<div ng-include src="'/static/app/partials/search.html'"></div>
 	    </div>
 
@@ -94,8 +93,8 @@
 		                </div>
 						
 		                <div class="btn-group">
-		                    <input type="submit" class="btn btn-default" value="login">
-		                    <input type="submit" class="btn btn-default" value="register" ng-click="register($event)">
+		                    <input type="submit" class="btn" value="login">
+		                    <input type="submit" class="btn" value="register" ng-click="register($event)">
 		                </div>
 		            </form>
 		        </div>
@@ -112,6 +111,6 @@
 <!-- end menu -->	  
 
 <!-- content -->	  
-<div ng-view id="content" keep-scroll-pos ng-style="contentstyle()"></div>
+<div ng-view id="content" arkiwi-resize keep-scroll-pos ng-style="contentstyle()"></div>
 </body>
 </html>

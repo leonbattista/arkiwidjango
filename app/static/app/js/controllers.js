@@ -358,7 +358,7 @@ app.controller("ProjectEditCtrl",function ($scope, $http, $routeParams, $locatio
     
 });
 
-app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, $location, api, menuVisibilityService, AuthService, Projects){
+app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, $location, api, menuVisibilityService, searchboxVisibilityService, AuthService, Projects){
 
 	$scope.isLogged = false;
 	$scope.username = "";
@@ -393,6 +393,18 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, $locatio
 
 	$scope.menuVisibility = function(){
 		return menuVisibilityService.menuVisibilityVar;
+	};
+
+	$scope.searchboxShow = function(){
+		searchboxVisibilityService.setTrueTag();	 
+	};
+
+	$scope.searchboxHide = function(){
+		searchboxVisibilityService.setFalseTag();
+	};
+
+	$scope.searchboxVisibility = function(){
+		return searchboxVisibilityService.searchboxVisibilityVar;
 	};
 
 	// **** Authentication ****
@@ -453,7 +465,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, Projects){
     $scope.description = "";
 
 	$scope.search = function() {
-	
 		var searchParams = {project_name: $scope.project_name, architect: $scope.architect, owner: $scope.owner, address: $scope.address, description: $scope.description};
 		Projects.searchProjects(searchParams);
 		if ($location.path() != '/' && $location.path() != '/map') {$location.path('/')};	
@@ -495,12 +506,7 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 		})
 		.error(function(){
 		});
-	
-
-	
 	}
-
-
 });
 
 app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects) {

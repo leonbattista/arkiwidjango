@@ -1,4 +1,3 @@
-/*
 app.directive('arkiwiResize', function ($window, menuVisibilityService) {
     return function (scope, element) {
         var w = angular.element($window);
@@ -9,12 +8,12 @@ app.directive('arkiwiResize', function ($window, menuVisibilityService) {
             };
         };   
         scope.$watch(scope.getWindowDimensions, function (newValue) {
-            scope.column1style = function () {
+            scope.topmenustyle = function () {
                 return {
                     'width': 80 + 'px'
                 };
             };
-            scope.column2style = function () {
+            scope.leftcolumnstyle = function () {
                 return {
                     'width': 240 + 'px'
                 };
@@ -49,7 +48,6 @@ app.directive('arkiwiResize', function ($window, menuVisibilityService) {
         });
     };
 });
-*/
 
 app.directive('fileModel', ['$parse', function ($parse) {
     return {

@@ -63,7 +63,6 @@ body a {
 body a:hover {
 	color: #7fbc41;
 	text-decoration: none;
-
 }
 
 h1 {
@@ -74,7 +73,15 @@ h1 {
 	color:green;
 }
 
-#column1 {
+.btn-group {
+	padding:10px;
+}
+
+.btn {
+	background:red;
+}
+
+#topmenu {
 	position: fixed;
 	top:0px;
 	right:0px;
@@ -82,23 +89,32 @@ h1 {
 	height:60px;
 	background:#F8F8F8;
 	border-bottom: 1px solid #E0E0E0;
+	text-align: center;
+	z-index:1000;	
 }
 
-#column1 .menuitem {
-	width: 100px;
+#leftmenu {
 	float: left;
-	padding-top: 7px;
-	padding-bottom: 7px;
 }
 
-#column1 img {
+#rightmenu {
+	float: right;
+	position: fixed;
+	right: 20px;
+	top: 12px;
+}
+
+#middlemenu {
+}
+
+#topmenu img {
 	float: left;
 	height: 90%;
 	margin:10px;
 	padding-bottom: 10px;
 }
 
-#column2 {
+#leftcolumn {
 	position: fixed;
 	top:60px;
 	bottom:0px;
@@ -107,7 +123,7 @@ h1 {
 	border-right: 1px solid #F0F0F0;
 }
 
-#column2 form {
+#leftcolumn form {
 	margin: 12px;
 }
 
@@ -121,19 +137,28 @@ h1 {
 	opacity: 1;
 }
 
-#column2 p {
+#leftcolumn p {
 	margin:20px;
 }
 
-#column2 input {
+#leftcolumn input {
 	width: 100%;
 	margin-bottom: 20px;
+}
+
+#searchbox {
+	z-index:1000;
+	margin: 0 auto;
+	max-width:400px;
+	margin-top:60px;
+	padding:10px;
+	background:grey;
 }
 
 #column3 {
 	margin-top: 60px;
 	text-align: center;
-	height: 100%;
+	height:100%;
 }
 
 #project-list {
@@ -167,14 +192,12 @@ h1 {
 }
 
 .fade-img {
-	
 	transition: opacity .25s ease-in-out;
 	-moz-transition: opacity .25s ease-in-out;
 	-ms-transition: opacity .25s ease-in-out;
 	-o-transition: opacity .25s ease-in-out;
 	-webkit-transition: opacity .25s ease-in-out;
 }
-
 
 .fade-img:hover {
 	background-color: #bbb;
@@ -184,14 +207,12 @@ h1 {
 }
 
 .fade-no-img {
-	
 	transition: opacity .25s ease-in-out;
 	-moz-transition: opacity .25s ease-in-out;
 	-ms-transition: opacity .25s ease-in-out;
 	-o-transition: opacity .25s ease-in-out;
 	-webkit-transition: opacity .25s ease-in-out;
 }
-
 
 .fade-no-img:hover {
 	background-color: #bbb;
@@ -217,8 +238,6 @@ h1 {
 	font-size: 13px;
 	margin-left:10px;
 	float: left;
-	
-	
 }
 
 .closebutton {
@@ -260,7 +279,6 @@ h1 {
 .modal-img {
 	max-width: 1400px;
 	max-height: 1000px;
-	
 }
 
 .zoom-in {
@@ -273,11 +291,9 @@ h1 {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 100px;
-
 }
 
 .project-detail-container-container {
-	
 	margin-top: 70px;
 	width: 80%;
     height:100%;
@@ -361,15 +377,15 @@ h1 {
 }
 
 #big-map-container {
-	width: 500px;
-	height: 500px;
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	text-align: center;
 }
 
 #big-map-container .angular-google-map-container {
-	width: 500px;
-	height: 500px;
+	width: 100%;
+	height: 100%;
 	position: absolute; 
 }
 
@@ -383,15 +399,9 @@ h1 {
 /* **** Login **** */
 
 
-#login-menu {
-	position: fixed;
-	top:0;
-	right:0;
-}
 
 #only-img {
 }
-
 
 #project-edit-container {
     margin-left: auto;

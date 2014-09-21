@@ -42,95 +42,76 @@
 </head>
   
 <body>
-	
- <div ng-controller="MenuCtrl">
-    
-	<div id="column1">
+
+<!-- start menu -->	  
+ <div ng-controller="MenuCtrl" ng-style="topmenustyle()">
+
+<!-- left topmenu -->	  
+	<div id="topmenu">
       <a href="/" ng-click="reInit()"><img src="{% static 'app/images/logo.png' %}"></a>
-	  
-      <div class="menuitem">
-		  <a ng-click="menuSelector = 'search'; menuShow()">search</a>
-	  </div>	
-	  
-      <div ng-show="isLogged" class="menuitem"><a ng-click="menuSelector = 'add'; menuShow()">add</a>
-	  </div>
-	  
-	  <div class="menuitem">
-	  	<a href = "#/map">map</a>
-	  </div>
-	  
+    	<div id="leftmenu">
+
+			<div class="btn-group">
+			  <button type="button" class="btn" onclick="window.location.href='#/map'"><span class="glyphicon glyphicon-globe"></span></button>
+			  <button type="button" class="btn" onclick="window.location.href='#/'"><span class="glyphicon glyphicon-th"></span></button>
+			</div>
+			
+            <label ng-if="atHome()" id="only-img" class="btn btn-default">
+                <input type="checkbox" ng-model="onlyImg" ng-click="toggleOnlyImg()"> only with image </input>
+            </label>
+			
+		</div>
+		
+<!-- middle topmenu -->
+      	<div id="middlemenu">
+			<a ng-click="searchboxShow()">search</a>
+	  	</div>
+	    <div id="searchbox" ng-show="searchboxVisibility()" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+			<button type="button" class="btn" ng-click="searchboxHide()"><span class="glyphicon glyphicon-minus"></span> hide</button>
+			<div ng-include src="'/static/app/partials/search.html'"></div>
+	    </div>
+
+<!-- right topmenu -->	  
+  		<div id="rightmenu">
+		    <div >
+				
+		  		<div ng-if="isLogged">
+					{% verbatim %}
+					<button type="button" class="btn" ng-click="menuShow()"><span class="glyphicon glyphicon-plus"></span></button>
+					<button type="submit" class="btn btn-default" ng-click="logout()">logout {{ username }}</button>
+					{% endverbatim %}
+		  		</div>
+				
+		        <div ng-hide="isLogged">
+		            <form id="id_auth_form" class="navbar-form navbar-right" ng-submit="login()">
+						
+		                <div class="form-group">
+		                    <input ng-model="username" required name="username" type="text" placeholder="username" class="form-control">
+		                </div>
+						
+		                <div class="form-group">
+		                    <input ng-model="password" required name="password" type="password" placeholder="password" class="form-control">
+		                </div>
+						
+		                <div class="btn-group">
+		                    <input type="submit" class="btn btn-default" value="login">
+		                    <input type="submit" class="btn btn-default" value="register" ng-click="register($event)">
+		                </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>  
     </div>
 
-    <div id="column2" ng-show="menuVisibility()"  ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-      
-	  <div ng-switch-when="arkiwi">
-		  <p>arkiwi</p>
-	  </div>
-      
-	  <div ng-switch-when="search">
-		  <div ng-include src="'/static/app/partials/search.html'"></div>
-	  </div>
-      
-	  <div ng-switch-when="add">
+<!-- left column menu -->	  
+    <div id="leftcolumn" ng-show="menuVisibility()" ng-style="leftcolumnstyle()" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
 		  <div ng-include src="'/static/app/partials/add.html'"></div>
-      </div>
-      
-	  <div ng-switch-when="login">
-		  <p>login menu</p>
-	  </div>
-      
 	  <a ng-click="menuHide()" class="closebutton">&lt;&lt;&lt;</a>
-	  
     </div>
  </div> 
+<!-- end menu -->	  
 
- {% verbatim %}
- 
+<!-- content -->	  
 <div ng-view id="column3" keep-scroll-pos ng-style="column3style()"></div>
-
-<div ng-controller="MenuCtrl">
-
-
-     
- <div id="login-menu">
-     
-     <div ng-if="isLogged" class="navbar-form navbar-right">
-         <label ng-if="atHome()" id="only-img" class="btn btn-default">
-             <input type="checkbox" ng-model="onlyImg" ng-click="toggleOnlyImg()"> only with image </input>
-         </label>
-         <input type="submit" class="btn btn-default" ng-click="logout()"
-                value="logout {{ username }}"/>
-     </div>
-     
-     <div ng-hide="isLogged">
-         <form id="id_auth_form" class="navbar-form navbar-right"
-               ng-submit="login()">
-             <label ng-if="atHome()" id="only-img" class="btn btn-default">
-                 <input type="checkbox" ng-model="onlyImg" ng-click="toggleOnlyImg()"> only with image </input>
-             </label>
-             <div class="form-group">
-                 <input ng-model="username" required name="username"
-                        type="text" placeholder="username" class="form-control">
-             </div>
-             <div class="form-group">
-                 <input ng-model="password" required name="password" type="password"
-                        placeholder="password" class="form-control">
-             </div>
-             <div class="btn-group">
-                 <input type="submit" class="btn btn-default" value="login">
-                 <input type="submit" class="btn btn-default" value="register"
-                        ng-click="register($event)">
-             </div>
-         </form>
-     </div>
-     
-
-     
- </div>
-</div>
-
-{% endverbatim %}
- 
 </body>
-
 </html>

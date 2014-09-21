@@ -1,6 +1,18 @@
 'use strict';
 
+app.service('searchboxVisibilityService', function() {
+    this.searchboxVisibilityVar = false;
+    this.setTrueTag = function() {
+        this.searchboxVisibilityVar = true;
+    };    
+    this.setFalseTag = function() {
+        this.searchboxVisibilityVar = false;
+    };
+});
+
 app.service('menuVisibilityService', function() {
+	console.log ("test");
+	
     this.menuVisibilityVar = false;
     this.setTrueTag = function() {
         this.menuVisibilityVar = true;
@@ -9,6 +21,8 @@ app.service('menuVisibilityService', function() {
         this.menuVisibilityVar = false;
     };
 });
+
+
 
 app.service('AuthService', function() {
 	

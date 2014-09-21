@@ -44,10 +44,10 @@
 <body>
 
 <!-- start menu -->	  
- <div ng-controller="MenuCtrl" ng-style="topmenustyle()">
+ <div ng-controller="MenuCtrl">
 
 <!-- left topmenu -->	  
-	<div id="topmenu">
+	<div id="topmenu"  ng-style="topmenustyle()">
       <a href="/" ng-click="reInit()"><img src="{% static 'app/images/logo.png' %}"></a>
     	<div id="leftmenu">
 
@@ -56,7 +56,7 @@
 			  <button type="button" class="btn" onclick="window.location.href='#/'"><span class="glyphicon glyphicon-th"></span></button>
 			</div>
 			
-            <label ng-if="atHome()" id="only-img" class="btn btn-default">
+            <label ng-if="atHome()" id="only-img" class="btn">
                 <input type="checkbox" ng-model="onlyImg" ng-click="toggleOnlyImg()"> only with image </input>
             </label>
 			
@@ -64,7 +64,7 @@
 		
 <!-- middle topmenu -->
       	<div id="middlemenu">
-			<a ng-click="searchboxShow()">search</a>
+			<button type="button" class="btn" ng-click="searchboxShow()"><span class="glyphicon glyphicon-search"></span></button>
 	  	</div>
 	    <div id="searchbox" ng-show="searchboxVisibility()" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
 			<button type="button" class="btn" ng-click="searchboxHide()"><span class="glyphicon glyphicon-minus"></span> hide</button>
@@ -78,7 +78,7 @@
 		  		<div ng-if="isLogged">
 					{% verbatim %}
 					<button type="button" class="btn" ng-click="menuShow()"><span class="glyphicon glyphicon-plus"></span></button>
-					<button type="submit" class="btn btn-default" ng-click="logout()">logout {{ username }}</button>
+					<button type="submit" class="btn" ng-click="logout()">logout {{ username }}</button>
 					{% endverbatim %}
 		  		</div>
 				
@@ -112,6 +112,6 @@
 <!-- end menu -->	  
 
 <!-- content -->	  
-<div ng-view id="column3" keep-scroll-pos ng-style="column3style()"></div>
+<div ng-view id="content" keep-scroll-pos ng-style="contentstyle()"></div>
 </body>
 </html>

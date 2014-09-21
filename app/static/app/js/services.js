@@ -4,21 +4,23 @@ app.service('searchboxVisibilityService', function() {
     this.searchboxVisibilityVar = false;
     this.setTrueTag = function() {
         this.searchboxVisibilityVar = true;
+		console.log ("searchboxVisibilityService: true");
     };    
     this.setFalseTag = function() {
         this.searchboxVisibilityVar = false;
+		console.log ("searchboxVisibilityService: false");
     };
 });
 
-app.service('menuVisibilityService', function() {
-	console.log ("test");
-	
+app.service('menuVisibilityService', function() {	
     this.menuVisibilityVar = false;
     this.setTrueTag = function() {
         this.menuVisibilityVar = true;
+		console.log ("menuVisibilityService: true");
     };    
     this.setFalseTag = function() {
         this.menuVisibilityVar = false;
+		console.log ("menuVisibilityService: false");
     };
 });
 

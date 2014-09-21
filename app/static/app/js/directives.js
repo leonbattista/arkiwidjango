@@ -8,37 +8,34 @@ app.directive('arkiwiResize', function ($window, menuVisibilityService) {
             };
         };   
         scope.$watch(scope.getWindowDimensions, function (newValue) {
-            scope.topmenustyle = function () {
-                return {
-                    'width': 80 + 'px'
-                };
-            };
+
             scope.leftcolumnstyle = function () {
                 return {
-                    'width': 240 + 'px'
+                    'width': 350 + 'px'
                 };
             };
-            scope.column3style = function () {
+            scope.contentstyle = function () {
                 if (menuVisibilityService.menuVisibilityVar == true) {
+					console.log("schubidu");
                     return {
-                    'width': (newValue.w - 320) + 'px'
+                    'width': (newValue.w - 240) + 'px'
                     };
                 }
                 else {
                     return {
-                    'width': (newValue.w - 80) + 'px'
+                    'width': (newValue.w) + 'px'
                     };
                 }
             };
             scope.mapStyle = function () {
                 if (menuVisibilityService.menuVisibilityVar == true) {
                     return {
-                    'width': (newValue.w - 320) + 'px'
+                    'width': (newValue.w - 240) + 'px'
                     };
                 }
                 else {
                     return {
-                    'width': (newValue.w - 80) + 'px'
+                    'width': (newValue.w) + 'px'
                     };
                 }
             };

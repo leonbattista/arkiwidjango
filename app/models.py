@@ -43,7 +43,7 @@ class Project(models.Model):
     # Project information
     
     name = models.CharField(max_length=200)
-    architect = models.CharField(max_length=200)
+    architect = models.CharField(max_length=500)
     address = models.CharField(max_length=500)
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
@@ -53,6 +53,7 @@ class Project(models.Model):
     is_imported = models.BooleanField(default=False)
     source = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=3000, blank=True)
+    wikipedia_image_url = models.URLField(max_length=500, blank=True)
     
 class UserProfile(models.Model):
     

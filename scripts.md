@@ -10,4 +10,4 @@ then from this main drectory do for example
 
      python -m arkiwidjango.scripts.importDBPedia_2_def
 
-(this allows for loading the script as package, which permits to use relative import in the script)
+(this runs the script as a package, which permits to use relative import in the script)

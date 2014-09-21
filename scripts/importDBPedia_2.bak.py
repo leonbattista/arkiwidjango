@@ -39,7 +39,7 @@ optional {
 bind (str(?structure_name) as ?stripped_structure_name)
 }
 
-LIMIT 1000
+LIMIT 10000
 
 """)
 

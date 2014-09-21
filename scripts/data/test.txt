@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Royal_Dramatic_Theatre">
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">59.3333</geo:lat>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Royal Dramatic Theatre</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">18.0769</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Oregon_Convention_Center">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-122.663</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Oregon Convention Center</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.5286</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/National_Glass_Centre">
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">54.9129</geo:lat>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.37097</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">54.913</geo:lat>
+    <rdfs:label>National Glass Centre</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.385</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Doge's_Palace">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.4339</geo:lat>
+    <rdfs:label>Doge's Palace</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">12.34</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Washington_Navy_Yard">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-76.9969</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Washington Navy Yard</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">38.8733</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/399_Park_Avenue">
+    <rdfs:label>399 Park Avenue</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">40.7592</geo:lat>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-73.9718</geo:long>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Church_of_St_Mary_de_Castro,_Leicester">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">52.6323</geo:lat>
+    <rdfs:label>Church of St Mary de Castro, Leicester</rdfs:label>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.1404</geo:long>
+  </rdf:Description>
+</rdf:RDF>
+
+National Glass Centre
+    -1.37097
+    54.9129
+    None
+399 Park Avenue
+    -73.9718
+    40.7592
+    None
+Doge's Palace
+    12.34
+    45.4339
+    None
+Church of St Mary de Castro, Leicester
+    -1.1404
+    52.6323
+    None
+Royal Dramatic Theatre
+    18.0769
+    59.3333
+    None
+Washington Navy Yard
+    -76.9969
+    38.8733
+    None
+Oregon Convention Center
+    -122.663
+    45.5286
+    None
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:dbpedia-owl="http://dbpedia.org/ontology/"
+   xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/First_Methodist_Church_(Burlington,_Vermont)">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-73.2106</geo:long>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Alexander_Rice_Esty"/>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>First Methodist Church (Burlington, Vermont)</rdfs:label>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">44.4786</geo:lat>
+    <dbpedia-owl:thumbnail rdf:resource="http://commons.wikimedia.org/wiki/Special:FilePath/First_United_Methodist_Church_Burlington_Vermont.jpg?width=300"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Carroll_County_Courthouse_(Indiana)">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <rdfs:label>Carroll County Courthouse (Indiana)</rdfs:label>
+    <dbpedia-owl:thumbnail rdf:resource="http://commons.wikimedia.org/wiki/Special:FilePath/Carrol_County_1916.jpg?width=300"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">40.5861</geo:lat>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Elmer_E._Dunlap"/>
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-86.6747</geo:long>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Clinton_County_Courthouse_Complex">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-73.4536</geo:long>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">44.6989</geo:lat>
+    <dbpedia-owl:thumbnail rdf:resource="http://commons.wikimedia.org/wiki/Special:FilePath/Clinton-platts_ch_complex.jpg?width=300"/>
+    <rdfs:label>Clinton County Courthouse Complex</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Marcus_F._Cummings"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Alexander_Rice_Esty">
+    <rdfs:label>Alexander Rice Esty</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Campus_of_the_Massachusetts_Institute_of_Technology">
+    <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-71.0934</geo:long>
+    <dbpedia-owl:architect rdf:resource="http://dbpedia.org/resource/Eero_Saarinen"/>
+    <dbpedia-owl:thumbnail rdf:resource="http://en.wikipedia.org/wiki/Special:FilePath/Rogers-building.jpg?width=300"/>
+    <rdfs:label>Campus of the Massachusetts Institute of Technology</rdfs:label>
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Building"/>
+    <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#float">42.3591</geo:lat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Elmer_E._Dunlap">
+    <rdfs:label>Elmer E. Dunlap</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Marcus_F._Cummings">
+    <rdfs:label>Marcus F. Cummings</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://dbpedia.org/resource/Eero_Saarinen">
+    <rdfs:label>Eero Saarinen</rdfs:label>
+    <rdfs:label>エーロ・サーリネン</rdfs:label>
+  </rdf:Description>
+</rdf:RDF>
+
+Campus of the Massachusetts Institute of Technology
+    -71.0934
+    42.3591
+    Resource(http://en.wikipedia.org/wiki/Special:FilePath/Rogers-building.jpg?width=300)
+    Eero Saarinen
+First Methodist Church (Burlington, Vermont)
+    -73.2106
+    44.4786
+    Resource(http://commons.wikimedia.org/wiki/Special:FilePath/First_United_Methodist_Church_Burlington_Vermont.jpg?width=300)
+    Alexander Rice Esty
+Clinton County Courthouse Complex
+    -73.4536
+    44.6989
+    Resource(http://commons.wikimedia.org/wiki/Special:FilePath/Clinton-platts_ch_complex.jpg?width=300)
+    Marcus F. Cummings
+Carroll County Courthouse (Indiana)
+    -86.6747
+    40.5861
+    Resource(http://commons.wikimedia.org/wiki/Special:FilePath/Carrol_County_1916.jpg?width=300)
+    Elmer E. Dunlap

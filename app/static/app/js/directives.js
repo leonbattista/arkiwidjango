@@ -1,3 +1,4 @@
+/*
 app.directive('arkiwiResize', function ($window, menuVisibilityService) {
     return function (scope, element) {
         var w = angular.element($window);
@@ -48,6 +49,7 @@ app.directive('arkiwiResize', function ($window, menuVisibilityService) {
         });
     };
 });
+*/
 
 app.directive('fileModel', ['$parse', function ($parse) {
     return {

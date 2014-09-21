@@ -41,12 +41,12 @@
   
 </head>
   
-<body arkiwi-resize>
+<body>
 	
  <div ng-controller="MenuCtrl">
     
-	<div id="column1" ng-style="column1style()">
-      <a href="/" ng-click="reInit()"><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
+	<div id="column1">
+      <a href="/" ng-click="reInit()"><img src="{% static 'app/images/logo.png' %}"></a>
 	  
       <div class="menuitem">
 		  <a ng-click="menuSelector = 'search'; menuShow()">search</a>

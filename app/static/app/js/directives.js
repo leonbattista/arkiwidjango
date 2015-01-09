@@ -127,3 +127,29 @@ app.directive("keepScrollPos", function($route, $window, $timeout, $location, $a
         });
     }
 });
+
+app.directive('wikiThumbResize', function(){ 
+   return {
+     restrict: 'A',
+     link: function(scope, elem, attr) {
+         elem.on('load', function() {
+            var w = $(this).width(),
+                h = $(this).height();
+
+            var div = elem;
+            
+            console.log("Thumb width. " + w);
+            console.log("Thumb height. " + h);
+            console.log(div);
+            
+            if (w/h > 4/3)
+            {
+                console.log(div);
+                div['0']['src'] = div.context.src.replace("?width=400", "?width=" + 400*w/h);
+            }
+
+            //check width and height and apply styling to parent here.
+         });
+     }
+   };
+});

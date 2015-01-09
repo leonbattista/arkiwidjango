@@ -5,10 +5,13 @@
 	   <a href="#/projects/{{project.id}}">
 	    <div class="img-container">
 	     <img ng-if=" project.thumbnail_file != '' " ng-src="/media/{{ project.thumbnail_file }}" class="fade-img"></img>
-         <div ng-if=" project.thumbnail_file == '' " class="no-thumb fade-no-img"> no image </div>
+         <div ng-if=" project.thumbnail_file == '' && project.wikipedia_image_url != '' " class="wiki-thumb" >
+          <img  ng-src="{{ project.wikipedia_image_url }}?width=400" class="fade-img" wiki-thumb-resize></img>
+         </div>
+         <div ng-if=" project.thumbnail_file == '' && project.wikipedia_image_url == '' " class="no-thumb fade-no-img"> no image </div>
 		</div>
 	    <div class="caption">
-		 <div class="project_name"> {{ project.name | cut:true:40:'...' }} </div>
+		 <div class="project_name"> {{ project.name | cut:true:30:'...' }} </div>
 	     <div class="project_architect"> {{ project.architect | cut:true:25:'...'}} </div>
 		</div>
 	   </a>

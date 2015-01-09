@@ -48,6 +48,10 @@ function($routeProvider) {
 		templateUrl: '/static/app/partials/project-edit.html',
 		controller: 'ProjectEditCtrl'
 	}).
+	when('/explore', {
+		templateUrl: '/static/app/partials/explore.html',
+		controller: 'ExploreCtrl'
+	}).  
 	otherwise({
 		redirectTo: '/'
 	});

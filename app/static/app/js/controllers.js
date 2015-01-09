@@ -25,8 +25,34 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
 	$scope.$watch(Projects.getProjects, updateProjects);
     
     $scope.toShow = function(project) {
-        return Boolean(!$scope.onlyImg || project.image_file != '')
+        return Boolean(!$scope.onlyImg || project.image_file != '' || project.wikipedia_image_url !='')
     };
+    
+    // Get image width and height
+    
+    function getMeta(url){
+      $("<img/>").attr("src", url).load(function(){
+         s = {w:this.width, h:this.height};
+         return s;      
+      }); 
+    }
+    
+    // $scope.getThumbUrl = function(project) {
+    //
+    //     project.baseUrl = project.wikipedia_image_url;
+    //
+    //     $("<img/>").attr("src", project.baseUrl + "?width=100").load(function(){
+    //        if (this.width/this.height > 4/3) {
+    //            project.output = project.baseUrl + "?width=" + 400 * this.width/this.height
+    //        }
+    //        else {
+    //            project.output = project.baseUrl + "?width=400"
+    //        }
+    //     });
+    //
+    //     return project.output
+    //
+    // }
     
     $scope.nextPage = function() {
         

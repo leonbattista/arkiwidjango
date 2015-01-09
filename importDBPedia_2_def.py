@@ -31,12 +31,14 @@ CONSTRUCT { ?structure a dbpedia:Building .
 ?structure dbpedia-owl:architect ?architect .
 ?structure dbpprop:architect ?architect_prop .
 ?architect rdfs:label ?stripped_architect_name .
-?structure rdfs:label ?stripped_structure_name }
+?structure rdfs:label ?stripped_structure_name .
+?structure dbpedia-owl:wikiPageID ?pageID }
 
 WHERE {
 ?structure a dbpedia:Building .
 ?structure geo:long ?long .
 ?structure geo:lat ?lat .
+?structure dbpedia-owl:wikiPageID ?pageID .
 ?structure rdfs:label ?structure_name .
 optional {
     ?structure dbpedia-owl:thumbnail ?thumbnail .
@@ -52,59 +54,71 @@ optional {
 bind (str(?structure_name) as ?stripped_structure_name)
 }
 
+LIMIT 10
+
 """)
 
 
 sparql.setReturnFormat(RDF)
-results = sparql.query().convert()
+print sparql.query()
+#results = sparql.query().convert()
 # print results.serialize()
 
 nProjects = 0
 
-for stmt in results.subjects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef("http://dbpedia.org/ontology/Building")):
+# for stmt in results.subjects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef("http://dbpedia.org/ontology/Building")):
 
-    if nProjects%500 == 0:
-        print nProjects
+    # if nProjects%500 == 0:
+    #     print nProjects
     
-    resource = Resource(results, stmt)
+    #resource = Resource(results, stmt)
+    #print resource.identifier
 
             
-    p = Project()
-    p.owner = User.objects.get(username = "DBPediaImporter")
-    
-    p.name = resource.value(RDFS.label)
-    p.longitude = resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long"))
-    p.latitude = resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat"))
-    
-    # Retrieve and concatenate all architects names
-    
-    architects = [architect.value(RDFS.label) for architect in resource[URIRef("http://dbpedia.org/ontology/architect")]]
-    #.encode('ascii', 'ignore'))
-    if architects != []:
-        p.architect = ",".join(architects)
-    else:
-        architect = resource.value(URIRef("http://dbpedia.org/property/architect"))
-        if architect:
-            if type(architect) == Resource:
-                p.architect = architect.identifier.encode('ascii', 'ignore')
-            else:
-                p.architect = architect.encode('ascii', 'ignore')
-        else:
-            p.architect = ''
-    # Retrieve thumb and remove "?width=300" to get main image URL
-    if resource.value(URIRef("http://dbpedia.org/ontology/thumbnail")):
-        thumb_url = resource.value(URIRef("http://dbpedia.org/ontology/thumbnail")).identifier
-        i = thumb_url.rindex('?')
-        p.wikipedia_image_url = thumb_url[:i]
-    
-    three_months = datetime.timedelta(days=90)
-    p.pub_date = datetime.datetime.now() - three_months
-    p.is_imported = True
-    p.save()
-        
-    nProjects += 1
+#     p = Project()
+#     p.owner = User.objects.get(username = "DBPediaImporter")
+#
+#     p.name = resource.value(RDFS.label)
+#     p.longitude = resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long"))
+#     p.latitude = resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat"))
+#
+#     # Retrieve and concatenate all architects names
+#
+#     architects = [architect.value(RDFS.label) for architect in resource[URIRef("http://dbpedia.org/ontology/architect")]]
+#     #.encode('ascii', 'ignore'))
+#     if architects != []:
+#         p.architect = ",".join(architects)
+#     else:
+#         architect = resource.value(URIRef("http://dbpedia.org/property/architect"))
+#         if architect:
+#             if type(architect) == Resource:
+#                 p.architect = architect.identifier.encode('ascii', 'ignore')
+#             else:
+#                 p.architect = architect.encode('ascii', 'ignore')
+#         else:
+#             p.architect = ''
+#     # Retrieve thumb and remove "?width=300" to get main image URL
+#     if resource.value(URIRef("http://dbpedia.org/ontology/thumbnail")):
+#         thumb_url = resource.value(URIRef("http://dbpedia.org/ontology/thumbnail")).identifier
+#         i = thumb_url.rindex('?')
+#         p.wikipedia_image_url = thumb_url[:i]
+#
+#     three_months = datetime.timedelta(days=90)
+#     p.pub_date = datetime.datetime.now() - three_months
+#     p.is_imported = True
+#     p.save()
+#
+#     nProjects += 1
+#
+# print "Imported " + str(nProjects) + " projects."
 
-print "Imported " + str(nProjects) + " projects."
+
+
+# Fixing URI that rdflib does not accept, returning "WARNING:rdflib.term:  does not look like a valid URI, trying to serialize this will break."
+ 
+def fix(s):
+    i = s.rindex('/')
+    return s[:i]+urllib.quote(s[i:])
     
     
     

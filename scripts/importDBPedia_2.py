@@ -46,7 +46,7 @@ optional {
 bind (str(?structure_name) as ?stripped_structure_name)
 }
 
-LIMIT 1
+LIMIT 10
 
 """)
 
@@ -61,18 +61,19 @@ print results.serialize()
 structureList = []
 
 for stmt in results.subjects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef("http://dbpedia.org/ontology/Building")):
-
+    
     resource = Resource(results, stmt)
-    print resource.value(RDFS.label)
-    print "    " + str(resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long")))
-    print "    " + str(resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat")))
-    # Retrieve thumb and remove "?width=300" to get main image URL
-    thumb = resource.value(URIRef("http://dbpedia.org/ontology/thumbnail"))
-    print thumb_url
-    i = thumb_url.rindex('?')
-    print thumb_url[:i]
-    for architect in resource[URIRef("http://dbpedia.org/ontology/architect")]:
-        print "    " + str(architect.value(RDFS.label).encode('ascii', 'ignore'))
+    print resource
+    # print resource.value(RDFS.label)
+    # print "    " + str(resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long")))
+    # print "    " + str(resource.value(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat")))
+    # # Retrieve thumb and remove "?width=300" to get main image URL
+    # thumb = resource.value(URIRef("http://dbpedia.org/ontology/thumbnail"))
+    # print thumb_url
+    # i = thumb_url.rindex('?')
+    # print thumb_url[:i]
+    # for architect in resource[URIRef("http://dbpedia.org/ontology/architect")]:
+    #     print "    " + str(architect.value(RDFS.label).encode('ascii', 'ignore'))
     
     
     

@@ -694,3 +694,56 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 	};
 
 });
+
+app.controller("ExploreCtrl", function ($scope, $http) {
+    
+    $scope.currentId = 352701;
+    
+    $scope.thumbs = {};
+    
+    var getThumb = function (id, size) {
+        return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + id + '&prop=pageimages&format=json&pithumbsize=' + size + '&callback=JSON_CALLBACK');
+    }
+    
+    $scope.getNewStructure = function(id) {
+        $scope.currentId = id;
+        
+        getThumb(id, 400).success(function(data) {
+            $scope.thumb_url = data.query.pages[id].thumbnail.source;
+        });
+    
+        $http.get('/api/explore/', {params: {id: id}}).success(function(data) {
+            $scope.data = data;
+            console.log(data);
+            
+            var thumbGetters = [];
+            
+            for (category in data['categories']) {
+                suggestions = data.categories[category].suggestions;               
+                for (structure in suggestions) {
+                    var currentId = suggestions[structure].id;
+                    thumbGetters.push(getThumb(currentId, 200));
+                    };
+            };
+            
+            for (structure in data.uncategorizedSuggestions) {
+                var currentId = data.uncategorizedSuggestions[structure].id;
+                thumbGetters.push(getThumb(currentId, 200));
+            };
+            
+            for (var i = 0; i < thumbGetters.length; i++)
+                {
+                    thumbGetters[i].success(function(data2) {
+                        var id = Object.keys(data2.query.pages)[0];
+                        $scope.thumbs[id] = data2.query.pages[id].thumbnail.source;
+                    });
+                } 
+        
+            // getThumb(id, 200).success(function(data2) {
+            //     $scope.thumbs[id] = data2.query.pages[id].thumbnail.source;
+            // });
+        }) ;
+    };
+    
+    $scope.getNewStructure($scope.currentId);
+});

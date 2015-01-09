@@ -1,11 +1,12 @@
 # **** IMPORTS ****
 
 # External Python modules
-import json, os, copy
+import json, os, copy, urllib2
 from django.utils import timezone
 from cStringIO import StringIO
 from tempfile import NamedTemporaryFile
 from PIL import Image as PImage
+from SPARQLWrapper import SPARQLWrapper, JSON, RDF
 from os.path import join as pjoin
 from math import ceil
 
@@ -47,13 +48,60 @@ def index(request):
 def test(request):
     
     params = request.GET
-    testList = range(int(params['b']))
-    if params['a'] == "corbu":
-        data = {"reponse":"Le Corbusier", "testB":testList}
-    else:
-        data = {"reponse":"cool aussi en fait", "testB":testList}
         
     return HttpResponse(json.dumps(data), "application/json")
+    
+def explore(request):
+    
+    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+    
+    def isIDanArchictecturalStructure(id):
+
+        sparql.setQuery("""
+        SELECT ?type WHERE
+        {
+            ?structure dbpedia-owl:wikiPageID %s .
+            ?structure a ?type
+        }
+
+        """ % id)
+
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+    
+        found = False
+    
+        #Looking for the type 'ArchitecturalStructure' in the results
+        for result in results['results']['bindings']:
+            if result['type']['value'] == u"http://dbpedia.org/ontology/ArchitecturalStructure":
+                found = True
+                break
+        return found
+
+    def wikiMinerSuggest(id):
+        output = {'categories': [], 'uncategorizedSuggestions': []}
+        query = '?queryTopics=%s&responseFormat=JSON' % id
+        response = urllib2.urlopen('http://wikipedia-miner.cms.waikato.ac.nz/services/suggest' + query)
+        data = json.load(response)
+        for category in data['suggestionCategories']:
+            currentSuggestions = []
+            for suggestion in category['suggestions']:
+                if isIDanArchictecturalStructure(suggestion['id']):
+                    currentSuggestions.append(suggestion)
+            if currentSuggestions != []:
+                output['categories'].append({'title': category['title'], 'suggestions': currentSuggestions})
+        for suggestion in data['uncategorizedSuggestions']:
+            if isIDanArchictecturalStructure(suggestion['id']):
+                    output['uncategorizedSuggestions'].append(suggestion)
+        return output
+    
+    
+    params = request.GET
+    currentId = params['id']
+    response_data = wikiMinerSuggest(currentId)
+    
+ 
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
     
 # First version of search
 

@@ -697,13 +697,14 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 
 app.controller("ExploreCtrl", function ($scope, $http) {
     
-    $scope.currentId = 352701;
+    $scope.currentId = 9736;
     
     $scope.thumbs = {};
     
     var getThumb = function (id, size) {
         return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + id + '&prop=pageimages&format=json&pithumbsize=' + size + '&callback=JSON_CALLBACK');
     }
+
     
     $scope.getNewStructure = function(id) {
         $scope.currentId = id;

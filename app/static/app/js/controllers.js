@@ -697,53 +697,117 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 
 app.controller("ExploreCtrl", function ($scope, $http) {
     
-    $scope.currentId = 9736;
+    $scope.currentId = 37535;
     
-    $scope.thumbs = {};
+    var dbpediaURL = 'http://dbpedia.org/sparql';
+            
     
-    var getThumb = function (id, size) {
-        return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + id + '&prop=pageimages&format=json&pithumbsize=' + size + '&callback=JSON_CALLBACK');
-    }
+    // var getThumb = function (structure, size) {
+    //     return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + structure.id + '&prop=url&format=json&callback=JSON_CALLBACK');
+    // }
+    
+    var getThumb = function (structure, size) {
+        var query = "SELECT ?thumb WHERE { ?structure dbpedia-owl:wikiPageID " + structure.id + " . ?structure dbpedia-owl:thumbnail ?thumb }";
+        var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+        return $http.jsonp(queryUrl);
+    };
+    
+    
+    
+    var filterArchitecturalStructure = function (categoryTitle, structure) {
+                        
+        var query = "SELECT ?type WHERE { ?structure dbpedia-owl:wikiPageID " + structure.id + " . ?structure a ?type }";
+        
+        var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+        
+        $http.jsonp(queryUrl).success(function(data) {
+            
+                var currentCategory;
 
+                //Looking for the type 'ArchitecturalStructure' in the results
+
+                for (result in data.results.bindings) {
+                    if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/ArchitecturalStructure") {
+                        
+                        if (categoryTitle != 'uncategorizedSuggestions') {
+                            
+                            var categoryExists = false;
+                            
+                            for (category in $scope.filteredData.suggestionCategories) {
+                                if ($scope.filteredData.suggestionCategories[category].title == categoryTitle) {
+                                    categoryExists = true;
+                                    break;
+                                };
+                            };
+                    
+                            if (!categoryExists) {
+                                $scope.filteredData.suggestionCategories.push({title:categoryTitle, suggestions:[]});
+                            };
+                    
+                            for (category in $scope.filteredData.suggestionCategories) {
+                                if ($scope.filteredData.suggestionCategories[category].title == categoryTitle) {
+                                    currentCategory = category;
+                                    break;
+                                };
+                            };
+                            
+                            getThumb(structure, 200).success(function(data) {
+                                //structure['thumb'] = data.query.pages[structure.id].thumbnail.source;
+                                structure['thumb'] = data.results.bindings[0].thumb.value;
+                            });
+                            
+                            $scope.filteredData.suggestionCategories[currentCategory].suggestions.push(structure);
+                        }
+                            
+                        else {
+                            
+                            getThumb(structure, 200).success(function(data) {
+                                //structure['thumb'] = data.query.pages[structure.id].thumbnail.source;
+                               structure['thumb'] = data.results.bindings[0].thumb.value;
+                            });
+                            
+                            $scope.filteredData.uncategorizedSuggestions.push(structure);
+                        };
+                        
+                        break;
+                    }
+
+                };
+            }).
+        error(function(data, status, headers, config) {
+            console.log("Error!");
+            console.log(structure);
+        });
+    }
     
     $scope.getNewStructure = function(id) {
+        
+        $scope.filteredData = {'suggestionCategories': [], 'uncategorizedSuggestions': []};
+        
         $scope.currentId = id;
         
-        getThumb(id, 400).success(function(data) {
-            $scope.thumb_url = data.query.pages[id].thumbnail.source;
+        getThumb({id: id}, 400).success(function(data) {
+            console.log(data);
+            //$scope.thumb_url = data.query.pages[id].thumbnail.source;
+            $scope.thumb_url = data.results.bindings[0].thumb.value;           
         });
     
         $http.get('/api/explore/', {params: {id: id}}).success(function(data) {
-            $scope.data = data;
-            console.log(data);
-            
+            $scope.data = data;            
             var thumbGetters = [];
             
-            for (category in data['categories']) {
-                suggestions = data.categories[category].suggestions;               
+            for (category in data['suggestionCategories']) {                
+                suggestions = data.suggestionCategories[category].suggestions;
                 for (structure in suggestions) {
-                    var currentId = suggestions[structure].id;
-                    thumbGetters.push(getThumb(currentId, 200));
-                    };
+                    filterArchitecturalStructure(data.suggestionCategories[category].title, suggestions[structure]);
+                };
             };
-            
+
             for (structure in data.uncategorizedSuggestions) {
-                var currentId = data.uncategorizedSuggestions[structure].id;
-                thumbGetters.push(getThumb(currentId, 200));
+                filterArchitecturalStructure('uncategorizedSuggestions', data.uncategorizedSuggestions[structure]);
             };
             
-            for (var i = 0; i < thumbGetters.length; i++)
-                {
-                    thumbGetters[i].success(function(data2) {
-                        var id = Object.keys(data2.query.pages)[0];
-                        $scope.thumbs[id] = data2.query.pages[id].thumbnail.source;
-                    });
-                } 
-        
-            // getThumb(id, 200).success(function(data2) {
-            //     $scope.thumbs[id] = data2.query.pages[id].thumbnail.source;
-            // });
-        }) ;
+        });
     };
     
     $scope.getNewStructure($scope.currentId);

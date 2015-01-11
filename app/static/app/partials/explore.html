@@ -3,19 +3,19 @@
 <img ng-src = "{{ thumb_url }}"> </img>
 
 
-<div ng-repeat="category in data.categories">
+<div ng-repeat="category in filteredData.suggestionCategories">
     <h3>{{ category.title }}</h3>
     <div ng-repeat="structure in category.suggestions">
         <div ng-click="getNewStructure(structure.id)"> 
-            <div> <img ng-src="{{ thumbs[structure.id] }} "> </img></div>
+            <div> <img ng-src="{{ structure.thumb }} "> </img></div>
             <h5>{{structure.title}}</h5>
         </div>      
     </div>   
 </div>
 <h3>Uncategorized</h3>
-<div ng-repeat="structure in data.uncategorizedSuggestions">
+<div ng-repeat="structure in filteredData.uncategorizedSuggestions">
     <div ng-click="getNewStructure(structure.id)">
-        <div> <img ng-src="{{ thumbs[structure.id] }} "> </img></div>
+        <div> <img ng-src="{{ structure.thumb }} "> </img></div>
         <h5>{{structure.title}}</h5>
     </div>
 </div>

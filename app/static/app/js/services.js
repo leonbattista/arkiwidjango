@@ -191,3 +191,32 @@ app.factory('Projects', ['$http','$location',
 }]);
 
 
+//Module to autonatically retry on 503 error
+
+
+app.factory("retry", ["$q", "$injector", "$timeout", function($q, $injector, $timeout) {
+    return {
+        "responseError": function(rejection) {
+            console.log("Request failed", rejection);
+            // if (rejection.status != 503) {
+            //     console.log("Unhandled status");
+            //     return $q.reject(rejection);
+            // }
+            if (rejection.status > 500) {
+                var delay = Math.floor(Math.random() * 1000);
+                console.log("Retrying in " + delay + "ms");
+                var deferred = $q.defer();
+                $timeout(function() {
+                    var $http = $http || $injector.get("$http");
+                    deferred.resolve($http(rejection.config));
+                }, delay);
+                return deferred.promise;
+            }
+        }
+    };
+}]);
+app.config(["$httpProvider", function ($httpProvider) {
+    $httpProvider.interceptors.push("retry");
+}]);
+
+

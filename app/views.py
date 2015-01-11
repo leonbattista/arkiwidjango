@@ -82,18 +82,21 @@ def explore(request):
         output = {'categories': [], 'uncategorizedSuggestions': []}
         query = '?queryTopics=%s&responseFormat=JSON' % id
         response = urllib2.urlopen('http://wikipedia-miner.cms.waikato.ac.nz/services/suggest' + query)
-        data = json.load(response)
-        for category in data['suggestionCategories']:
-            currentSuggestions = []
-            for suggestion in category['suggestions']:
-                if isIDanArchictecturalStructure(suggestion['id']):
-                    currentSuggestions.append(suggestion)
-            if currentSuggestions != []:
-                output['categories'].append({'title': category['title'], 'suggestions': currentSuggestions})
-        for suggestion in data['uncategorizedSuggestions']:
-            if isIDanArchictecturalStructure(suggestion['id']):
-                    output['uncategorizedSuggestions'].append(suggestion)
-        return output
+        
+        return response
+        
+        # data = json.load(response)
+        # for category in data['suggestionCategories']:
+        #     currentSuggestions = []
+        #     for suggestion in category['suggestions']:
+        #         if isIDanArchictecturalStructure(suggestion['id']):
+        #             currentSuggestions.append(suggestion)
+        #     if currentSuggestions != []:
+        #         output['categories'].append({'title': category['title'], 'suggestions': currentSuggestions})
+        # for suggestion in data['uncategorizedSuggestions']:
+        #     if isIDanArchictecturalStructure(suggestion['id']):
+        #             output['uncategorizedSuggestions'].append(suggestion)
+        # return output
     
     
     params = request.GET
@@ -101,7 +104,8 @@ def explore(request):
     response_data = wikiMinerSuggest(currentId)
     
  
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    #return HttpResponse(json.dumps(response_data), content_type="application/json")
+    return HttpResponse(wikiMinerSuggest(currentId), content_type="application/json")
     
 # First version of search
 

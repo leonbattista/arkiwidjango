@@ -697,7 +697,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 
 app.controller("ExploreCtrl", function ($scope, $http) {
     
-    $scope.currentId = 340002;
+    $scope.currentId = 37535;
     
     var dbpediaURL = 'http://dbpedia.org/sparql';
             
@@ -706,16 +706,12 @@ app.controller("ExploreCtrl", function ($scope, $http) {
     //     return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + structure.id + '&prop=url&format=json&callback=JSON_CALLBACK');
     // }
     
-    var getThumb = function (id) {
-        var query = "SELECT ?thumb WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure dbpedia-owl:thumbnail ?thumb }";
+    var getThumb = function (structure, size) {
+        var query = "SELECT ?thumb WHERE { ?structure dbpedia-owl:wikiPageID " + structure.id + " . ?structure dbpedia-owl:thumbnail ?thumb }";
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
         return $http.jsonp(queryUrl);
     };
     
-    var makeThumbUrl = function(data, size) {
-      url = data.results.bindings[0].thumb.value;
-      return url.substr(0, url.lastIndexOf("=") + 1) + size;
-    };
     
     
     var filterArchitecturalStructure = function (categoryTitle, structure) {
@@ -755,8 +751,9 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                                 };
                             };
                             
-                            getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 200);
+                            getThumb(structure, 200).success(function(data) {
+                                //structure['thumb'] = data.query.pages[structure.id].thumbnail.source;
+                                structure['thumb'] = data.results.bindings[0].thumb.value;
                             });
                             
                             $scope.filteredData.suggestionCategories[currentCategory].suggestions.push(structure);
@@ -764,8 +761,9 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                             
                         else {
                             
-                            getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 200);
+                            getThumb(structure, 200).success(function(data) {
+                                //structure['thumb'] = data.query.pages[structure.id].thumbnail.source;
+                               structure['thumb'] = data.results.bindings[0].thumb.value;
                             });
                             
                             $scope.filteredData.uncategorizedSuggestions.push(structure);
@@ -775,7 +773,11 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                     }
 
                 };
-            });
+            }).
+        error(function(data, status, headers, config) {
+            console.log("Error!");
+            console.log(structure);
+        });
     }
     
     $scope.getNewStructure = function(id) {
@@ -784,8 +786,10 @@ app.controller("ExploreCtrl", function ($scope, $http) {
         
         $scope.currentId = id;
         
-        getThumb(id).success(function(data) {
-            $scope.thumb_url = makeThumbUrl(data, 400);           
+        getThumb({id: id}, 400).success(function(data) {
+            console.log(data);
+            //$scope.thumb_url = data.query.pages[id].thumbnail.source;
+            $scope.thumb_url = data.results.bindings[0].thumb.value;           
         });
     
         $http.get('/api/explore/', {params: {id: id}}).success(function(data) {

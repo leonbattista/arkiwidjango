@@ -1,33 +1,16 @@
-<div class="explore">
-
-    <a class = "explore-tile" ng-repeat="tile in tiles">
-        <div ng-switch on="tile.type">
-            <div ng-switch-when="main">
-                <img ng-src = "{{ tile.content.thumb }}"> </img>
-                {{ tile.title }}
-            </div>
-            <div class="explore-tile-category" ng-switch-when="category">
-                {{ tile.title }}
-                <div class = "explore-tile-category-thumb" ng-repeat="suggestion in tile.content.suggestions">
-                    <img class= "explore-tile-category-img" ng-src = "{{ suggestion.thumb }}"> </img>
-                </div>
-            </div>
-        </div>
-    </a>
-    </div>
-</div>
-
-<!-- <h2> {{ mainLabel }} </h2>
+<h1> {{ currentId }} </h1>
+<div> {{ found }} </div>
+<img ng-src = "{{ thumb_url }}"> </img>
 
 
 <div ng-repeat="category in filteredData.suggestionCategories">
-    <h3> {{ category.title }}</h3>
+    <h3>{{ category.title }}</h3>
     <div ng-repeat="structure in category.suggestions">
-        <div ng-click="getNewStructure(structure.id)">
+        <div ng-click="getNewStructure(structure.id)"> 
             <div> <img ng-src="{{ structure.thumb }} "> </img></div>
             <h5>{{structure.title}}</h5>
-        </div>
-    </div>
+        </div>      
+    </div>   
 </div>
 <h3>Uncategorized</h3>
 <div ng-repeat="structure in filteredData.uncategorizedSuggestions">
@@ -35,5 +18,4 @@
         <div> <img ng-src="{{ structure.thumb }} "> </img></div>
         <h5>{{structure.title}}</h5>
     </div>
-</div> -->
-
+</div>

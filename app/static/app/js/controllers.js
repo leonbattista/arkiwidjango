@@ -731,6 +731,7 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                 //Looking for the type 'ArchitecturalStructure' in the results
 
                 for (result in data.results.bindings) {
+                    //"http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"
                     if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/ArchitecturalStructure") {
                         
                         if (categoryTitle != 'uncategorizedSuggestions') {
@@ -788,17 +789,46 @@ app.controller("ExploreCtrl", function ($scope, $http) {
         
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
         
+        
+        // Retrieve infos for main building
+        
         $http.jsonp(queryUrl).success(function(data) {
+            
             $scope.mainTitle = data.results.bindings[0].label.value;
+            
+            // Flickr
+            
+            flickrURL = "https://api.flickr.com/services/rest/";
+            api_key = "4f2e1c6fce8b3367b7a5e88455af7d95";
+            flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.search&api_key=" + api_key + "&text=" + $scope.mainTitle + "&format=json&jsoncallback=JSON_CALLBACK");
+             
+            $scope.photoURLs = [];
+            
+             $http.jsonp(flickrQueryUrl).success(function(data) {
+                 console.log(data);
+                 for (photo in data.photos.photo) {
+                     if (photo > 19) break;
+                     p = data.photos.photo[photo];
+                     currentPhotoURL = "https://farm" + p.farm + ".staticflickr.com/" + p.server + "/" + p.id + "_" + p.secret + "_n.jpg";
+                     $scope.photoURLs.push(currentPhotoURL);
+                 };
+                 console.log($scope.photoURLs);
+             });
+            
         });
         
         getThumb(id).success(function(data) {
             $scope.mainThumb = makeThumbUrl(data, 600);           
         });
+        
+        
+        
+        
+        // Retrieve suggestions
     
         $http.get('/api/explore/', {params: {id: id}}).success(function(data) {
+            
             $scope.data = data;            
-            var thumbGetters = [];
             
             for (category in data['suggestionCategories']) {                
                 suggestions = data.suggestionCategories[category].suggestions;

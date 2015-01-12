@@ -511,24 +511,41 @@ h1 {
     height:100%;
     padding:20px;
     padding-left:40px;
+    padding-right: 0px;
     float: left;
 }
 
 .explore .main {
-    position:fixed;
+    width: 625px;
     float:left;
     text-align: left;
-    height:100%;
+    min-height:100%
+    height: auto;
 }
 
-.explore .main img {
-    margin-top: 10px;
+.mainImg {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.flickrImg {
+    display:inline-block;
+    float:left;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 290px;
+    height: 218px;
+    overflow: hidden;
 }
 
 .explore .categories {
     width: 900px;
     display:inline-block;
     float: right;
+    border-left: 1px solid #e5e5e5;
+    padding-left: 35px;
+    
 }
 
 .explore .category {
@@ -538,12 +555,12 @@ h1 {
     text-align: left;
     display: inline-block;
     width: 100%;
-    padding-left: 30px;
 
 }
 
 .explore .category h3 {
     margin-left:10px;
+    margin-bottom:20px;
 }
 
 .explore .structure {
@@ -558,3 +575,4 @@ h1 {
     
     overflow: hidden;
 }
+

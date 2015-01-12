@@ -2,7 +2,11 @@
     
     <div class="main">
         <h3> {{ mainTitle}} </h3>
-        <img class="fade-img" ng-src = "{{ mainThumb }}"> </img>
+        <img class="fade-img mainImg" ng-src = "{{ mainThumb }}"> </img>
+        <div class="flickrImg" ng-repeat="photoURL in photoURLs">
+            <img ng-src="{{ photoURL }}"> </img>
+        </div>
+        
     </div>
     
     <div class="categories">

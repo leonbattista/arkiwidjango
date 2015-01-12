@@ -1,21 +1,33 @@
-<h1> {{ currentId }} </h1>
-<div> {{ found }} </div>
-<img ng-src = "{{ thumb_url }}"> </img>
-
-
-<div ng-repeat="category in filteredData.suggestionCategories">
-    <h3>{{ category.title }}</h3>
-    <div ng-repeat="structure in category.suggestions">
-        <div ng-click="getNewStructure(structure.id)"> 
-            <div> <img ng-src="{{ structure.thumb }} "> </img></div>
-            <h5>{{structure.title}}</h5>
-        </div>      
-    </div>   
-</div>
-<h3>Uncategorized</h3>
-<div ng-repeat="structure in filteredData.uncategorizedSuggestions">
-    <div ng-click="getNewStructure(structure.id)">
-        <div> <img ng-src="{{ structure.thumb }} "> </img></div>
-        <h5>{{structure.title}}</h5>
+<div class="explore">
+    
+    <div class="main">
+        <h3> {{ mainTitle}} </h3>
+        <img class="fade-img" ng-src = "{{ mainThumb }}"> </img>
     </div>
+    
+    <div class="categories">
+
+        <div class="category" ng-repeat="category in filteredData.suggestionCategories">
+            <h3>{{ category.title }}</h3>
+            <div class="structure" ng-repeat="structure in category.suggestions">
+                <div ng-click="getNewStructure(structure.id)"> 
+                    <div class="img-container"> <img class="fade-img" ng-src="{{ structure.thumb }} "> </img></div>
+                    <h5>{{structure.title | cut:true:37:'...'}}</h5>
+                </div>      
+            </div>   
+        </div>
+        
+        
+        <div ng-if= "filteredData.uncategorizedSuggestions.length > 0"class="category">
+            <h3>Uncategorized</h3>
+            <div class="structure" ng-repeat="structure in filteredData.uncategorizedSuggestions">
+                <div ng-click="getNewStructure(structure.id)">
+                    <div class="img-container"> <img class="fade-img" ng-src="{{ structure.thumb }} "> </img></div>
+                    <h5>{{structure.title | cut:true:37:'...'}}</h5>
+                </div>
+            </div>
+        </div>
+    
+    <div>
+
 </div>

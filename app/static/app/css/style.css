@@ -506,3 +506,55 @@ h1 {
 
 
 
+.explore {
+    width:100%;
+    height:100%;
+    padding:20px;
+    padding-left:40px;
+    float: left;
+}
+
+.explore .main {
+    position:fixed;
+    float:left;
+    text-align: left;
+    height:100%;
+}
+
+.explore .main img {
+    margin-top: 10px;
+}
+
+.explore .categories {
+    width: 900px;
+    display:inline-block;
+    float: right;
+}
+
+.explore .category {
+    
+    clear:both;
+    float: left;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+    padding-left: 30px;
+
+}
+
+.explore .category h3 {
+    margin-left:10px;
+}
+
+.explore .structure {
+    float: left;
+    margin: 10px;
+    margin-bottom: 0px;
+}
+
+.explore .structure .img-container {
+    width: 250px;
+    height: 187px;
+    
+    overflow: hidden;
+}

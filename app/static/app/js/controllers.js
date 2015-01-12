@@ -756,7 +756,7 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                             };
                             
                             getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 200);
+                                structure['thumb'] = makeThumbUrl(data, 250);
                             });
                             
                             $scope.filteredData.suggestionCategories[currentCategory].suggestions.push(structure);
@@ -765,7 +765,7 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                         else {
                             
                             getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 200);
+                                structure['thumb'] = makeThumbUrl(data, 250);
                             });
                             
                             $scope.filteredData.uncategorizedSuggestions.push(structure);
@@ -784,8 +784,16 @@ app.controller("ExploreCtrl", function ($scope, $http) {
         
         $scope.currentId = id;
         
+        var query = "SELECT ?label WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label }";
+        
+        var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+        
+        $http.jsonp(queryUrl).success(function(data) {
+            $scope.mainTitle = data.results.bindings[0].label.value;
+        });
+        
         getThumb(id).success(function(data) {
-            $scope.thumb_url = makeThumbUrl(data, 400);           
+            $scope.mainThumb = makeThumbUrl(data, 600);           
         });
     
         $http.get('/api/explore/', {params: {id: id}}).success(function(data) {

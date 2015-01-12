@@ -702,9 +702,10 @@ app.controller("ExploreCtrl", function ($scope, $http) {
     var dbpediaURL = 'http://dbpedia.org/sparql';
             
     
-    // var getThumb = function (structure, size) {
-    //     return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + structure.id + '&prop=url&format=json&callback=JSON_CALLBACK');
-    // }
+    $scope.tiles = [{},{},{},{},{},{},{},{}, {title: "Uncategorized", type: "category", content:{suggestions: []}}];
+
+    var maxCategoryIndex = 0;
+    var currentCategoryIndex = 0;
     
     var getThumb = function (id) {
         var query = "SELECT ?thumb WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure dbpedia-owl:thumbnail ?thumb }";
@@ -726,7 +727,7 @@ app.controller("ExploreCtrl", function ($scope, $http) {
         
         $http.jsonp(queryUrl).success(function(data) {
             
-                var currentCategory;
+
 
                 //Looking for the type 'ArchitecturalStructure' in the results
 
@@ -745,8 +746,19 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                             };
                     
                             if (!categoryExists) {
-                                $scope.filteredData.suggestionCategories.push({title:categoryTitle, suggestions:[]});
-                            };
+                                
+                                console.log("NewCat");
+                                
+                                newCategory = {title:categoryTitle, suggestions:[]};
+                                
+                                $scope.filteredData.suggestionCategories.push(newCategory);
+                                
+                                $scope.tiles[maxCategoryIndex] = {title: newCategory.title, type: "category", content: {suggestions:[]}};
+                                
+                                if (maxCategoryIndex == 3) { maxCategoryIndex = 5 }
+                                else { maxCategoryIndex += 1};
+                                $scope.index = maxCategoryIndex;
+                            }
                     
                             for (category in $scope.filteredData.suggestionCategories) {
                                 if ($scope.filteredData.suggestionCategories[category].title == categoryTitle) {
@@ -755,19 +767,29 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                                 };
                             };
                             
+                            for (i=0; i <= maxCategoryIndex; i++) {
+                                if (($scope.tiles[i].title == categoryTitle) && ($scope.tiles[i].type == "category")) {
+                                    currentCategoryIndex = i;
+                                    break;
+                                }
+                            };
+                            
                             getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 200);
+                                structure['thumb'] = makeThumbUrl(data, 170);
                             });
+                        2
                             
                             $scope.filteredData.suggestionCategories[currentCategory].suggestions.push(structure);
+                            $scope.tiles[currentCategoryIndex].content.suggestions.push(structure);
                         }
                             
                         else {
                             
                             getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 200);
+                                structure['thumb'] = makeThumbUrl(data, 170);
                             });
-                            
+                            console.log($scope.tiles.length);
+                            $scope.tiles[$scope.tiles.length - 1].content.suggestions.push(structure);
                             $scope.filteredData.uncategorizedSuggestions.push(structure);
                         };
                         
@@ -785,12 +807,27 @@ app.controller("ExploreCtrl", function ($scope, $http) {
         $scope.currentId = id;
         
         getThumb(id).success(function(data) {
-            $scope.thumb_url = makeThumbUrl(data, 400);           
+            
+            mainThumb = makeThumbUrl(data, 400);
+            
+            var query = "SELECT ?label WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label }";
+        
+            var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+        
+            $http.jsonp(queryUrl).success(function(data) {
+                var title = data.results.bindings[0].label.value;
+                $scope.tiles[4] = {title: title, type: "main", content: {thumb: mainThumb}};
+                $scope.mainLabel = title;
+                console.log($scope.mainLabel);
+            });
+             
         });
-    
+        
+
         $http.get('/api/explore/', {params: {id: id}}).success(function(data) {
-            $scope.data = data;            
-            var thumbGetters = [];
+            $scope.data = data;
+            
+                   
             
             for (category in data['suggestionCategories']) {                
                 suggestions = data.suggestionCategories[category].suggestions;

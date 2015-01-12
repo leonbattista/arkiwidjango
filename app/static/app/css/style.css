@@ -504,5 +504,44 @@ h1 {
     transform: translateY(-50%);
 }
 
+.explore {
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding-top:10px;
+    display: inline-block;
+
+}
+
+
+.explore-tile {
+    
+    margin: 5px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 400px;
+    height: 290px;
+    border:1px solid black;
+    
+    overflow: hidden;
+    
+}
+
+.explore-tile-category {
+    width: 100%;
+
+}
+
+.explore-tile-category-thumb {
+    display:inline-block;
+    float: left;
+    margin: 5px;
+    width: 170px;
+    height: 100px;
+    overflow: hidden;
+
+}
+
+
 
 

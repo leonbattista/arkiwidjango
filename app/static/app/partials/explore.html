@@ -1,15 +1,26 @@
 <div class="explore">
-    
     <div class="main">
         <h3> {{ mainTitle}} </h3>
         <img class="fade-img mainImg" ng-src = "{{ mainThumb }}"> </img>
-        <div class="flickrImg" ng-repeat="photoURL in photoURLs">
-            <img ng-src="{{ photoURL }}"> </img>
+        <div ng-if="architects.length > 0" class="architects">
+            <h3>Related architects</h3>
+            <div class="architect" ng-repeat="architect in architects">
+                {{ architect.title }}
+            </div>
         </div>
+        
+        <div class="flickrImgcontainer">
+            <div class="flickrImg" ng-repeat="photoURL in photoURLs">
+                <img ng-src="{{ photoURL }}"> </img>
+            </div>
+        </div>
+        
         
     </div>
     
     <div class="categories">
+        
+
 
         <div class="category" ng-repeat="category in filteredData.suggestionCategories">
             <h3>{{ category.title }}</h3>

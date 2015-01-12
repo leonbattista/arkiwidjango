@@ -1,7 +1,7 @@
 # **** IMPORTS ****
 
 # External Python modules
-import json, os, copy, urllib2
+import json, os, copy, urllib, urllib2
 from django.utils import timezone
 from cStringIO import StringIO
 from tempfile import NamedTemporaryFile
@@ -50,6 +50,27 @@ def test(request):
     params = request.GET
         
     return HttpResponse(json.dumps(data), "application/json")
+    
+def wikiImages(request):
+    
+    params = request.GET
+    currentId = params['id']
+        
+    api_key = "AIzaSyCooVyggUatNZJ9d_HJjvu66jiET0ZJ23g"
+    service_url = 'https://www.googleapis.com/freebase/v1/topic'
+    topic_id = '/m/0d6lp'
+    params = {
+      'key': api_key,
+      'filter': 'suggest'
+    }
+    url = service_url + topic_id + '?' + urllib.urlencode(params)
+    topic = json.loads(urllib.urlopen(url).read())
+    
+    print topic
+    
+    return HttpResponse(topic, content_type="application/json")
+    
+    
     
 def explore(request):
     

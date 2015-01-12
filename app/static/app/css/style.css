@@ -523,9 +523,26 @@ h1 {
     height: auto;
 }
 
+.explore .main .architects {
+    padding-bottom:40px;
+    float:left;
+    clear:right;
+    display:inline;
+    width:100%;
+}
+
+.explore .main .architect {
+    margin-right:20px;
+    float:left;
+}
+
 .mainImg {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.flickrImgContainer {
+    clear:both;
 }
 
 .flickrImg {
@@ -543,7 +560,7 @@ h1 {
     width: 900px;
     display:inline-block;
     float: right;
-    border-left: 1px solid #e5e5e5;
+    border-left: 2px solid #e5e5e5;
     padding-left: 35px;
     
 }

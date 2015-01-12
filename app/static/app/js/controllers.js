@@ -699,6 +699,7 @@ app.controller("ExploreCtrl", function ($scope, $http) {
     
     $scope.currentId = 340002;
     
+    
     var dbpediaURL = 'http://dbpedia.org/sparql';
             
     
@@ -717,6 +718,35 @@ app.controller("ExploreCtrl", function ($scope, $http) {
       return url.substr(0, url.lastIndexOf("=") + 1) + size;
     };
     
+    var filterArchitect = function (entry) {
+        var query = "SELECT ?type WHERE { ?entry dbpedia-owl:wikiPageID " + entry.id + " . ?entry a ?type }";
+        
+        var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+        
+        $http.jsonp(queryUrl).success(function(data) {
+            
+            for (result in data.results.bindings) {
+                if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/Architect" || data.results.bindings[result].type.value  == "http://dbpedia.org/class/yago/Architect109805475") {
+                    if (entry.weight > 0.7) {
+                        var alreadyIn = false;
+                        for (oldEntry in $scope.architects) {
+                            oldEntry = $scope.architects[oldEntry];
+                            if (oldEntry.title == entry.title) {
+                                alreadyIn = true;
+                                break;
+                            }
+                        };
+                        if (!alreadyIn) {
+                            $scope.architects.push(entry);
+                        };    
+                    }
+                    break;
+                }
+            }
+        });
+            
+        
+    };
     
     var filterArchitecturalStructure = function (categoryTitle, structure) {
                         
@@ -781,38 +811,43 @@ app.controller("ExploreCtrl", function ($scope, $http) {
     
     $scope.getNewStructure = function(id) {
         
+        $scope.architects = [];
+        
         $scope.filteredData = {'suggestionCategories': [], 'uncategorizedSuggestions': []};
         
         $scope.currentId = id;
         
-        var query = "SELECT ?label WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label }";
+        // Retrieve infos for main building
+        
+        // Wikipedia additional photos
+        
+        var query = "SELECT ?label ?lon ?lat WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure geo:long ?lon . ?structure geo:lat ?lat .}";
         
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
-        
-        
-        // Retrieve infos for main building
         
         $http.jsonp(queryUrl).success(function(data) {
             
             $scope.mainTitle = data.results.bindings[0].label.value;
+            var lon = data.results.bindings[0].lon.value;
+            var lat = data.results.bindings[0].lat.value;
+            
             
             // Flickr
             
             flickrURL = "https://api.flickr.com/services/rest/";
             api_key = "4f2e1c6fce8b3367b7a5e88455af7d95";
+            query_bonus = "&api_key=cee9619e83d77c75dedcca0b9eb9a5cd&auth_token=72157650250020721-863a32e1da986762&api_sig=2ef97e7df846e8aec9dc04c8adb607a4";
             flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.search&api_key=" + api_key + "&text=" + $scope.mainTitle + "&format=json&jsoncallback=JSON_CALLBACK");
-             
+
             $scope.photoURLs = [];
             
              $http.jsonp(flickrQueryUrl).success(function(data) {
-                 console.log(data);
                  for (photo in data.photos.photo) {
                      if (photo > 19) break;
                      p = data.photos.photo[photo];
                      currentPhotoURL = "https://farm" + p.farm + ".staticflickr.com/" + p.server + "/" + p.id + "_" + p.secret + "_n.jpg";
                      $scope.photoURLs.push(currentPhotoURL);
                  };
-                 console.log($scope.photoURLs);
              });
             
         });
@@ -834,11 +869,13 @@ app.controller("ExploreCtrl", function ($scope, $http) {
                 suggestions = data.suggestionCategories[category].suggestions;
                 for (structure in suggestions) {
                     filterArchitecturalStructure(data.suggestionCategories[category].title, suggestions[structure]);
+                    filterArchitect(suggestions[structure]);
                 };
             };
 
             for (structure in data.uncategorizedSuggestions) {
                 filterArchitecturalStructure('uncategorizedSuggestions', data.uncategorizedSuggestions[structure]);
+                filterArchitect(data.uncategorizedSuggestions[structure]);
             };
             
         });

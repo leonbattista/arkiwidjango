@@ -1,14 +1,13 @@
+
 <div class="explore">
     <div class="main">
-        <h3> {{ mainTitle}} </h3>
-        <img class="fade-img mainImg" ng-src = "{{ mainThumb }}"> </img>
-        
+        <h3> {{ mainTitle}} </h3>   
+        <img class="fade-img mainImg" ng-src = "{{ mainThumb }}"> </img>        
         <div class="description">{{ description }}</div>
-
-        
+      
         <div class="flickrImgcontainer">
-            <div class="flickrImg" ng-repeat="photoURL in photoURLs">
-                <img ng-src="{{ photoURL }}"> </img>
+            <div class="flickrImg" ng-repeat="photo in photos">                
+                <img ng-src="{{ photo.shortURL}}"> </img>
             </div>
         </div>
         
@@ -53,7 +52,10 @@
         </div>
         
         <div>
-            {{ works }}
+            <div ng-repeat="work in works"> 
+                <img ng-src = "{{ work.thumb.value }}"> </img>
+                {{ work.label.value }}
+            </div>
         </div>
     
     <div>

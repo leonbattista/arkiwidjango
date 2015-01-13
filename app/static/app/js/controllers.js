@@ -732,7 +732,7 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
             
             for (result in data.results.bindings) {
                 if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/Architect" || data.results.bindings[result].type.value  == "http://dbpedia.org/class/yago/Architect109805475") {
-                    if (entry.weight > 0.7) {
+                    if (entry.weight > 0.65) {
                         var notIn = true;
                         for (oldEntry in $scope.architects) {
                             oldEntry = $scope.architects[oldEntry];
@@ -864,40 +864,44 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
             
             flickrURL = "https://api.flickr.com/services/rest/";
             api_key = "4f2e1c6fce8b3367b7a5e88455af7d95";
-            flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.search&api_key=" + api_key + "&text=" + $scope.mainTitle + "&format=json&jsoncallback=JSON_CALLBACK");
+            flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.search&api_key=" + api_key + "&text=" + $scope.mainTitle + "&sort=date-posted-desc&format=json&jsoncallback=JSON_CALLBACK");
 
-            $scope.photoURLs = [];
+            $scope.photos = [];
             
              $http.jsonp(flickrQueryUrl).success(function(data) {
                  
-                 for (photo in data.photos.photo) {
+                 for (i in data.photos.photo) {
                      
-                     if (photo > 19) break;
+                     if (i > 100) break;
                      
-                     $scope.p = data.photos.photo[photo];
-                     
-                     console.log($scope.p.id);
-                     
-                     flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.getSizes&api_key=" + api_key + "&photo_id=" + $scope.p.id + "&format=json&jsoncallback=JSON_CALLBACK");
+                     var p = data.photos.photo[i];
+                                          
+                     flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.getInfo&api_key=" + api_key + "&photo_id=" + p.id + "&format=json&jsoncallback=JSON_CALLBACK");
                      
                      $http.jsonp(flickrQueryUrl).success(function(data) {
-                         
-                         console.log(data);
-                     
-                         sizeLabel = "";
                                                   
-                         for (i in data.sizes.size) {
-                             size = data.sizes.size[i];
-                             if (size.width > 290) {
-                                 currentPhotoURL = size.source;
-                                 break;
-                             };
-                         };
-                         
-                         console.log(currentPhotoURL);
+                         if (true) {
+                             flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.getSizes&api_key=" + api_key + "&photo_id=" + data.photo.id + "&format=json&jsoncallback=JSON_CALLBACK");
                      
-                         $scope.photoURLs.push(currentPhotoURL);
-                     }); 
+                             $http.jsonp(flickrQueryUrl).success(function(data2) {
+                                 
+                                 $scope.debug = data2;
+                                              
+                                 sizeLabel = "";
+                                                  
+                                 for (i in data2.sizes.size) {
+                                     size = data2.sizes.size[i];
+                                     if (size.width > 290) {
+                                         data.photo["shortURL"] = size.source;
+                                         break;
+                                     };
+                                 };
+                                 
+                                 $scope.photos.push(data.photo)                                         
+                             }); 
+                         }
+                     });
+                     
                  };
              });
             
@@ -933,7 +937,30 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
     };
     
     $scope.loadWorks = function(architect) {
-        $scope.works = architect;
+        
+        var query = "SELECT ?work WHERE { ?architect dbpedia-owl:wikiPageID " + architect.id + " . ?work dbpprop:architect ?architect}";
+        
+        var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+        $http.jsonp(queryUrl).success(function(data) {
+                
+            $scope.works = [];        
+            
+            for (i in data.results.bindings) {
+                       
+                workURI = data.results.bindings[i].work.value;
+                workIdentifier = "dbpedia:" + workURI.substr(workURI.lastIndexOf('/') + 1);
+                                
+                var query = "SELECT ?label ?thumb WHERE {"+ workIdentifier + " dbpedia-owl:thumbnail ?thumb . " + workIdentifier + " rdfs:label ?label . filter langMatches( lang(?label), 'en' )}";
+                var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+                                
+                $http.jsonp(queryUrl).success(function(data) {
+                    console.log(data.results.bindings[0]);
+                    $scope.works.push(data.results.bindings[0]);
+                });
+            }
+                     
+        });
+        
     };
     
     $scope.getNewStructure($scope.currentId);

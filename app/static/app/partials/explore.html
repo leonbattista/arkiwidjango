@@ -2,12 +2,9 @@
     <div class="main">
         <h3> {{ mainTitle}} </h3>
         <img class="fade-img mainImg" ng-src = "{{ mainThumb }}"> </img>
-        <div ng-if="architects.length > 0" class="architects">
-            <h3>Related architects</h3>
-            <div class="architect" ng-repeat="architect in architects">
-                {{ architect.title }}
-            </div>
-        </div>
+        
+        <div class="description">{{ description }}</div>
+
         
         <div class="flickrImgcontainer">
             <div class="flickrImg" ng-repeat="photoURL in photoURLs">
@@ -20,8 +17,7 @@
     
     <div class="categories">
         
-
-
+        
         <div class="category" ng-repeat="category in filteredData.suggestionCategories">
             <h3>{{ category.title }}</h3>
             <div class="structure" ng-repeat="structure in category.suggestions">
@@ -32,6 +28,7 @@
             </div>   
         </div>
         
+
         
         <div ng-if= "filteredData.uncategorizedSuggestions.length > 0"class="category">
             <h3>Uncategorized</h3>
@@ -41,6 +38,22 @@
                     <h5>{{structure.title | cut:true:37:'...'}}</h5>
                 </div>
             </div>
+        </div>
+        
+        <div ng-if="architects.length > 0" class="architects">
+            <h3>Related architects</h3>
+            <div class="architect" ng-repeat="architect in architects">
+            <div ng-click="loadWorks(architect)">
+                <div class="img-container">
+                    <img class="fade-img architect-img" ng-src = "{{ architect.thumb }}"> </img>
+                </div>
+                <div class="caption"> {{ architect.title }} </div>
+            </div>
+            </div>
+        </div>
+        
+        <div>
+            {{ works }}
         </div>
     
     <div>

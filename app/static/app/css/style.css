@@ -509,7 +509,7 @@ h1 {
 .explore {
     width:100%;
     height:100%;
-    padding:20px;
+    padding:10px;
     padding-left:40px;
     padding-right: 0px;
     float: left;
@@ -523,22 +523,46 @@ h1 {
     height: auto;
 }
 
-.explore .main .architects {
-    padding-bottom:40px;
+.explore .main h3 {
+}
+
+.description {
+    width:600px;
+    padding:15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.mainImg {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.architects {
     float:left;
+    text-align:left;
     clear:right;
     display:inline;
     width:100%;
 }
 
-.explore .main .architect {
+.architect {
     margin-right:20px;
-    float:left;
-}
-
-.mainImg {
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 117px;
+    float:left;
+    text-align:center;
+    
+}
+
+.architect .img-container {
+    height:100px;
+    overflow:hidden;
+}
+
+.architect .caption {
+    clear: both;
 }
 
 .flickrImgContainer {
@@ -560,8 +584,9 @@ h1 {
     width: 900px;
     display:inline-block;
     float: right;
-    border-left: 2px solid #e5e5e5;
+    border-left: 2px solid #ddd;
     padding-left: 35px;
+    margin-top: 0px;
     
 }
 
@@ -576,6 +601,7 @@ h1 {
 }
 
 .explore .category h3 {
+    margin-top: 20px;
     margin-left:10px;
     margin-bottom:20px;
 }

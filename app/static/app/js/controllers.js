@@ -695,7 +695,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 
 });
 
-app.controller("ExploreCtrl", function ($scope, $http) {
+app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
     
     $scope.currentId = 340002;
     
@@ -718,6 +718,11 @@ app.controller("ExploreCtrl", function ($scope, $http) {
       return url.substr(0, url.lastIndexOf("=") + 1) + size;
     };
     
+    var sizeShort = function(label) {
+        var sizeMap = {"Small 320": "n", "Medium": "", "Medium 640": "z", "Medium 800":"c", "Large":"b", "Large 1600": "h"};
+        return sizeMap[label];
+    }
+    
     var filterArchitect = function (entry) {
         var query = "SELECT ?type WHERE { ?entry dbpedia-owl:wikiPageID " + entry.id + " . ?entry a ?type }";
         
@@ -728,16 +733,30 @@ app.controller("ExploreCtrl", function ($scope, $http) {
             for (result in data.results.bindings) {
                 if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/Architect" || data.results.bindings[result].type.value  == "http://dbpedia.org/class/yago/Architect109805475") {
                     if (entry.weight > 0.7) {
-                        var alreadyIn = false;
+                        var notIn = true;
                         for (oldEntry in $scope.architects) {
                             oldEntry = $scope.architects[oldEntry];
-                            if (oldEntry.title == entry.title) {
-                                alreadyIn = true;
+                            if (oldEntry.id == entry.id) {
+                                alreadyIn = false;
                                 break;
-                            }
+                            };
                         };
-                        if (!alreadyIn) {
-                            $scope.architects.push(entry);
+                        
+                        if (notIn) {
+                            getThumb(entry.id).success(function(data) {
+                                var reallyNotIn = true;
+                                for (i in $scope.architects) {                                   
+                                    if (entry.title == $scope.architects[i].title ) {
+                                        reallyNotIn = false;
+                                        break;
+                                    }
+                                }
+                                if (reallyNotIn) {
+                                    entry['thumb'] = makeThumbUrl(data, 70);
+                                    $scope.architects.push(entry);
+                                };
+                            });
+                            
                         };    
                     }
                     break;
@@ -817,15 +836,24 @@ app.controller("ExploreCtrl", function ($scope, $http) {
         
         $scope.currentId = id;
         
+        $scope.description = "";
+        
         // Retrieve infos for main building
         
         // Wikipedia additional photos
         
-        var query = "SELECT ?label ?lon ?lat WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure geo:long ?lon . ?structure geo:lat ?lat .}";
+        var query = "SELECT ?label ?lon ?lat ?description WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure geo:long ?lon . ?structure geo:lat ?lat . ?structure rdfs:comment ?description}";
         
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
         
         $http.jsonp(queryUrl).success(function(data) {
+            
+            for (i in data.results.bindings) {
+                if (data.results.bindings[i].description["xml:lang"] == "en") {
+                    $scope.description = data.results.bindings[i].description.value;
+                    break;                  
+                }
+            }
             
             $scope.mainTitle = data.results.bindings[0].label.value;
             var lon = data.results.bindings[0].lon.value;
@@ -836,17 +864,40 @@ app.controller("ExploreCtrl", function ($scope, $http) {
             
             flickrURL = "https://api.flickr.com/services/rest/";
             api_key = "4f2e1c6fce8b3367b7a5e88455af7d95";
-            query_bonus = "&api_key=cee9619e83d77c75dedcca0b9eb9a5cd&auth_token=72157650250020721-863a32e1da986762&api_sig=2ef97e7df846e8aec9dc04c8adb607a4";
             flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.search&api_key=" + api_key + "&text=" + $scope.mainTitle + "&format=json&jsoncallback=JSON_CALLBACK");
 
             $scope.photoURLs = [];
             
              $http.jsonp(flickrQueryUrl).success(function(data) {
+                 
                  for (photo in data.photos.photo) {
+                     
                      if (photo > 19) break;
-                     p = data.photos.photo[photo];
-                     currentPhotoURL = "https://farm" + p.farm + ".staticflickr.com/" + p.server + "/" + p.id + "_" + p.secret + "_n.jpg";
-                     $scope.photoURLs.push(currentPhotoURL);
+                     
+                     $scope.p = data.photos.photo[photo];
+                     
+                     console.log($scope.p.id);
+                     
+                     flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.getSizes&api_key=" + api_key + "&photo_id=" + $scope.p.id + "&format=json&jsoncallback=JSON_CALLBACK");
+                     
+                     $http.jsonp(flickrQueryUrl).success(function(data) {
+                         
+                         console.log(data);
+                     
+                         sizeLabel = "";
+                                                  
+                         for (i in data.sizes.size) {
+                             size = data.sizes.size[i];
+                             if (size.width > 290) {
+                                 currentPhotoURL = size.source;
+                                 break;
+                             };
+                         };
+                         
+                         console.log(currentPhotoURL);
+                     
+                         $scope.photoURLs.push(currentPhotoURL);
+                     }); 
                  };
              });
             
@@ -859,26 +910,30 @@ app.controller("ExploreCtrl", function ($scope, $http) {
         
         
         
-        // Retrieve suggestions
-    
+        //Retrieve suggestions
+
         $http.get('/api/explore/', {params: {id: id}}).success(function(data) {
-            
-            $scope.data = data;            
-            
-            for (category in data['suggestionCategories']) {                
+
+            $scope.data = data;
+
+            for (category in data['suggestionCategories']) {
                 suggestions = data.suggestionCategories[category].suggestions;
                 for (structure in suggestions) {
-                    filterArchitecturalStructure(data.suggestionCategories[category].title, suggestions[structure]);
-                    filterArchitect(suggestions[structure]);
+                    $timeout(filterArchitecturalStructure(data.suggestionCategories[category].title, suggestions[structure]), 0);
+                    $timeout(filterArchitect(suggestions[structure]), 0);
                 };
             };
 
             for (structure in data.uncategorizedSuggestions) {
-                filterArchitecturalStructure('uncategorizedSuggestions', data.uncategorizedSuggestions[structure]);
-                filterArchitect(data.uncategorizedSuggestions[structure]);
+                $timeout(filterArchitecturalStructure('uncategorizedSuggestions', data.uncategorizedSuggestions[structure]), 0);
+                $timeout(filterArchitect(data.uncategorizedSuggestions[structure]), 0);
             };
-            
+
         });
+    };
+    
+    $scope.loadWorks = function(architect) {
+        $scope.works = architect;
     };
     
     $scope.getNewStructure($scope.currentId);

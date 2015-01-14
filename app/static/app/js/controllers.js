@@ -874,7 +874,7 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
                  
                  for (i in data.photos.photo) {
                      
-                     if (i > 100) break;
+                     if (i > 40) break;
                      
                      var p = data.photos.photo[i];
                                           

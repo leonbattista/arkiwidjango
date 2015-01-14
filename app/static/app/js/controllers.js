@@ -950,8 +950,8 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
             for (i in data.results.bindings) {
                        
                 workURI = data.results.bindings[i].work.value;
-                workIdentifier = "dbpedia:" + workURI.substr(workURI.lastIndexOf('/') + 1);
-                                
+                //workIdentifier = "dbpedia:" + workURI.substr(workURI.lastIndexOf('/') + 1);
+                workIdentifier = "<" + workURI + ">";               
                 var query = "SELECT ?label ?thumb ?id WHERE {"+ workIdentifier + " dbpedia-owl:thumbnail ?thumb . " + workIdentifier +" dbpedia-owl:wikiPageID ?id . "+ workIdentifier + " rdfs:label ?label . filter langMatches( lang(?label), 'en' )}";
                 var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
                                 

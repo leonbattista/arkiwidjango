@@ -1013,7 +1013,7 @@ app.factory("retry", ["$q", "$injector", "$timeout", function($q, $injector, $ti
             //     console.log("Unhandled status");
             //     return $q.reject(rejection);
             // }
-            if (rejection.status > 0) {
+            if (rejection.status != 400) {
                 var delay = Math.floor(Math.random() * 2000);
                 console.log("Retrying in " + delay + "ms");
                 var deferred = $q.defer();

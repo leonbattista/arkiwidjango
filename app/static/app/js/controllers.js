@@ -732,7 +732,7 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
             
             for (result in data.results.bindings) {
                 if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/Architect" || data.results.bindings[result].type.value  == "http://dbpedia.org/class/yago/Architect109805475") {
-                    if (entry.weight > 0.65) {
+                    if (entry.weight > 0.7) {
                         var notIn = true;
                         for (oldEntry in $scope.architects) {
                             oldEntry = $scope.architects[oldEntry];
@@ -831,6 +831,8 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
     $scope.getNewStructure = function(id) {
         
         $scope.architects = [];
+        
+        $scope.works = [];
         
         $scope.filteredData = {'suggestionCategories': [], 'uncategorizedSuggestions': []};
         
@@ -950,11 +952,11 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
                 workURI = data.results.bindings[i].work.value;
                 workIdentifier = "dbpedia:" + workURI.substr(workURI.lastIndexOf('/') + 1);
                                 
-                var query = "SELECT ?label ?thumb WHERE {"+ workIdentifier + " dbpedia-owl:thumbnail ?thumb . " + workIdentifier + " rdfs:label ?label . filter langMatches( lang(?label), 'en' )}";
+                var query = "SELECT ?label ?thumb ?id WHERE {"+ workIdentifier + " dbpedia-owl:thumbnail ?thumb . " + workIdentifier +" dbpedia-owl:wikiPageID ?id . "+ workIdentifier + " rdfs:label ?label . filter langMatches( lang(?label), 'en' )}";
                 var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
                                 
                 $http.jsonp(queryUrl).success(function(data) {
-                    console.log(data.results.bindings[0]);
+                    $scope.works['architect'] = architect;
                     $scope.works.push(data.results.bindings[0]);
                 });
             }

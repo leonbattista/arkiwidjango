@@ -600,7 +600,12 @@ h1 {
 
 }
 
-.explore .category h3 {
+.explore {
+    text-align:left;
+    float: left;
+}
+
+.explore h3 {
     margin-top: 20px;
     margin-left:10px;
     margin-bottom:20px;

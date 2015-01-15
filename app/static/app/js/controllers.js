@@ -781,6 +781,7 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
 
                 for (result in data.results.bindings) {
                     //"http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"
+                    // || data.results.bindings[result].type.value  == "http://dbpedia.org/class/yago/Building102913152"
                     if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/ArchitecturalStructure") {
                         
                         if (categoryTitle != 'uncategorizedSuggestions') {

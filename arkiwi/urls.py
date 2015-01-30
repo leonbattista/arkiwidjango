@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^api/explore/$', views.explore, name='explore'),
     url(r'^api/wiki_images/$', views.wikiImages, name='wiki_images'),
     url(r'^api/map_projects/$', views.MapProjectsView.as_view(), name='map_projects'),
+    url(r'^api/map_target/$', views.MapTargetView.as_view(), name='map_target'),
     url(r'^api/current_user/$', views.CurrentUserView.as_view(), name='current_user'),
     url(r'^api/', include(router.urls)),
     url(r'^api/auth/$', views.AuthView.as_view(), name='authenticate'), #from richardtier.com

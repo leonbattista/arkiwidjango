@@ -6,6 +6,7 @@
         <div class="description">{{ description }}</div>
       
         <div class="flickr-img-container">
+            <div class="source source-flickr"> Images from flickr </div>
             <div class="flickrImg" ng-repeat="photo in photos">                
                 <img ng-src="{{ photo.shortURL}}"> </img>
             </div>
@@ -15,7 +16,7 @@
     </div>
     
     <div class="categories">
-        
+        <div class="source source-categories"> Suggested from Wikipedia </div>
         <div ng-if="architects.length > 0" class="architects">
             <h3>Related architects</h3>
             <div class="architect" ng-repeat="architect in architects">

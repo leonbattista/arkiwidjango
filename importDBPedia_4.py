@@ -1,5 +1,6 @@
 import urllib
 import rdflib
+import json
 from rdflib.resource import Resource
 import time
 import logging
@@ -35,12 +36,25 @@ nProjects = 0
 
 # Slicing to accomodate for DBPedia SPARQL endpoint result size limit
  
-for i in range(1):
+for i in range(1000):
 
     sparql.setQuery("""
 
     prefix dbpedia: <http://dbpedia.org/ontology/>
     prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+    
+    
+    SELECT  ?structure 
+            ?long
+            ?lat
+            ?thumbnail
+            ?architect
+            ?wiki_page_id
+            ?architect_prop
+            ?stripped_architect_name
+            ?stripped_structure_name
+            
+    WHERE {
 
         SELECT DISTINCT ?structure 
                         ?long
@@ -71,22 +85,65 @@ for i in range(1):
                 ?architect rdfs:label ?architect_name .
                 bind (str(?architect_name) as ?stripped_architect_name)
             }
+            filter langMatches( lang(?structure_name), 'en' )
             bind (str(?structure_name) as ?stripped_structure_name)
         
+        }
+        ORDER BY ASC(?structure)     
     }
-        ORDER BY ASC(?structure)
     
 
     OFFSET  %s
-    LIMIT  5
+    LIMIT  2000   
 
-    """ %(i*10000)
+    """ %(i*2000)
     )
 
 
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
-    print results
+    
+    for result in results['results']['bindings']:
+        
+        if nProjects%500 == 0:
+            print nProjects
+            
+        wikipedia_page_id = result['wiki_page_id']['value']
+        
+        if not Project.objects.filter(wikipedia_page_id=wikipedia_page_id).exists():
+            
+            p = Project()
+            
+            p.owner = User.objects.get(username = "DBPediaImporter")
+            p.name = result[ 'stripped_structure_name']['value']
+            p.longitude = result['long']['value']
+            p.latitude = result['lat']['value']
+            p.wikipedia_page_id = wikipedia_page_id
+            p.architect = ''
+            if result.has_key('architect_prop'):
+                p.architect = result['architect_prop']['value']
+            if result.has_key('stripped_architect_name'):
+                if p.architect != '':
+                    p.architect += ', ' + result['stripped_architect_name']['value']
+                else:
+                    p.architect = result['stripped_architect_name']['value']
+            if result.has_key('thumbnail'):
+                thumb_url = result['thumbnail']['value']
+                i = thumb_url.rindex('?')
+                p.wikipedia_image_url = thumb_url[:i]
+                
+                
+            ten_months = datetime.timedelta(days=300)
+            p.pub_date = timezone.make_aware(datetime.datetime.now() - ten_months, timezone.get_current_timezone())
+            p.is_imported = True
+        
+            p.save()
+        
+            nProjects += 1
+            
+        
+
+        
 
     # fixedgraph = rdflib.Graph()
     # fixedgraph += [ sanitize_triple([s,p,o]) for s,p,o in results ]

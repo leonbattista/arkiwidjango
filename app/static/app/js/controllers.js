@@ -417,8 +417,10 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, $locatio
     $scope.atHome = function() {
         return Boolean($location.path()=='/')
     }
-	$scope.reInit = function(){
-		$window.location.href = '/';
+	$scope.home = function(){
+        $location.path('/');
+	    // Hardcore reset:
+        // $window.location.href = '/';
 	};
 
 	$scope.menuShow = function(){
@@ -432,6 +434,7 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, $locatio
 	$scope.menuVisibility = function(){
 		return menuVisibilityService.menuVisibilityVar;
 	};
+
 
 	// **** Authentication ****
 
@@ -704,6 +707,13 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 		$location.path('/projects/' + id);
 		$scope.$apply();
 	};
+    
+	$scope.target = function() {
+        var gBounds = $scope.mapInstance.getBounds();
+        boundaries = {min_lat:Math.min(gBounds.Ca.k, gBounds.Ca.j), max_lat:Math.max(gBounds.Ca.k, gBounds.Ca.j), min_lon:Math.min(gBounds.va.k, gBounds.va.j), max_lon:Math.max(gBounds.va.k, gBounds.va.j)};
+        console.log(boundaries);
+        return Projects.mapTarget(boundaries);
+	}
 
 });
 

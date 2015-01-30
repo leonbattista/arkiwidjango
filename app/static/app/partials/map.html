@@ -1,9 +1,10 @@
 <div ng-hide="mapLoaded" id="map-loading">
-<div class="loading-container">
-<div class="alert-info-loading">Loading... </div>
-<img src="/static/app/images/spinner.gif">
+ <div class="loading-container">
+  <div class="alert-info-loading">Loading... </div>
+  <img src="/static/app/images/spinner.gif">
+ </div>
 </div>
-</div>
+
 <div id="big-map-container" ng-style="mapStyle()">
  <div class="map-canvas">
   <google-map
@@ -29,4 +30,7 @@
   </div>
   </google-map>	
  </div>
+ <button ng-show="mapLoaded" type="button" class="btn btn-default btn-target" ng-click="target()">
+     <span class="glyphicon glyphicon-screenshot"></span>
+ </button>
 </div>

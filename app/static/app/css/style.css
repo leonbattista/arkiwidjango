@@ -501,6 +501,13 @@ h1 {
     transform: translateY(-20%);
 }
 
+.btn-target {
+    position:absolute;
+    top:50px;
+    right:15px;
+    z-index: 1000;
+}
+
 .loading-container {
     margin-left:auto;
     margin-right:auto;
@@ -528,6 +535,7 @@ h1 {
     text-align: left;
     min-height:100%
     height: auto;
+    margin-top: 20px;
 }
 
 .explore .main h3 {
@@ -605,7 +613,7 @@ h1 {
     float: right;
     border-left: 2px solid #ddd;
     padding-left: 35px;
-    margin-top: 0px;
+    margin-top: 20px;
     
 }
 
@@ -641,5 +649,25 @@ h1 {
     height: 187px;
     
     overflow: hidden;
+}
+
+.explore .source {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+
+.explore .source-flickr {
+    margin-bottom: 10px;
+}
+
+.explore .source-categories {
+    float:right;
+    position:absolute;
+    right: 20px;
+    top: 50px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    
 }
 

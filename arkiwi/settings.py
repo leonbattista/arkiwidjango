@@ -72,3 +72,6 @@ MEDIA_URL = '/media/'
 
 # Because of angular bug...
 APPEND_SLASH = False
+
+# Timezone support, to avoid naive dates in Wikipedia import
+USE_TZ = True

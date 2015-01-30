@@ -51,7 +51,11 @@ function($routeProvider) {
 	when('/explore', {
 		templateUrl: '/static/app/partials/explore.html',
 		controller: 'ExploreCtrl'
-	}).  
+	}).
+	when('/explore/:wikiPageId', {
+		templateUrl: '/static/app/partials/explore.html',
+		controller: 'ExploreCtrl'
+	}).    
 	otherwise({
 		redirectTo: '/'
 	});

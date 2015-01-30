@@ -54,6 +54,8 @@ class Project(models.Model):
     source = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=3000, blank=True)
     wikipedia_image_url = models.URLField(max_length=500, blank=True)
+    wikipedia_page_id = models.IntegerField(null=True)
+    
     
 class UserProfile(models.Model):
     

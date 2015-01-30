@@ -355,6 +355,11 @@ h1 {
 	margin-bottom:7px;
 }
 
+.btn-explore {
+    margin-left:50px;
+    margin-top: 5px;
+}
+
 .rating {
 	color:#9FAB88;
 }

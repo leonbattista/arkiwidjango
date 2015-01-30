@@ -23,7 +23,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'architect', 'owner','pub_date', 'address', 'latitude', 'longitude', 'image_file','thumbnail_file', 'description', 'wikipedia_image_url')
+        fields = ('id', 'name', 'architect', 'owner','pub_date', 'address', 'latitude', 'longitude', 'image_file','thumbnail_file', 'description', 'wikipedia_image_url', 'wikipedia_page_id')
 
 class MapProjectSerializer(serializers.ModelSerializer):
     

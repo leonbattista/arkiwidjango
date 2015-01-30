@@ -1,6 +1,9 @@
 <div class="project-detail-container-container">
  <div id="project-title-bar">
   <h1> {{ project.name }} </h1>
+  <button ng-show = "project.owner == 15" type="button" class="btn btn-default btn-explore" ng-click="explore()">
+      <span class="glyphicon glyphicon-certificate"></span> Explore!
+  </button>
   <div ng-show="isLogged" class="btn-group">
     <button type="button" class="btn btn-default" ng-click="edit()">
         <span class="glyphicon glyphicon-pencil"></span>
@@ -12,11 +15,13 @@
   </div>
  </div>
  
+
+ 
  <div class="project-detail-container">
   <div class="project-detail"> 
   <a>
-	     <img ng-if=" project.thumbnail_file != ''" ng-click="open()"  ng-src="/media/{{ project.thumbnail_file }}" class="fade-img zoom-in"></img>
-         <div ng-if=" project.thumbnail_file == '' " class="no-thumb"> no image </div>
+	     <img ng-if=" projectMainImage" ng-click="open()"  ng-src="{{ projectMainImage }}" class="fade-img zoom-in"></img>
+         <div ng-if=" !projectMainImage " class="no-thumb"> no image </div>
   </a>
    <ul>
     <li>

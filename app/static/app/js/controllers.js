@@ -158,6 +158,10 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
         $location.path('/project-edit/' + $routeParams.projectId);
     };
     
+    $scope.explore = function() {
+        $location.path('/explore/' + $scope.project.wikipedia_page_id);
+    }
+    
     var confirmModalInstanceCtrl = function($scope, $modalInstance) {
 
         $scope.ok = function() {
@@ -230,7 +234,15 @@ app.controller('ProjectDetailCtrl',function($scope, $routeParams, $modal, $http,
 	$http.get('api/projects/' + $routeParams.projectId + '/').success(function(data) {
 		
 		$scope.project = data;
-        		
+        if ($scope.project.thumbnail_file != '') {
+            $scope.projectMainImage = '/media/' + $scope.project.thumbnail_file;
+        }
+        else {
+            if ($scope.project.wikipedia_image_url != '') {
+                $scope.projectMainImage = $scope.project.wikipedia_image_url + '?width=400px';
+            }
+        }
+                		
         Projects.setCurrentProject(data); // Store current project data for potential edition
         
         $scope.hasPubDate = Boolean(data.pub_date != '');
@@ -695,9 +707,15 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 
 });
 
-app.controller("ExploreCtrl", function ($scope, $http, $timeout) {
+app.controller("ExploreCtrl", function ($scope, $http, $timeout, $routeParams) {
     
-    $scope.currentId = 340002;
+    if ($routeParams.wikiPageId) {
+        $scope.currentId = $routeParams.wikiPageId;
+    }
+    
+    else {
+        $scope.currentId = 340002;
+    }
     
     
     var dbpediaURL = 'http://dbpedia.org/sparql';

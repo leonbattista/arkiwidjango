@@ -713,11 +713,15 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         boundaries = {min_lat:Math.min(gBounds.Ca.k, gBounds.Ca.j), max_lat:Math.max(gBounds.Ca.k, gBounds.Ca.j), min_lon:Math.min(gBounds.va.k, gBounds.va.j), max_lon:Math.max(gBounds.va.k, gBounds.va.j)};
         console.log(boundaries);
         return Projects.mapTarget(boundaries);
-	}
+	};
+    
+    $scope.windowOptions = {
+        visible: true
+    };
 
 });
 
-app.controller("ExploreCtrl", function ($scope, $http, $timeout, $routeParams) {
+app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $routeParams) {
     
     if ($routeParams.wikiPageId) {
         $scope.currentId = $routeParams.wikiPageId;
@@ -857,7 +861,7 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout, $routeParams) {
             });
     }
     
-    $scope.getNewStructure = function(id) {
+    $scope.loadNewStructure = function(id) {
         
         $scope.architects = [];
         
@@ -994,5 +998,9 @@ app.controller("ExploreCtrl", function ($scope, $http, $timeout, $routeParams) {
         
     };
     
-    $scope.getNewStructure($scope.currentId);
+    $scope.loadNewStructure($scope.currentId);
+    
+    $scope.getNewStructure = function(id) {
+        $location.path('explore/' + id);    
+    };
 });

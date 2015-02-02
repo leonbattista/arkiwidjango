@@ -875,7 +875,7 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         
         // Retrieve infos for main building
         
-        // Wikipedia additional photos
+        // Wikipedia description
         
         var query = "SELECT ?label ?lon ?lat ?description WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure geo:long ?lon . ?structure geo:lat ?lat . ?structure rdfs:comment ?description}";
         
@@ -954,18 +954,22 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         $http.get('/api/explore/', {params: {id: id}}).success(function(data) {
 
             $scope.data = data;
+            
+            //SELECT ?id ?thumb ?type ?structure_name WHERE { ?structure dbpedia-owl:wikiPageID ?id . ?structure dbpedia-owl:thumbnail ?thumb . ?structure rdfs:label ?structure_name . ?structure a ?type . filter (?id IN (340002, 600087)) . filter (?type IN (dbpedia-owl:ArchitecturalStructure, dbpedia-owl:Architect))}
+            
+            var delay = 0; //Math.floor(Math.random() * 2000);
 
             for (category in data['suggestionCategories']) {
                 suggestions = data.suggestionCategories[category].suggestions;
                 for (structure in suggestions) {
-                    $timeout(filterArchitecturalStructure(data.suggestionCategories[category].title, suggestions[structure]), 0);
-                    $timeout(filterArchitect(suggestions[structure]), 0);
+                    $timeout(filterArchitecturalStructure(data.suggestionCategories[category].title, suggestions[structure]), delay);
+                    $timeout(filterArchitect(suggestions[structure]), delay);
                 };
             };
 
             for (structure in data.uncategorizedSuggestions) {
-                $timeout(filterArchitecturalStructure('uncategorizedSuggestions', data.uncategorizedSuggestions[structure]), 0);
-                $timeout(filterArchitect(data.uncategorizedSuggestions[structure]), 0);
+                $timeout(filterArchitecturalStructure('uncategorizedSuggestions', data.uncategorizedSuggestions[structure]), delay);
+                $timeout(filterArchitect(data.uncategorizedSuggestions[structure]), delay);
             };
 
         });

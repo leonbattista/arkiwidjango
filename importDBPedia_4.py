@@ -42,6 +42,7 @@ for i in range(1000):
 
     prefix dbpedia: <http://dbpedia.org/ontology/>
     prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+    prefix yago: <http://dbpedia.org/class/yago/>
     
     
     SELECT  ?structure 
@@ -66,7 +67,7 @@ for i in range(1000):
                         ?stripped_architect_name
                         ?stripped_structure_name
         WHERE {
-            ?structure a dbpedia:Building .
+            ?structure a yago:Building102913152 .
             ?structure geo:long ?long .
             ?structure geo:lat ?lat .
             ?structure dbpedia-owl:wikiPageID ?wiki_page_id .

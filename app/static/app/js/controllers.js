@@ -610,9 +610,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 		if ($scope.firstRealUpdate && Projects.getMapBounds() != undefined) {
             
             bounds = Projects.getMapBounds();
-            console.log("Bounds found");
-            console.log(Projects.getMapBounds());
-                        
+            console.log("Bounds found");                        
 		}
         
         else {
@@ -672,9 +670,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
                 marker_list = $scope.map.markersControl.getGMarkers();           
                 if (!markerCluster) {
                     markerCluster = new MarkerClusterer(map, marker_list);
-                    console.log("markercluster created");
                     google.maps.event.addListener(markerCluster, "clusteringend", function () {
-                        console.log("youpi");
                         marker_list.visible = false;
                         mapLoad();
                     });
@@ -709,6 +705,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 	};
     
 	$scope.target = function() {
+        
         var gBounds = $scope.mapInstance.getBounds();
         
         var min_lat = gBounds.getSouthWest().lat();
@@ -719,6 +716,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         console.log(gBounds.getNorthEast().lat());
         boundaries = {min_lat:min_lat, max_lat:max_lat, min_lon:min_lon, max_lon:max_lon};
         return Projects.mapTarget(boundaries);
+        
 	};
     
     $scope.windowOptions = {
@@ -729,14 +727,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 
 app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $routeParams) {
     
-    if ($routeParams.wikiPageId) {
-        $scope.currentId = $routeParams.wikiPageId;
-    }
-    
-    else {
-        $scope.currentId = 340002;
-    }
-    
+    // **** Definitions ****
     
     var dbpediaURL = 'http://dbpedia.org/sparql';
             
@@ -867,13 +858,36 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
             });
     }
     
+    var filterID = function(suggestion, idMap) {
+        if (idMap.hasOwnProperty(suggestion.id)) {
+            currentObject = idMap[suggestion.id];
+            if (currentObject.type == "http://dbpedia.org/class/yago/Building102913152"
+                || currentObject.type == "http://dbpedia.org/ontology/ArchitecturalStructure") {
+                    if (!$scope.categories.hasOwnProperty(suggestion.category)) {
+                        $scope.categories[suggestion.category] = [currentObject];
+                    }
+                    else {
+                        $scope.categories[suggestion.category].push(currentObject);
+                    }
+                }
+            else {
+                if (currentObject.type == "http://dbpedia.org/ontology/Architect"){
+                    $scope.architects.push(currentObject);
+                }
+            }
+            
+        }
+    }
+    
     $scope.loadNewStructure = function(id) {
+        
+        console.log(id);
         
         $scope.architects = [];
         
         $scope.works = [];
         
-        $scope.filteredData = {'suggestionCategories': [], 'uncategorizedSuggestions': []};
+        $scope.categories = {};
         
         $scope.currentId = id;
         
@@ -897,6 +911,7 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
             }
             
             $scope.mainTitle = data.results.bindings[0].label.value;
+            
             var lon = data.results.bindings[0].lon.value;
             var lat = data.results.bindings[0].lat.value;
             
@@ -921,26 +936,22 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
                      
                      $http.jsonp(flickrQueryUrl).success(function(data) {
                                                   
-                         if (true) {
-                             flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.getSizes&api_key=" + api_key + "&photo_id=" + data.photo.id + "&format=json&jsoncallback=JSON_CALLBACK");
-                     
-                             $http.jsonp(flickrQueryUrl).success(function(data2) {
-                                 
-                                 $scope.debug = data2;
+                         flickrQueryUrl = encodeURI(flickrURL + "?method=flickr.photos.getSizes&api_key=" + api_key + "&photo_id=" + data.photo.id + "&format=json&jsoncallback=JSON_CALLBACK");
+                 
+                         $http.jsonp(flickrQueryUrl).success(function(data2) {
+                                                                       
+                             sizeLabel = "";
                                               
-                                 sizeLabel = "";
-                                                  
-                                 for (i in data2.sizes.size) {
-                                     size = data2.sizes.size[i];
-                                     if (size.width > 290) {
-                                         data.photo["shortURL"] = size.source;
-                                         break;
-                                     };
+                             for (i in data2.sizes.size) {
+                                 size = data2.sizes.size[i];
+                                 if (size.width > 290) {
+                                     data.photo["shortURL"] = size.source;
+                                     break;
                                  };
-                                 
-                                 $scope.photos.push(data.photo)                                         
-                             }); 
-                         }
+                             };
+                             
+                             $scope.photos.push(data.photo)                                         
+                         }); 
                      });
                      
                  };
@@ -951,33 +962,90 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         getThumb(id).success(function(data) {
             $scope.mainThumb = makeThumbUrl(data, 600);           
         });
-        
-        
-        
-        
+          
         //Retrieve suggestions
 
-        $http.get('/api/explore/', {params: {id: id}}).success(function(data) {
-
-            $scope.data = data;
+        $http.get('/api/explore/', {params: {id: id}}).success(function(minerData) {
             
-            //SELECT ?id ?thumb ?type ?structure_name WHERE { ?structure dbpedia-owl:wikiPageID ?id . ?structure dbpedia-owl:thumbnail ?thumb . ?structure rdfs:label ?structure_name . ?structure a ?type . filter (?id IN (340002, 600087)) . filter (?type IN (dbpedia-owl:ArchitecturalStructure, dbpedia-owl:Architect))}
             
-            var delay = 0; //Math.floor(Math.random() * 2000);
+            // Collect IDs
+            
+            var wikiIDs = [];
 
-            for (category in data['suggestionCategories']) {
-                suggestions = data.suggestionCategories[category].suggestions;
-                for (structure in suggestions) {
-                    $timeout(filterArchitecturalStructure(data.suggestionCategories[category].title, suggestions[structure]), delay);
-                    $timeout(filterArchitect(suggestions[structure]), delay);
+            for (i in minerData['suggestionCategories']) {
+                suggestions = minerData.suggestionCategories[i].suggestions;
+                for (j in suggestions) {                 
+                    wikiIDs.push(suggestions[j].id);
                 };
             };
 
-            for (structure in data.uncategorizedSuggestions) {
-                $timeout(filterArchitecturalStructure('uncategorizedSuggestions', data.uncategorizedSuggestions[structure]), delay);
-                $timeout(filterArchitect(data.uncategorizedSuggestions[structure]), delay);
+            for (i in minerData.uncategorizedSuggestions) {
+                wikiIDs.push(minerData.uncategorizedSuggestions[i].id);
             };
-
+            
+            var query = 'SELECT ?id ?thumb ?type ?object_name \
+                        WHERE { \
+                            ?object dbpedia-owl:wikiPageID ?id .\
+                            ?object dbpedia-owl:thumbnail ?thumb .\
+                            ?object rdfs:label ?object_name .\
+                            ?object a ?type .\
+                            filter (?id IN (';
+            
+            query += wikiIDs.join(", ");
+            
+            query += ')). \
+            filter (?type IN \
+                (dbpedia-owl:ArchitecturalStructure,\
+                yago:Building102913152,\
+                dbpedia-owl:Architect\
+                )) .\
+            filter langMatches( lang(?object_name), "en" )\
+            }';
+                            
+            var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+            
+            $http.jsonp(queryUrl).success(function(data) {
+                
+                var idMap = [];
+                
+                //Create IDs dictionary
+                
+                for (i in data.results.bindings) {
+                    currentResult = data.results.bindings[i];
+                    idMap[currentResult.id.value] = {
+                        type: currentResult.type.value,
+                        object_name: currentResult.object_name.value,
+                        thumb: currentResult.thumb.value
+                    };
+                };
+                
+                // Filter Wikipedia Miner results and populate scope
+                
+                console.log(minerData);
+                
+                for (i in minerData.suggestionCategories) {
+                    category = minerData.suggestionCategories[i];
+                    for (j in category.suggestions) {
+                        suggestion = category.suggestions[j];
+                        console.log(suggestion);
+                        suggestion['category'] = category.title;
+                        filterID(suggestion, idMap);
+                    };      
+                };
+                
+                for (i in minerData.uncategorizedSuggestions) {
+                    suggestion = minerData.uncategorizedSuggestions[i];
+                    suggestion['category'] = "Uncategorized";
+                    filterID(suggestion, idMap);
+                };
+                
+                console.log($scope.categories);
+                console.log($scope.architects);
+                
+                
+                
+                
+            });
         });
     };
     
@@ -1007,10 +1075,22 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         });
         
     };
-    
-    $scope.loadNewStructure($scope.currentId);
-    
+        
     $scope.getNewStructure = function(id) {
         $location.path('explore/' + id);    
     };
+    
+    // **** Application logic ****
+    
+    
+    if ($routeParams.wikiPageId) {
+        $scope.currentId = $routeParams.wikiPageId;
+    }
+    
+    else {
+        $scope.currentId = 340002; //Default value: Pantheon, Rome
+    }
+    
+    $scope.loadNewStructure($scope.currentId);
+    
 });

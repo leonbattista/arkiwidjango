@@ -78,9 +78,6 @@ for i in range(1000):
             optional {
                 ?structure dbpprop:architect ?architect_prop .
             }
-            optional {
-                ?structure dbpedia-owl:wikiPageID ?wiki_page_id .
-            }
             optional {   
                 ?structure dbpedia-owl:architect ?architect .
                 ?architect rdfs:label ?architect_name .

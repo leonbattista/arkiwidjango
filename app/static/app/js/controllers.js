@@ -710,8 +710,14 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
     
 	$scope.target = function() {
         var gBounds = $scope.mapInstance.getBounds();
-        boundaries = {min_lat:Math.min(gBounds.Ca.k, gBounds.Ca.j), max_lat:Math.max(gBounds.Ca.k, gBounds.Ca.j), min_lon:Math.min(gBounds.va.k, gBounds.va.j), max_lon:Math.max(gBounds.va.k, gBounds.va.j)};
-        console.log(boundaries);
+        
+        var min_lat = gBounds.getSouthWest().lat();
+        var max_lat = gBounds.getNorthEast().lat();
+        var min_lon = gBounds.getSouthWest().lng();
+        var max_lon = gBounds.getNorthEast().lng();
+        
+        console.log(gBounds.getNorthEast().lat());
+        boundaries = {min_lat:min_lat, max_lat:max_lat, min_lon:min_lon, max_lon:max_lon};
         return Projects.mapTarget(boundaries);
 	};
     

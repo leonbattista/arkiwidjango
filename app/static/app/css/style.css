@@ -210,6 +210,14 @@ h1 {
     width: 400px;
     height: 300px;
     overflow:hidden;
+    position: relative;
+}
+
+#project-list .wiki-thumb-img {
+    position:absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
 }
 
 .project .caption {
@@ -539,6 +547,10 @@ h1 {
 }
 
 .explore .main h3 {
+}
+
+.explore .no-suggestions {
+    display: inline-block;
 }
 
 .description {

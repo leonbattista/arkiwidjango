@@ -138,15 +138,12 @@ app.directive('wikiThumbResize', function(){
 
             var div = elem;
             
-            console.log("Thumb width. " + w);
-            console.log("Thumb height. " + h);
-            console.log(div);
-            
-            if (w/h > 4/3)
+            if (h < 300)
             {
-                console.log(div);
-                div['0']['src'] = div.context.src.replace("?width=400", "?width=" + 400*w/h);
+                console.log("hellllo");
+                div['0']['src'] = div.context['src'].replace("?width=400", "?width=" + 400*300/h);
             }
+            
 
             //check width and height and apply styling to parent here.
          });

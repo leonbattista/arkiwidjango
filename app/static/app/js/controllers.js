@@ -742,8 +742,7 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         return $http.jsonp(queryUrl);
     };
     
-    var makeThumbUrl = function(data, size) {
-      url = data.results.bindings[0].thumb.value;
+    var makeThumbUrl = function(url, size) {
       return url.substr(0, url.lastIndexOf("=") + 1) + size;
     };
     
@@ -861,6 +860,7 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
     var filterID = function(suggestion, idMap) {
         if (idMap.hasOwnProperty(suggestion.id)) {
             currentObject = idMap[suggestion.id];
+            console.log(currentObject.type);
             if (currentObject.type == "http://dbpedia.org/class/yago/Building102913152"
                 || currentObject.type == "http://dbpedia.org/ontology/ArchitecturalStructure") {
                     if (!$scope.categories.hasOwnProperty(suggestion.category)) {
@@ -871,7 +871,13 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
                     }
                 }
             else {
-                if (currentObject.type == "http://dbpedia.org/ontology/Architect"){
+                if ((currentObject.type == "http://dbpedia.org/ontology/Architect"
+                || currentObject.type == "http://dbpedia.org/class/yago/Architect109805475")
+                && suggestion.weight > 0.5
+                && $scope.architects.indexOf(currentObject) == -1
+                ) {
+                    currentObject.thumb = makeThumbUrl(currentObject.thumb, 70);
+                    currentObject.weight = suggestion.weight;
                     $scope.architects.push(currentObject);
                 }
             }
@@ -881,8 +887,9 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
     
     $scope.loadNewStructure = function(id) {
         
-        console.log(id);
-        
+        $scope.suggestionsSearched = false;
+        $scope.hasSuggestions = false;
+                
         $scope.architects = [];
         
         $scope.works = [];
@@ -960,92 +967,93 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         });
         
         getThumb(id).success(function(data) {
-            $scope.mainThumb = makeThumbUrl(data, 600);           
+            $scope.mainThumb = makeThumbUrl(data.results.bindings[0].thumb.value, 600);           
         });
           
         //Retrieve suggestions
 
         $http.get('/api/explore/', {params: {id: id}}).success(function(minerData) {
             
+            $scope.suggestionsSearched = true;
             
-            // Collect IDs
+            if (minerData.suggestionCategories.length > 0 || minerData.uncategorizedSuggestions.length > 0) {
+                
+                $scope.hasSuggestions = true;
+                
+                // Collect IDs
             
-            var wikiIDs = [];
+                var wikiIDs = [];
 
-            for (i in minerData['suggestionCategories']) {
-                suggestions = minerData.suggestionCategories[i].suggestions;
-                for (j in suggestions) {                 
-                    wikiIDs.push(suggestions[j].id);
-                };
-            };
-
-            for (i in minerData.uncategorizedSuggestions) {
-                wikiIDs.push(minerData.uncategorizedSuggestions[i].id);
-            };
-            
-            var query = 'SELECT ?id ?thumb ?type ?object_name \
-                        WHERE { \
-                            ?object dbpedia-owl:wikiPageID ?id .\
-                            ?object dbpedia-owl:thumbnail ?thumb .\
-                            ?object rdfs:label ?object_name .\
-                            ?object a ?type .\
-                            filter (?id IN (';
-            
-            query += wikiIDs.join(", ");
-            
-            query += ')). \
-            filter (?type IN \
-                (dbpedia-owl:ArchitecturalStructure,\
-                yago:Building102913152,\
-                dbpedia-owl:Architect\
-                )) .\
-            filter langMatches( lang(?object_name), "en" )\
-            }';
-                            
-            var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
-            
-            $http.jsonp(queryUrl).success(function(data) {
-                
-                var idMap = [];
-                
-                //Create IDs dictionary
-                
-                for (i in data.results.bindings) {
-                    currentResult = data.results.bindings[i];
-                    idMap[currentResult.id.value] = {
-                        type: currentResult.type.value,
-                        object_name: currentResult.object_name.value,
-                        thumb: currentResult.thumb.value
+                for (i in minerData['suggestionCategories']) {
+                    suggestions = minerData.suggestionCategories[i].suggestions;
+                    for (j in suggestions) {                 
+                        wikiIDs.push(suggestions[j].id);
                     };
                 };
-                
-                // Filter Wikipedia Miner results and populate scope
-                
-                console.log(minerData);
-                
-                for (i in minerData.suggestionCategories) {
-                    category = minerData.suggestionCategories[i];
-                    for (j in category.suggestions) {
-                        suggestion = category.suggestions[j];
-                        console.log(suggestion);
-                        suggestion['category'] = category.title;
-                        filterID(suggestion, idMap);
-                    };      
-                };
-                
+
                 for (i in minerData.uncategorizedSuggestions) {
-                    suggestion = minerData.uncategorizedSuggestions[i];
-                    suggestion['category'] = "Uncategorized";
-                    filterID(suggestion, idMap);
+                    wikiIDs.push(minerData.uncategorizedSuggestions[i].id);
                 };
+            
+                var query = 'SELECT ?id ?thumb ?type ?object_name \
+                            WHERE { \
+                                ?object dbpedia-owl:wikiPageID ?id .\
+                                ?object dbpedia-owl:thumbnail ?thumb .\
+                                ?object rdfs:label ?object_name .\
+                                ?object a ?type .\
+                                filter (?id IN (';
+            
+                query += wikiIDs.join(", ");
+            
+                query += ')). \
+                filter (?type IN \
+                    (dbpedia-owl:ArchitecturalStructure,\
+                    yago:Building102913152,\
+                    dbpedia-owl:Architect,\
+                    yago:Architect109805475\
+                    )) .\
+                filter langMatches( lang(?object_name), "en" )\
+                }';
+                            
+                var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
+            
+                $http.jsonp(queryUrl).success(function(data) {
+                                
+                    var idMap = {};
                 
-                console.log($scope.categories);
-                console.log($scope.architects);
+                    //Create IDs dictionary
                 
+                    for (i in data.results.bindings) {
+                        currentResult = data.results.bindings[i];
+                        idMap[currentResult.id.value] = {
+                            id: currentResult.id.value, 
+                            type: currentResult.type.value,
+                            object_name: currentResult.object_name.value,
+                            thumb: currentResult.thumb.value
+                        };
+                    };
                 
+                    // Filter Wikipedia Miner results and populate scope
+                                
+                    for (i in minerData.suggestionCategories) {
+                        category = minerData.suggestionCategories[i];
+                        for (j in category.suggestions) {
+                            suggestion = category.suggestions[j];
+                            suggestion['category'] = category.title;
+                            filterID(suggestion, idMap);
+                        };      
+                    };
                 
-                
-            });
+                    for (i in minerData.uncategorizedSuggestions) {
+                        suggestion = minerData.uncategorizedSuggestions[i];
+                        suggestion['category'] = "Uncategorized";
+                        filterID(suggestion, idMap);
+                    };
+        
+                });
+            } else {
+                    console.log("Empty");
+            }
         });
     };
     

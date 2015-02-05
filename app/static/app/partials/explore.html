@@ -1,4 +1,4 @@
-
+{{debug}}
 <div class="explore">
     <div class="main">
         <h3> {{ mainTitle}} </h3>   
@@ -16,41 +16,46 @@
     </div>
     
     <div class="categories">
-        <div class="source source-categories"> Suggested from Wikipedia </div>
-        <div ng-if="architects.length > 0" class="architects">
-            <h3>Related architects</h3>
-            <div class="architect" ng-repeat="architect in architects">
-            <div ng-click="loadWorks(architect)">
-                <div class="img-container">
-                    <img class="fade-img architect-img" ng-src = "{{ architect.thumb }}"> </img>
-                </div>
-                <div class="caption"> {{ architect.title }} </div>
+        <div ng-if="suggestionsSearched">
+            <div class="source source-categories"> Suggested from Wikipedia </div>
+            <div ng-if= "!hasSuggestions" class="alert alert-info no-suggestions fadein fadeout angular-animate" role="alert">
+                No suggestions found
             </div>
-            </div>
-        </div>
-        
-        <div ng-if= "works.length > 0" class="category">
-            <h3>Works by {{ works.architect.title }}</h3>
-            <div class="structure" ng-repeat="work in works">
-                <div ng-click="getNewStructure(work.id.value)"> 
-                    <div class="img-container">
-                        <img class = "fade-img" ng-src = "{{ work.thumb.value }}"> </img>
+            <div ng-if= "hasSuggestions">
+                <div ng-if="architects.length > 0" class="architects">
+                    <h3>Related architects</h3>
+                    <div class="architect" ng-repeat="architect in architects | orderBy:weight | limitTo: 10">
+                    <div ng-click="loadWorks(architect)">
+                        <div class="img-container">
+                            <img class="fade-img architect-img" ng-src = "{{ architect.thumb }}"> </img>
+                        </div>
+                        <div class="caption"> {{ architect.object_name }} </div>
                     </div>
-                    {{ work.label.value }}
+                    </div>
+                </div>
+        
+                <div ng-if= "works.length > 0" class="category">
+                    <h3>Works by {{ works.architect.object_name }}</h3>
+                    <div class="structure" ng-repeat="work in works">
+                        <div ng-click="getNewStructure(work.id.value)"> 
+                            <div class="img-container">
+                                <img class = "fade-img" ng-src = "{{ work.thumb.value }}"> </img>
+                            </div>
+                            {{ work.label.value }}
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="category" ng-repeat="(title, structures) in categories">
+                    <h3>{{ title }}</h3>
+                    <div class="structure" ng-repeat="structure in structures">
+                        <div ng-click="getNewStructure(structure.id)"> 
+                            <div class="img-container"> <img class="fade-img" ng-src="{{ structure.thumb }} "> </img></div>
+                            <h5>{{structure.object_name | cut:true:37:'...'}}</h5>
+                        </div>      
+                    </div>   
                 </div>
             </div>
-        </div>
-        
-        
-        <div class="category" ng-repeat="(title, structures) in categories">
-            <h3>{{ title }}</h3>
-            <div class="structure" ng-repeat="(id, structure) in structures">
-                <div ng-click="getNewStructure(id)"> 
-                    <div class="img-container"> <img class="fade-img" ng-src="{{ structure.thumb }} "> </img></div>
-                    <h5>{{structure.object_name | cut:true:37:'...'}}</h5>
-                </div>      
-            </div>   
-        </div>
+        </div>      
     <div>
-
 </div>

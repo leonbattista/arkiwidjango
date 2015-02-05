@@ -141,7 +141,7 @@ class SearchView(generics.ListAPIView):
         user = self.request.user
         params = self.request.GET
                 
-        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], description__icontains=params['description'], owner__username__icontains=params['owner']).order_by('-pub_date')[:500])
+        return paginateQueryset(self.request, Project.objects.filter(name__icontains=params['project_name'], architect__icontains=params['architect'], address__icontains=params['address'], description__icontains=params['description'], owner__username__icontains=params['owner']).order_by('-rating', 'wikipedia_page_id')[:500])
 
 class MapTargetView(generics.ListAPIView):
     
@@ -152,7 +152,7 @@ class MapTargetView(generics.ListAPIView):
         
         params = self.request.GET
         
-        return Project.objects.filter(latitude__gt=params['min_lat'], latitude__lt=params['max_lat'], longitude__gt=params['min_lon'], longitude__lt=params['max_lon'])[:1000]
+        return Project.objects.filter(latitude__gt=params['min_lat'], latitude__lt=params['max_lat'], longitude__gt=params['min_lon'], longitude__lt=params['max_lon']).order_by('-rating', 'wikipedia_page_id')[:1000]
 
 class MapProjectsView(generics.ListAPIView):
     
@@ -160,7 +160,7 @@ class MapProjectsView(generics.ListAPIView):
     
     def get_queryset(self):
         
-        return Project.objects.all()[:2000]
+        return Project.objects.all().order_by('-rating', 'wikipedia_page_id')[:2000]
 
 
 # **** FORM HANDLING VIEWS ****
@@ -283,7 +283,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def list(self, request):
         
         
-        queryset = Project.objects.all().order_by('-pub_date')
+        queryset = Project.objects.all().order_by('-rating', 'wikipedia_page_id')
                                      
         queryset = paginateQueryset(request, queryset)
        

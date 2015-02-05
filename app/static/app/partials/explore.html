@@ -18,7 +18,7 @@
     <div class="categories">
         <div ng-if="suggestionsSearched">
             <div class="source source-categories"> Suggested from Wikipedia </div>
-            <div ng-if= "!hasSuggestions" class="alert alert-info no-suggestions fadein fadeout angular-animate" role="alert">
+            <div ng-if= "!hasSuggestions" class="alert alert-info no-suggestions fadein fadeout angular-animate" ng-class="{'expire-out': expired}" role="alert">
                 No suggestions found
             </div>
             <div ng-if= "hasSuggestions">

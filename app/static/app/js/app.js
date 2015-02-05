@@ -67,9 +67,9 @@ app.config(function(RestangularProvider) {
      RestangularProvider.setRequestSuffix('/');
 });
 
-app.config(function($animateProvider) {
-  $animateProvider.classNameFilter(/angular-animate/);
-})
+// app.config(function($animateProvider) {
+//   $animateProvider.classNameFilter(/angular-animate/);
+// })
 
 app.run(function ($http, $rootScope, $location, api, AuthService, Projects) {
 	

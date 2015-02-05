@@ -554,7 +554,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         $scope.projects = Projects.mapProjects();
     }
     
-    else { $scope.projects = Projects.getProjects() };
+    else { $scope.projects = Projects.getProjects();};
 	
 	$scope.noResult = Projects.givesNoResult();
     
@@ -563,6 +563,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
     var marker_list;
     
     $scope.entering = true;
+    $scope.runOnce = true;
     $scope.firstRealUpdate = false;
     $scope.mapLoaded = false;
     
@@ -604,9 +605,17 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
         
 		$scope.projects = newValue;		
 		$scope.noResult = Projects.givesNoResult();
+        	
         
-		
+        fitToBounds();
         
+        if ($scope.firstRealUpdate) {
+            $scope.firstRealUpdate = false;
+        } 
+        
+	}
+    
+    function fitToBounds() {
 		if ($scope.firstRealUpdate && Projects.getMapBounds() != undefined) {
             
             bounds = Projects.getMapBounds();
@@ -624,16 +633,10 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
     		};
         
         }
-        
-
                       
 		$scope.map.control.getGMap().fitBounds(bounds);
-        
-        if ($scope.firstRealUpdate) {
-            $scope.firstRealUpdate = false;
-        } 
-        
-	}
+    }
+
 
 	$scope.$watch(Projects.getProjects, updateProjects);	
 
@@ -689,6 +692,10 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
                             projectsHaveChanged = false;
                         }
                     }
+                }
+                if ($scope.runOnce) {
+                    fitToBounds();
+                    $scope.runOnce = false;
                 }
                 
             
@@ -749,112 +756,6 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
     var sizeShort = function(label) {
         var sizeMap = {"Small 320": "n", "Medium": "", "Medium 640": "z", "Medium 800":"c", "Large":"b", "Large 1600": "h"};
         return sizeMap[label];
-    }
-    
-    var filterArchitect = function (entry) {
-        var query = "SELECT ?type WHERE { ?entry dbpedia-owl:wikiPageID " + entry.id + " . ?entry a ?type }";
-        
-        var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
-        
-        $http.jsonp(queryUrl).success(function(data) {
-            
-            for (result in data.results.bindings) {
-                if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/Architect" || data.results.bindings[result].type.value  == "http://dbpedia.org/class/yago/Architect109805475") {
-                    if (entry.weight > 0.7) {
-                        var notIn = true;
-                        for (oldEntry in $scope.architects) {
-                            oldEntry = $scope.architects[oldEntry];
-                            if (oldEntry.id == entry.id) {
-                                alreadyIn = false;
-                                break;
-                            };
-                        };
-                        
-                        if (notIn) {
-                            getThumb(entry.id).success(function(data) {
-                                var reallyNotIn = true;
-                                for (i in $scope.architects) {                                   
-                                    if (entry.title == $scope.architects[i].title ) {
-                                        reallyNotIn = false;
-                                        break;
-                                    }
-                                }
-                                if (reallyNotIn) {
-                                    entry['thumb'] = makeThumbUrl(data, 70);
-                                    $scope.architects.push(entry);
-                                };
-                            });
-                            
-                        };    
-                    }
-                    break;
-                }
-            }
-        });
-            
-        
-    };
-    
-    var filterArchitecturalStructure = function (categoryTitle, structure) {
-                        
-        var query = "SELECT ?type WHERE { ?structure dbpedia-owl:wikiPageID " + structure.id + " . ?structure a ?type }";
-        
-        var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
-        
-        $http.jsonp(queryUrl).success(function(data) {
-            
-                var currentCategory;
-
-                //Looking for the type 'ArchitecturalStructure' in the results
-
-                for (result in data.results.bindings) {
-                    //"http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"
-                    // || data.results.bindings[result].type.value  == "http://dbpedia.org/class/yago/Building102913152"
-                    if (data.results.bindings[result].type.value  == "http://dbpedia.org/ontology/ArchitecturalStructure") {
-                        
-                        if (categoryTitle != 'uncategorizedSuggestions') {
-                            
-                            var categoryExists = false;
-                            
-                            for (category in $scope.filteredData.suggestionCategories) {
-                                if ($scope.filteredData.suggestionCategories[category].title == categoryTitle) {
-                                    categoryExists = true;
-                                    break;
-                                };
-                            };
-                    
-                            if (!categoryExists) {
-                                $scope.filteredData.suggestionCategories.push({title:categoryTitle, suggestions:[]});
-                            };
-                    
-                            for (category in $scope.filteredData.suggestionCategories) {
-                                if ($scope.filteredData.suggestionCategories[category].title == categoryTitle) {
-                                    currentCategory = category;
-                                    break;
-                                };
-                            };
-                            
-                            getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 250);
-                            });
-                            
-                            $scope.filteredData.suggestionCategories[currentCategory].suggestions.push(structure);
-                        }
-                            
-                        else {
-                            
-                            getThumb(structure.id).success(function(data) {
-                                structure['thumb'] = makeThumbUrl(data, 250);
-                            });
-                            
-                            $scope.filteredData.uncategorizedSuggestions.push(structure);
-                        };
-                        
-                        break;
-                    }
-
-                };
-            });
     }
     
     var filterID = function(suggestion, idMap) {

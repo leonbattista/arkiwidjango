@@ -1,4 +1,3 @@
-{{debug}}
 <div class="explore">
     <div class="main">
         <h3> {{ mainTitle}} </h3>   
@@ -8,7 +7,8 @@
         <div class="flickr-img-container">
             <div class="source source-flickr"> Images from flickr </div>
             <div class="flickrImg" ng-repeat="photo in photos">                
-                <img ng-src="{{ photo.shortURL}}"> </img>
+                <img img-preload ng-src="{{ photo.shortURL}}"> </img>
+                                                         <md-progress-circular class="wiki-thumb-spinner" md-mode="indeterminate" md-diameter="24">
             </div>
         </div>
         
@@ -16,6 +16,9 @@
     </div>
     
     <div class="categories">
+        <div ng-if="!suggestionsSearched">
+            <md-progress-circular md-mode="indeterminate" class = "explore-progress"></md-progress-circular>
+        </div>
         <div ng-if="suggestionsSearched">
             <div class="source source-categories"> Suggested from Wikipedia </div>
             <div ng-if= "!hasSuggestions" class="alert alert-info no-suggestions fadein fadeout angular-animate" ng-class="{'expire-out': expired}" role="alert">
@@ -27,7 +30,8 @@
                     <div class="architect" ng-repeat="architect in architects | orderBy:weight | limitTo: 10">
                     <div ng-click="loadWorks(architect)">
                         <div class="img-container">
-                            <img class="fade-img architect-img" ng-src = "{{ architect.thumb }}"> </img>
+                            <img img-preload class="fade-img architect-img" ng-src = "{{ architect.thumb }}"> </img>
+                                          <md-progress-circular class="wiki-thumb-spinner" md-mode="indeterminate" md-diameter="12"></md-progress-circular>
                         </div>
                         <div class="caption"> {{ architect.object_name }} </div>
                     </div>
@@ -39,7 +43,8 @@
                     <div class="structure" ng-repeat="work in works">
                         <div ng-click="getNewStructure(work.id.value)"> 
                             <div class="img-container">
-                                <img class = "fade-img" ng-src = "{{ work.thumb.value }}"> </img>
+                                <img img-preload class = "fade-img" ng-src = "{{ work.thumb.value }}"> </img>
+                                              <md-progress-circular class="wiki-thumb-spinner" md-mode="indeterminate" md-diameter="12"></md-progress-circular>
                             </div>
                             {{ work.label.value }}
                         </div>
@@ -50,7 +55,10 @@
                     <h3>{{ title }}</h3>
                     <div class="structure" ng-repeat="structure in structures">
                         <div ng-click="getNewStructure(structure.id)"> 
-                            <div class="img-container"> <img class="fade-img" ng-src="{{ structure.thumb }} "> </img></div>
+                            <div class="img-container">
+                                <img img-preload class="fade-img" ng-src="{{ structure.thumb }} "> </img>                                                                                            <md-progress-circular class="wiki-thumb-spinner" md-mode="indeterminate" md-diameter="12"></md-progress-circular>
+                            </div>
+
                             <h5>{{structure.object_name | cut:true:37:'...'}}</h5>
                         </div>      
                     </div>   

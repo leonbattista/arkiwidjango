@@ -150,3 +150,30 @@ app.directive('wikiThumbResize', function(){
      }
    };
 });
+
+app.directive('imgPreload', function($rootScope, $timeout) {
+    return {
+      restrict: 'A',
+      scope: {
+        ngSrc: '@'
+      },
+      link: function(scope, element, attrs) {
+        element.on('load', function() {
+        $timeout(function(){element.removeClass('fadein');},1500);
+            
+          element.addClass('fade-img');
+          element.removeClass('image-loading');
+          element.parent().find('span').remove();
+          element.parent().find('md-progress-circular').remove();
+          
+        })
+
+        scope.$watch('ngSrc', function(newVal) {
+            element.addClass('fadein');
+            element.addClass('image-loading');
+            element.parent().addClass('loaderParent');
+          
+        });
+      }
+    };
+});

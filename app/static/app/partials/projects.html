@@ -6,7 +6,10 @@
 	    <div class="img-container">
 	     <img ng-if=" project.thumbnail_file != '' " ng-src="/media/{{ project.thumbnail_file }}" class="fade-img"></img>
          <div ng-if=" project.thumbnail_file == '' && project.wikipedia_image_url != '' " class="wiki-thumb" >
-          <img  ng-src="{{ project.wikipedia_image_url }}?width=400" class="fade-img wiki-thumb-img" wiki-thumb-resize ></img>
+          <img ng-src="{{ project.wikipedia_image_url }}?width=400" class=" wiki-thumb-img fade-in" wiki-thumb-resize img-preload></img>
+          <span>
+              <md-progress-circular class="wiki-thumb-spinner" md-mode="indeterminate" md-diameter="24"></md-progress-circular>
+      </span>
          </div>
          <div ng-if=" project.thumbnail_file == '' && project.wikipedia_image_url == '' " class="no-thumb fade-no-img"> no image </div>
 		</div>

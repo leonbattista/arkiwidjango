@@ -8,15 +8,14 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="{% static 'app/css/style.css' %}"/>
   <link rel="stylesheet" href="{% static 'app/bower_components/flatstrap3/dist/css/bootstrap.min.css' %}"/>
-  <link rel="stylesheet" href="{% static 'app/bower_components/angular-material/angular-material.min.js' %}"/>
+  <link rel="stylesheet" href="{% static 'app/bower_components/angular-material/angular-material.min.css' %}"/>
   
   
   <title>arkiwi - proof of concept</title>
  
   <script src="{% static 'app/bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'app/bower_components/autofill-event/src/autofill-event.js' %}"></script>
-  
-  
+    
   <script src="{% static 'app/bower_components/angular/angular.min.js' %}"></script>
   <script src="{% static 'app/bower_components/angular-animate/angular-animate.min.js' %}"></script>
   <script src="{% static 'app/bower_components/angular-resource/angular-resource.min.js' %}"></script>
@@ -26,7 +25,10 @@
    <script src="{% static 'app/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js' %}"></script>
 
   <script src="{% static 'app/js/third-party/ui-bootstrap-tpls-0.9.0.min.js' %}"></script>
+  
   <script src="{% static 'app/bower_components/angular-material/angular-material.min.js' %}"></script>
+  <script src="{% static 'app/bower_components/angular-aria/angular-aria.min.js' %}"></script>
+    
   <script src="{% static 'app/js/third-party/ngAutocomplete.js' %}"></script>
   <script src="{% static 'app/js/third-party/markerclusterer_packed.js' %}"></script>
   
@@ -48,7 +50,7 @@
 	
  <div ng-controller="MenuCtrl">
     
-	<div id="column1" ng-style="column1style()">
+	<div id="column1" ng-style="column1style()">        
       
       <a ng-click="home()"><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
 	  

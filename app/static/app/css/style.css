@@ -465,10 +465,10 @@ h1 {
 
 .fadein,
 .fadeout {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
 }
 
 .fadein.ng-hide-remove,
@@ -499,7 +499,7 @@ h1 {
 
 #map-loading {
     z-index:1;
-    position:absolute;
+    position:relative;
     width: 100%;
     height:100%;
     background: white;
@@ -517,11 +517,10 @@ h1 {
 }
 
 .loading-container {
-    margin-left:auto;
-    margin-right:auto;
-    position: relative;
+    position:absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left:50%;
+    transform: translate(-50%,-50%);
 }
 
 
@@ -626,6 +625,7 @@ h1 {
     border-left: 2px solid #ddd;
     padding-left: 35px;
     margin-top: 20px;
+    position:relative;
     
 }
 
@@ -682,4 +682,37 @@ h1 {
     margin-bottom: 5px;
     
 }
+
+.image-loading {
+    opacity:0;
+}
+
+.image-loaded {
+    visibility: visible;
+}
+
+.wiki-thumb-spinner {
+    position:absolute;
+    top: 40%;
+    left:40%;
+    transform: translate(-40%,-40%);
+}
+
+.fadein.image-loaded {
+  opacity: 1;
+  display: block !important;
+}
+
+.loaderParent {
+    position:relative;
+}
+
+.explore-progress {
+    position: absolute;
+    left:50%;
+    top:200px;
+    opacity:0.3;
+}
+
+
 

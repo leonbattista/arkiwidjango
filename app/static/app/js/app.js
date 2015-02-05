@@ -4,7 +4,6 @@ var app = angular.module('arkiwiApp', [
 'ngResource',
 'ngRoute',
 'ngAnimate',
-'ngMaterial',
 'restangular',
 'ui.bootstrap',
 'ngAutocomplete',
@@ -67,16 +66,6 @@ app.config(function(RestangularProvider) {
      RestangularProvider.setBaseUrl('/api');
      RestangularProvider.setRequestSuffix('/');
 });
-
-//Angular Material configuration
-
-app.config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
-    .primaryPalette('grey')
-    .accentPalette('orange');
-})
-
-
 
 app.run(function ($http, $rootScope, $location, api, AuthService, Projects) {
 	

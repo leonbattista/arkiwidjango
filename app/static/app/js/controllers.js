@@ -738,10 +738,6 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
     var dbpediaURL = 'http://live.dbpedia.org/sparql';
     //var dbpediaURL = 'http://lod.openlinksw.com/sparql/';     
     
-    // var getThumb = function (structure, size) {
-    //     return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + structure.id + '&prop=url&format=json&callback=JSON_CALLBACK');
-    // }
-    
     var getThumb = function (id) {
         var query = "SELECT ?thumb WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure dbpedia-owl:thumbnail ?thumb }";
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
@@ -803,12 +799,12 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         
         // Wikipedia description
         
-        var query = "SELECT ?label ?lon ?lat ?description WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure geo:long ?lon . ?structure geo:lat ?lat . ?structure rdfs:comment ?description}";
+        var query = "SELECT ?label ?lon ?lat ?description WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure rdfs:comment ?description. optional {?structure geo:long ?lon . ?structure geo:lat ?lat}}";
         
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
         
         $http.jsonp(queryUrl).success(function(data) {
-            
+                        
             for (i in data.results.bindings) {
                 if (data.results.bindings[i].description["xml:lang"] == "en") {
                     $scope.description = data.results.bindings[i].description.value;

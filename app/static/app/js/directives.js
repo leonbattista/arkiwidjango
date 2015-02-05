@@ -163,15 +163,14 @@ app.directive('imgPreload', function($rootScope, $timeout) {
             
           element.addClass('fade-img');
           element.removeClass('image-loading');
-          element.parent().find('span').remove();
-          element.parent().find('md-progress-circular').remove();
-          
+          element.parent().find('span').remove();          
         })
 
         scope.$watch('ngSrc', function(newVal) {
             element.addClass('fadein');
             element.addClass('image-loading');
             element.parent().addClass('loaderParent');
+            element.parent().append("<span class='spinner'><img src='/static/app/images/loading.gif'></span>")
           
         });
       }

@@ -217,6 +217,10 @@ h1 {
     position:absolute;
     top: 50%;
     left:50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform:    translate(-50%,-50%);
+    -ms-transform:     translate(-50%,-50%);
+    -o-transform:      translate(-50%,-50%);
     transform: translate(-50%, -50%);
 }
 
@@ -505,9 +509,19 @@ h1 {
     background: white;
 }
 
-#map-loading img {
-    transform: translateY(-20%);
+.alert-info-loading {
+    
+    position:absolute;
+    top: 50%;
+    left:50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform:    translate(-50%,-50%);
+    -ms-transform:     translate(-50%,-50%);
+    -o-transform:      translate(-50%,-50%);
+    transform:         translate(-50%,-50%);
+    
 }
+
 
 .btn-target {
     position:absolute;
@@ -520,7 +534,11 @@ h1 {
     position:absolute;
     top: 50%;
     left:50%;
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform:    translate(-50%,-50%);
+    -ms-transform:     translate(-50%,-50%);
+    -o-transform:      translate(-50%,-50%);
+    transform:         translate(-50%,-50%);
 }
 
 
@@ -677,7 +695,7 @@ h1 {
     float:right;
     position:absolute;
     right: 20px;
-    top: 50px;
+    top: 20px;
     padding-left: 10px;
     margin-bottom: 5px;
     
@@ -689,13 +707,6 @@ h1 {
 
 .image-loaded {
     visibility: visible;
-}
-
-.wiki-thumb-spinner {
-    position:absolute;
-    top: 40%;
-    left:40%;
-    transform: translate(-40%,-40%);
 }
 
 .fadein.image-loaded {
@@ -712,6 +723,21 @@ h1 {
     left:50%;
     top:200px;
     opacity:0.3;
+}
+
+.spinner {
+    position:absolute;
+    top: 50%;
+    left:50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform:    translate(-50%,-50%);
+    -ms-transform:     translate(-50%,-50%);
+    -o-transform:      translate(-50%,-50%);
+    transform:         translate(-50%,-50%);
+}
+
+.explore-spinner {
+    margin-top:40px;
 }
 
 

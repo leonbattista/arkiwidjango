@@ -13,8 +13,9 @@ angular.module("google-maps.directives.api")
                     $scope.ctrlType = 'Map'
                     $scope.deferred.promise.then ->
                       ExtendGWin.init()
-                    _.extend ctrlObj, getMap: ->
+                    ctrlObj.getMap = ->
                       $scope.map
+                    _.extend this, ctrlObj
                 @controller = ["$scope", ctrlFn ]
                 self = @
             restrict: "EMA"
@@ -32,6 +33,7 @@ angular.module("google-maps.directives.api")
                 options: "=" # optional
                 events: "=" # optional
                 styles: "=" # optional
+                draggable: "=" # optional
                 bounds: "="
 
             ###
@@ -72,7 +74,7 @@ angular.module("google-maps.directives.api")
                 # Create the map
                 mapOptions = angular.extend({}, DEFAULTS, opts,
                   center: @getCoords(scope.center)
-                  draggable: @isTrue(attrs.draggable)
+                  draggable: if attrs.draggable? then @isTrue(scope.draggable) else true
                   zoom: scope.zoom
                   bounds: scope.bounds
                 )

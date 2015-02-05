@@ -12,6 +12,7 @@ angular.module("google-maps.mocks", [])
       window.google.maps.event =
         clearListeners: unmocked("event.clearListeners")
         addListener: unmocked("event.addListener")
+        removeListener: unmocked("event.removeListener")
       window.google.maps.OverlayView = unmocked("OverlayView")
       window.google.maps.InfoWindow = unmocked("InfoWindow")
       window.google.maps.LatLng = unmocked("LatLng")
@@ -60,6 +61,7 @@ angular.module("google-maps.mocks", [])
           BOTTOM_LEFT: [],
           BOTTOM_RIGHT: []
         }
+        @overlayMapTypes = new window.google.maps.MVCArray()
         @getControls = -> return @controls
         @setZoom = -> return
         @setCenter = -> return
@@ -69,10 +71,11 @@ angular.module("google-maps.mocks", [])
       @mockLatLng()
       @mockOverlayView()
       @mockEvent()
+      @mockMVCArray()
       window.google.maps.Map = Map
 
     mockControlPosition: ->
-      ControlPosition = 
+      ControlPosition =
         TOP_CENTER: 'TOP_CENTER',
         TOP_LEFT: 'TOP_LEFT',
         TOP_RIGHT: 'TOP_RIGHT',
@@ -106,18 +109,24 @@ angular.module("google-maps.mocks", [])
         event.addListener = (thing, eventName, callBack) ->
           found = _.find listeners, (obj)->
             obj.obj == thing
-            unless found?
-              toPush = {}
-              toPush.obj = thing
-              toPush.events = {}
-              toPush.events[eventName] = callBack
-              listeners.push toPush
-            else
-              found.events[eventName] = callBack
+          unless found?
+            toPush = {}
+            toPush.obj = thing
+            toPush.events = {}
+            toPush.events[eventName] = callBack
+            listeners.push toPush
+          else
+            found.events[eventName] = callBack
 
       if not event.clearListeners
         event.clearListeners = () ->
           listeners.length = 0
+
+      if not event.removeListener
+        event.removeListener = (item) ->
+          index = listeners.indexOf(item)
+          if index != -1
+            listeners.splice(index)
 
       unless event.fireListener
         event.fireListener = (thing, eventName) =>
@@ -127,6 +136,7 @@ angular.module("google-maps.mocks", [])
 
 
       window.google.maps.event = event
+      return listeners
 
     mockInfoWindow: (InfoWindow = () -> return) ->
       window.google.maps.InfoWindow = InfoWindow

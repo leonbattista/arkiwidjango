@@ -90,6 +90,10 @@ app.factory('Projects', ['$http','$location',
           return mapLoaded;
       }
       
+      factory.setMapLoaded = function(value) {
+          mapLoaded = value;
+      }
+      
       factory.getProjectWrapperHeight = function() {
           return projectWrapperHeight;
       };
@@ -181,9 +185,9 @@ app.factory('Projects', ['$http','$location',
 			  projects = data; 
 			  noResult = Boolean(projects.length == 0);
               currentSource = 'search';
-              currentSearchParams = searchParams;            
+              currentSearchParams = searchParams;
+              mapLoaded = true;
 		  });	  
-		  return projects;
 	  };
       
       factory.mapTarget = function(boundaries) {

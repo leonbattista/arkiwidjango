@@ -417,10 +417,14 @@ app.controller('MenuCtrl', function($rootScope, $scope, $http, $window, $locatio
     $scope.atHome = function() {
         return Boolean($location.path()=='/')
     }
+    
 	$scope.home = function(){
-        $location.path('/');
 	    // Hardcore reset:
-        // $window.location.href = '/';
+        $window.location.href = '/';
+	};
+    
+	$scope.list = function(){
+        $location.path('/');
 	};
 
 	$scope.menuShow = function(){
@@ -568,14 +572,9 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
     $scope.mapLoaded = false;
     
     var mapLoad = function() {
-        
+                        
         if (Projects.getMapLoaded()) {
             
-            if ($scope.mapLoaded) {
-                return
-            };
-            
-            console.log("ShowMap");
             $timeout( function() {
                 $scope.mapLoaded = true;
             }, 200);
@@ -736,8 +735,8 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
     
     // **** Definitions ****
     
-    var dbpediaURL = 'http://dbpedia.org/sparql';
-            
+    var dbpediaURL = 'http://live.dbpedia.org/sparql';
+    //var dbpediaURL = 'http://lod.openlinksw.com/sparql/';     
     
     // var getThumb = function (structure, size) {
     //     return $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&pageids=' + structure.id + '&prop=url&format=json&callback=JSON_CALLBACK');
@@ -761,7 +760,6 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
     var filterID = function(suggestion, idMap) {
         if (idMap.hasOwnProperty(suggestion.id)) {
             currentObject = idMap[suggestion.id];
-            console.log(currentObject.type);
             if (currentObject.type == "http://dbpedia.org/class/yago/Building102913152"
                 || currentObject.type == "http://dbpedia.org/ontology/ArchitecturalStructure") {
                     if (!$scope.categories.hasOwnProperty(suggestion.category)) {

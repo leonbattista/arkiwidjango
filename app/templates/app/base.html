@@ -46,21 +46,39 @@
  <div ng-controller="MenuCtrl">
     
 	<div id="column1" ng-style="column1style()">
-      <a href="/" ng-click="home()"><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
+      
+      <a ng-click="home()"><img src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
 	  
       <div class="menuitem">
-		  <a href = "#/explore">explore</a>
+		  <a ng-click="menuSelector = 'search'; menuShow()">
+              <span class="glyphicon glyphicon-search"></span>
+          </a>
 	  </div>
       
       <div class="menuitem">
-		  <a ng-click="menuSelector = 'search'; menuShow()">search</a>
-	  </div>	
-	  
-      <div ng-show="isLogged" class="menuitem"><a ng-click="menuSelector = 'add'; menuShow()">add</a>
+		  <a href = "#/explore">
+		      <span class="glyphicon glyphicon glyphicon-certificate"></span>
+		  </a>
 	  </div>
+      
+      <div class="menuitem">
+		  <a ng-click="list()">
+		      <span class="glyphicon glyphicon-th"></span>
+		  </a>
+	  </div>
+      
+	
 	  
 	  <div class="menuitem">
-	  	<a href = "#/map">map</a>
+	  	<a href = "#/map">
+            <span class="glyphicon glyphicon-globe"></span>
+        </a>
+	  </div>
+      
+      <div ng-show="isLogged" class="menuitem">
+          <a ng-click="menuSelector = 'add'; menuShow()">
+              <span class="glyphicon glyphicon-plus"></span>
+          </a>
 	  </div>
 	  
     </div>

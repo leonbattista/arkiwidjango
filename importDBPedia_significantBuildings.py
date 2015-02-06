@@ -36,13 +36,15 @@ nProjects = 0
 
 # Slicing to accomodate for DBPedia SPARQL endpoint result size limit
  
-for i in range(1000):
+for i in range(5):
 
-    sparql.setQuery("""
+    query = """
 
     prefix dbpedia: <http://dbpedia.org/ontology/>
     prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
     prefix yago: <http://dbpedia.org/class/yago/>
+    prefix dbpprop: <http://dbpedia.org/property/>
+    
     
     
     SELECT  ?structure 
@@ -52,6 +54,7 @@ for i in range(1000):
             ?architect
             ?wiki_page_id
             ?architect_prop
+            ?architect_significant
             ?stripped_architect_name
             ?stripped_structure_name
             
@@ -64,10 +67,11 @@ for i in range(1000):
                         ?architect
                         ?wiki_page_id
                         ?architect_prop
+                        ?architect_significant
                         ?stripped_architect_name
                         ?stripped_structure_name
         WHERE {
-            ?structure a yago:Building102913152 .
+            ?architect_significant dbpprop:significantBuildings ?structure  .
             ?structure geo:long ?long .
             ?structure geo:lat ?lat .
             ?structure dbpedia-owl:wikiPageID ?wiki_page_id .
@@ -92,10 +96,14 @@ for i in range(1000):
     
 
     OFFSET  %s
-    LIMIT  2000   
+    LIMIT  10000   
 
-    """ %(i*2000)
-    )
+    """ %(i*10000)
+    
+    
+    sparql.setQuery(query)
+    
+    print query
 
 
     sparql.setReturnFormat(JSON)
@@ -103,7 +111,7 @@ for i in range(1000):
     
     for result in results['results']['bindings']:
         
-        if nProjects%500 == 0 and nProjects > 0:
+        if nProjects>0 and nProjects%500 == 0:
             print nProjects
             
         wikipedia_page_id = result['wiki_page_id']['value']
@@ -117,9 +125,9 @@ for i in range(1000):
             p.longitude = result['long']['value']
             p.latitude = result['lat']['value']
             p.wikipedia_page_id = wikipedia_page_id
-            p.architect = ''
+            p.architect = result['architect_significant']['value']
             if result.has_key('architect_prop'):
-                p.architect = result['architect_prop']['value']
+                p.architect += ', ' + result['architect_prop']['value']
             if result.has_key('stripped_architect_name'):
                 if p.architect != '':
                     p.architect += ', ' + result['stripped_architect_name']['value']

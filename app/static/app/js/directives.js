@@ -140,7 +140,6 @@ app.directive('wikiThumbResize', function(){
             
             if (h < 300)
             {
-                console.log("hellllo");
                 div['0']['src'] = div.context['src'].replace("?width=400", "?width=" + 400*300/h);
             }
             

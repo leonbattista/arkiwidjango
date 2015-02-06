@@ -4,7 +4,9 @@
 	  <div class="project" ng-repeat="project in projects | filter:toShow">
 	   <a href="#/projects/{{project.id}}">
 	    <div class="img-container">
-	     <img ng-if=" project.thumbnail_file != '' " ng-src="/media/{{ project.thumbnail_file }}" class="fade-img"></img>
+         <div ng-if=" project.thumbnail_file != '' " class="wiki-thumb"> 
+	          <img  ng-src="/media/{{ project.thumbnail_file }}" class="fade-img"></img>
+         </div>
          <div ng-if=" project.thumbnail_file == '' && project.wikipedia_image_url != '' " class="wiki-thumb" >
           <img ng-src="{{ project.wikipedia_image_url }}?width=400" class=" wiki-thumb-img fade-in" wiki-thumb-resize img-preload></img>
 

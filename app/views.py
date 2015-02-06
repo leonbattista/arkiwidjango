@@ -283,7 +283,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def list(self, request):
         
         
-        queryset = Project.objects.all().order_by('-rating', 'wikipedia_page_id')
+        queryset = Project.objects.all().order_by('wikipedia_page_id','-rating')
                                      
         queryset = paginateQueryset(request, queryset)
        

@@ -4,7 +4,7 @@ var app = angular.module('arkiwiApp', [
 'ngResource',
 'ngRoute',
 'ngAnimate',
-'restangular',
+ 'restangular',
 'ui.bootstrap',
 'ngAutocomplete',
 'google-maps',

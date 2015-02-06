@@ -6,7 +6,11 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 
-projects = 
+projects = Project.objects.filter(owner=12)
+
+for project in projects:
+    project.rating += 50
+    project.save()
     
     
     

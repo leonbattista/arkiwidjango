@@ -145,14 +145,11 @@ h1 {
 }
 
 #projectWrapperOut {
-	width: 100%;
-	float:right;
-	text-align: right;
+    width:100%;
 }
 
 #projectWrapperIn {
-	text-align: left;
-	width: 90%;
+    margin: 0 auto;
 	display: inline-block;
 }
 
@@ -726,6 +723,7 @@ h1 {
 }
 
 .spinner {
+    margin:30px;
     position:absolute;
     top: 50%;
     left:50%;

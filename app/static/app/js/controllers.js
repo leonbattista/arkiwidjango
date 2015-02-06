@@ -1,4 +1,4 @@
-app.controller('ProjectsCtrl', function($scope, $http, Projects, $timeout) {
+app.controller('ProjectsCtrl', function($scope, $http, Projects) {
     
     var after = Projects.getNInitialItems();
     var nItemsToFetch = Projects.getNItemsToFetch();
@@ -106,7 +106,7 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects, $timeout) {
                 after += nItemsToFetch;
             };
         
-            $timeout(function(){$scope.busy = false}, 2000);
+            $scope.busy = false;
         });     
     }; 	
 	

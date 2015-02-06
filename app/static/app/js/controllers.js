@@ -78,7 +78,6 @@ app.controller('ProjectsCtrl', function($scope, $http, Projects) {
             case 'search':
                                                 
                 var extendedParams = angular.extend(Projects.getCurrentSearchParams(), params);
-                console.log("Youhou");
                 resource = $http.get('/api/search/', {
                     params: extendedParams
                 });

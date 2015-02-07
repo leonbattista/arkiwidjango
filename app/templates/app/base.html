@@ -49,24 +49,24 @@
 	<div id="column1" ng-style="column1style()">        
       
       <a href="">
-		  <img ng-click="home()" src="{% static 'app/images/logo.png' %}" height="auto" width="80%" align="middle">
+		  <img ng-click="home()" src="{% static 'app/images/logo.png' %}" height="auto" width="80%" align="middle" alt"arkiwi logo">
 	  </a>
 	  
       <div class="menuitem">
 		  <a href="" >
-              <span ng-click="menuSelector = 'search'; menuShow()"class="glyphicon glyphicon-search"></span>
+              <span ng-click="menuSelector = 'search'; menuShow()"class="glyphicon glyphicon-search" alt"search" title="Search"></span>
           </a>
 	  </div>
       
       <div class="menuitem">
 		  <a href = "#/explore">
-		      <img src="{% static 'app/images/explore_ship_small.png' %}" height="auto" width="27%" align="middle">
+		      <img src="{% static 'app/images/explore_ship_small.png' %}" height="auto" width="27%" align="middle" alt"explore" title="Explore">
 		  </a>
 	  </div>
       
       <div class="menuitem">
 		  <a href="#/">
-		      <span class="glyphicon glyphicon-th"></span>
+		      <span class="glyphicon glyphicon-th" alt"grit" title="Image Grit"></span>
 		  </a>
 	  </div>
       
@@ -74,13 +74,13 @@
 	  
 	  <div class="menuitem">
 	  	<a href = "#/map">
-            <span class="glyphicon glyphicon-globe"></span>
+            <span class="glyphicon glyphicon-globe" alt"map" title="Map"></span>
         </a>
 	  </div>
       
       <div ng-show="isLogged" class="menuitembottom">
 		  <a href="" >
-              <span ng-click="menuSelector = 'add'; menuShow()"class="glyphicon glyphicon-plus"></span>
+              <span ng-click="menuSelector = 'add'; menuShow()"class="glyphicon glyphicon-plus" alt"add" title="Add Project"></span>
           </a>
 	  </div>
 	  

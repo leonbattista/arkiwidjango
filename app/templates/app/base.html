@@ -48,7 +48,9 @@
     
 	<div id="column1" ng-style="column1style()">        
       
-      <a href=""><img ng-click="home()" src="{% static 'app/images/logo.png' %}" height="auto" align="middle"></a>
+      <a href="">
+		  <img ng-click="home()" src="{% static 'app/images/logo.png' %}" height="auto" width="80%" align="middle">
+	  </a>
 	  
       <div class="menuitem">
 		  <a href="" >
@@ -58,7 +60,7 @@
       
       <div class="menuitem">
 		  <a href = "#/explore">
-		      <span class="glyphicon glyphicon glyphicon-certificate"></span>
+		      <img src="{% static 'app/images/explore_ship_small.png' %}" height="auto" width="27%" align="middle">
 		  </a>
 	  </div>
       
@@ -76,9 +78,9 @@
         </a>
 	  </div>
       
-      <div ng-show="isLogged" class="menuitem">
-          <a ng-click="menuSelector = 'add'; menuShow()">
-              <span class="glyphicon glyphicon-plus"></span>
+      <div ng-show="isLogged" class="menuitembottom">
+		  <a href="" >
+              <span ng-click="menuSelector = 'add'; menuShow()"class="glyphicon glyphicon-plus"></span>
           </a>
 	  </div>
 	  

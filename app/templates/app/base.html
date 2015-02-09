@@ -53,32 +53,34 @@
 	  </a>
 	  
       <div class="menuitem">
+   	   <hr class="line">
+		  
 		  <a href="" >
               <span ng-click="menuSelector = 'search'; menuShow()"class="glyphicon glyphicon-search" alt"search" title="Search"></span>
           </a>
-	  </div>
-      
-      <div class="menuitem">
-		  <a href = "#/explore">
-		      <img src="{% static 'app/images/explore_ship_small.png' %}" height="auto" width="27%" align="middle" alt"explore" title="Explore">
-		  </a>
-	  </div>
-      
-      <div class="menuitem">
-		  <a href="#/">
-		      <span class="glyphicon glyphicon-th" alt"grit" title="Image Grit"></span>
-		  </a>
-	  </div>
-      
-	
+   	   <hr class="line">
 	  
-	  <div class="menuitem">
+	    <a ng-init="imgsrc='/static/app/images/explore_ship_small.png'" ng-mouseover="imgsrc='/static/app/images/explore_ship_small_hover.png'" ng-mouseout="imgsrc='/static/app/images/explore_ship_small.png'" href = "#/explore"><img ng-src="{% verbatim %}{{imgsrc}}{% endverbatim %}" height="auto" width="27%" align="middle" alt"explore" title="Explore"/></a>
+		
+	   <hr class="line">
+
+		  <a href="#/">
+		      <span class="glyphicon glyphicon-th" alt"grid" title="Image Grid"></span>
+		  </a>
+		  
+	  <hr class="line">
+	  
 	  	<a href = "#/map">
             <span class="glyphicon glyphicon-globe" alt"map" title="Map"></span>
         </a>
+		
+  	  <hr class="line">
 	  </div>
+	  
+	  
       
       <div ng-show="isLogged" class="menuitembottom">
+   	   <hr class="line">
 		  <a href="" >
               <span ng-click="menuSelector = 'add'; menuShow()"class="glyphicon glyphicon-plus" alt"add" title="Add Project"></span>
           </a>

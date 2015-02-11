@@ -53,27 +53,40 @@
 	  </a>
 	  
       <div class="menuitem">
+		  
    	   <hr class="line">
 	   <a href="" ><span ng-click="menuSelector = 'search'; menuShow()"class="glyphicon glyphicon-search" alt"search" title="Search"></span></a>
+	   
    	   <hr class="line">
 	   <a ng-init="imgsrc='/static/app/images/explore_ship_small.png'" ng-mouseover="imgsrc='/static/app/images/explore_ship_small_hover.png'" ng-mouseout="imgsrc='/static/app/images/explore_ship_small.png'" href = "#/explore"><img ng-src="{% verbatim %}{{imgsrc}}{% endverbatim %}" height="auto" width="27%" align="middle" alt"explore" title="Explore"/></a>	
+	   
 	   <hr class="line">
 	   <a href="#/"><span class="glyphicon glyphicon-th" alt"grid" title="Image Grid"></span></a>
+	   
 	   <hr class="line">
 	   <a href = "#/map"><span class="glyphicon glyphicon-globe" alt"map" title="Map"></span></a>
 	   <hr class="line">
 	  </div>
       
-      <div ng-show="isLogged" class="menuitembottom">
+      <div ng-show="isLogged" class="menuitembottom" style="bottom:34px">
    	   <hr class="line">
 		  <a href="" >
               <span ng-click="menuSelector = 'add'; menuShow()"class="glyphicon glyphicon-plus" alt"add" title="Add Project"></span>
           </a>
 	  </div>
 	  
+      <div ng-show="isLogged" class="menuitembottom">
+   	   <hr class="line">
+		  <a href="" >
+              <span ng-click="menuSelector = 'user'; menuShow()"class="glyphicon glyphicon-user" alt"user" title="User"></span>
+          </a>
+		  {% verbatim %}{{ username }}{% endverbatim %}
+	  </div>
+	  
+	  
     </div>
 
-    <div id="column2" ng-show="menuVisibility()"  ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+    <div id="column2" ng-show="menuVisibility()" ng-style="column2style()" ng-switch on="menuSelector" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
       
 	  <div ng-switch-when="arkiwi">
 		  <p>arkiwi</p>
@@ -87,6 +100,10 @@
 		  <div ng-include src="'/static/app/partials/add.html'"></div>
       </div>
       
+	  <div ng-switch-when="user">
+		  <div ng-include src="'/static/app/partials/user.html'"></div>
+      </div>
+	        
 	  <div ng-switch-when="login">
 		  <p>login menu</p>
 	  </div>
@@ -99,47 +116,6 @@
  {% verbatim %}
  
 <div ng-view id="column3" keep-scroll-pos ng-style="column3style()"></div>
-
-<div ng-controller="MenuCtrl">
-
-
-     
- <div id="login-menu">
-     
-     <div ng-if="isLogged" class="navbar-form navbar-right">
-         <label ng-if="atHome()" id="only-img" class="btn btn-default">
-             <input type="checkbox" ng-model="onlyImg" ng-click="toggleOnlyImg()"> only with image </input>
-         </label>
-         <input type="submit" class="btn btn-default" ng-click="logout()"
-                value="logout {{ username }}"/>
-     </div>
-     
-     <div ng-hide="isLogged">
-         <form id="id_auth_form" class="navbar-form navbar-right"
-               ng-submit="login()">
-             <label ng-if="atHome()" id="only-img" class="btn btn-default">
-                 <input type="checkbox" ng-model="onlyImg" ng-click="toggleOnlyImg()"> only with image </input>
-             </label>
-             <div class="form-group">
-                 <input ng-model="username" required name="username"
-                        type="text" placeholder="username" class="form-control">
-             </div>
-             <div class="form-group">
-                 <input ng-model="password" required name="password" type="password"
-                        placeholder="password" class="form-control">
-             </div>
-             <div class="btn-group">
-                 <input type="submit" class="btn btn-default" value="login">
-                 <input type="submit" class="btn btn-default" value="register"
-                        ng-click="register($event)">
-             </div>
-         </form>
-     </div>
-     
-
-     
- </div>
-</div>
 
 {% endverbatim %}
  

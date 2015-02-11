@@ -117,6 +117,13 @@ h1 {
 	margin: 12px;
 }
 
+.navbar-right {
+     position:fixed; 
+	 top:0px; 
+	 left:80px;
+	 z-index:1050;
+   }
+
 .animate-enter {
 	-webkit-transition: 1s linear all; /* Chrome */
 	transition: 1s linear all;
@@ -132,7 +139,6 @@ h1 {
 }
 
 #column2 input {
-	width: 100%;
 	margin-bottom: 20px;
 }
 
@@ -240,8 +246,6 @@ h1 {
 	font-size: 13px;
 	margin-left:10px;
 	float: left;
-	
-	
 }
 
 .closebutton {
@@ -415,10 +419,6 @@ h1 {
 	top:0;
 	right:0;
 }
-
-#only-img {
-}
-
 
 #project-edit-container {
     margin-left: auto;

@@ -179,9 +179,15 @@ class CurrentUserView(APIView):
     
 def add(request):
     
+    print "Adding project"
+    
     form = ImageUploadForm(request.POST, request.FILES)
     
+    print form
+    
     if form.is_valid():
+        
+        print "Form valid"
         
         p = Project()
         p.owner = request.user
@@ -257,7 +263,9 @@ def add(request):
             p.save()
         finally:
             f.close()    
-
+            
+        print "Project added"
+        
         return HttpResponse(p.id)
     
     

@@ -520,8 +520,8 @@ app.controller("AddCtrl",function ($scope, $http, $location, Projects) {
 		fd.append('architect', $scope.formData.architect);
 		fd.append('address', $scope.gmapbox_details.formatted_address);
 		try {
-			fd.append('latitude', $scope.gmapbox_details.geometry.location.k);
-			fd.append('longitude', $scope.gmapbox_details.geometry.location.B);
+			fd.append('latitude', $scope.gmapbox_details.geometry.location.lat());
+			fd.append('longitude', $scope.gmapbox_details.geometry.location.long());
 		}
 		catch(err) {
 			console.log(err);
@@ -734,11 +734,11 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
     
     // **** Definitions ****
     
-    var dbpediaURL = 'http://live.dbpedia.org/sparql';
+    var dbpediaURL = 'http://dbpedia.org/sparql';
     //var dbpediaURL = 'http://lod.openlinksw.com/sparql/';     
     
     var getThumb = function (id) {
-        var query = "SELECT ?thumb WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure dbpedia-owl:thumbnail ?thumb }";
+        var query = "PREFIX dbpedia-owl:<http://dbpedia.org/ontology/> SELECT ?thumb WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure dbpedia-owl:thumbnail ?thumb }";
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
         return $http.jsonp(queryUrl);
     };
@@ -798,7 +798,7 @@ app.controller("ExploreCtrl", function ($scope, $location, $http, $timeout, $rou
         
         // Wikipedia description
         
-        var query = "SELECT ?label ?lon ?lat ?description WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure rdfs:comment ?description. optional {?structure geo:long ?lon . ?structure geo:lat ?lat}}";
+        var query = "PREFIX dbpedia-owl:<http://dbpedia.org/ontology/> SELECT ?label ?lon ?lat ?description WHERE { ?structure dbpedia-owl:wikiPageID " + id + " . ?structure rdfs:label ?label . ?structure rdfs:comment ?description. optional {?structure geo:long ?lon . ?structure geo:lat ?lat}}";
         
         var queryUrl = encodeURI( dbpediaURL + "?query=" + query + "&format=json&callback=JSON_CALLBACK" );
         

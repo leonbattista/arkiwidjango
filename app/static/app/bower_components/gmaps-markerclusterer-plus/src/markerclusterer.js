@@ -253,6 +253,9 @@ ClusterIcon.prototype.show = function () {
       img += "clip: rect(" + (-1 * spriteV) + "px, " + ((-1 * spriteH) + this.width_) + "px, " +
           ((-1 * spriteV) + this.height_) + "px, " + (-1 * spriteH) + "px);";
     }
+    else {
+        img += "width: " + this.width_ + "px;" + "height: " + this.height_ + "px;";
+    }
     img += "'>";
     this.div_.innerHTML = img + "<div style='" +
         "position: absolute;" +
@@ -506,7 +509,6 @@ Cluster.prototype.addMarker = function (marker) {
     marker.setMap(null);
   }
 
-  this.updateIcon_();
   return true;
 };
 
@@ -565,14 +567,9 @@ Cluster.prototype.updateIcon_ = function () {
  * @return {boolean} True if the marker has already been added.
  */
 Cluster.prototype.isMarkerAlreadyAdded_ = function (marker) {
-  var i;
-  if (this.markers_.indexOf) {
-    return this.markers_.indexOf(marker) !== -1;
-  } else {
-    for (i = 0; i < this.markers_.length; i++) {
-      if (marker === this.markers_[i]) {
-        return true;
-      }
+  for (var i = 0, n = this.markers_.length; i < n; i++) {
+    if (marker === this.markers_[i]) {
+      return true;
     }
   }
   return false;
@@ -699,7 +696,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   if (opt_options.enableRetinaIcons !== undefined) {
     this.enableRetinaIcons_ = opt_options.enableRetinaIcons;
   }
-  this.hideLabel_ = false
+  this.hideLabel_ = false;
   if (opt_options.hideLabel !== undefined) {
     this.hideLabel_ = opt_options.hideLabel;
   }
@@ -1215,7 +1212,7 @@ MarkerClusterer.prototype.addMarkers = function (markers, opt_nodraw) {
     if (markers.hasOwnProperty(key)) {
       this.pushMarkerTo_(markers[key]);
     }
-  }  
+  }
   if (!opt_nodraw) {
     this.redraw_();
   }
@@ -1564,6 +1561,10 @@ MarkerClusterer.prototype.createClusters_ = function (iFirst) {
      * @event
      */
     google.maps.event.trigger(this, "clusteringend", this);
+
+    for (i = 0; i < this.clusters_.length; i++) {
+      this.clusters_[i].updateIcon_();
+    }
   }
 };
 
@@ -1641,7 +1642,7 @@ MarkerClusterer.BATCH_SIZE_IE = 500;
  * @type {string}
  * @constant
  */
-MarkerClusterer.IMAGE_PATH = "http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/images/m";
+MarkerClusterer.IMAGE_PATH = "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/images/m";
 
 
 /**
@@ -1667,7 +1668,7 @@ if (typeof String.prototype.trim !== 'function') {
    * @return {string} The string with removed whitespace
    */
   String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$/g, ''); 
-  }
+    return this.replace(/^\s+|\s+$/g, '');
+  };
 }
 

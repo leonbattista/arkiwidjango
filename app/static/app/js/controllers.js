@@ -670,7 +670,7 @@ app.controller("MapCtrl", function ($scope, $http, $location, $timeout, Projects
 				$scope.mapInstance = map;
                 marker_list = $scope.map.markersControl.getGMarkers();           
                 if (!markerCluster) {
-                    markerCluster = new MarkerClusterer(map, marker_list);
+                    markerCluster = new MarkerClusterer(map, marker_list, {imagePath:"/static/app/images/clusters/m"});
                     google.maps.event.addListener(markerCluster, "clusteringend", function () {
                         marker_list.visible = false;
                         mapLoad();
